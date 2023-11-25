@@ -22,7 +22,7 @@ GO
 -- Description:	<Description,,>
 -- =============================================
 CREATE TRIGGER So_luong_hanh_ly_max
-   ON  HanhLy
+   ON  GuiHanhLy
    AFTER INSERT
 AS 
 BEGIN
@@ -31,19 +31,22 @@ BEGIN
       SELECT 1
       FROM (
           SELECT MaSoMayBay,MaNguoiThamGiaChuyenBay, sum(SoLuong) AS PassengerCount
-          FROM INSERTED
+          FROM GuiHanhLy
           GROUP BY MaSoMayBay,MaNguoiThamGiaChuyenBay
       ) AS VeCounts
       WHERE PassengerCount > @max_passengers_per_MaVe
   )
 
   BEGIN
-  DELETE FROM HanhLy
+DELETE FROM b
+FROM GuiHanhLy as b
 WHERE EXISTS  (
-SELECT HanhLy.MaSoMayBay, HanhLy.MaNguoiThamGiaChuyenBay
-FROM HanhLy
-GROUP BY HanhLy.MaSoMayBay, HanhLy.MaNguoiThamGiaChuyenBay
-HAVING Sum(HanhLy.SoLuong) > @max_passengers_per_MaVe
+    SELECT a.MaSoMayBay, a.MaNguoiThamGiaChuyenBay
+    FROM GuiHanhLy as a
+    WHERE a.MaSoMayBay = b.MaSoMayBay
+      AND a.MaNguoiThamGiaChuyenBay = b.MaNguoiThamGiaChuyenBay
+    GROUP BY a.MaSoMayBay, a.MaNguoiThamGiaChuyenBay
+    HAVING SUM(a.SoLuong) > 9
 );
     RAISERROR('Số lượng hành lý đã quá 9 kiện.', 16, 1);
   END;

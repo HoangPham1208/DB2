@@ -1,7 +1,4 @@
-﻿
-
-
-CREATE TABLE TaiKhoanDangNhap (
+﻿CREATE TABLE TaiKhoanDangNhap (
   MaSo VARCHAR(20)  PRIMARY KEY,
   Ho VARCHAR(20) NOT NULL,
   TenDem VARCHAR(20) NOT NULL,
@@ -139,13 +136,18 @@ CREATE TABLE HanhLy (
   LoaiHanhLyKyGui VARCHAR(20) NOT NULL,
   ChiTiet VARCHAR(255) NOT NULL,
   GiaCa DECIMAL(10,2) NOT NULL,
-  SoLuong INT NOT NULL,
-  MaNguoiThamGiaChuyenBay VARCHAR(255) NOT NULL,
-  PRIMARY KEY (MaSoMayBay, LoaiHanhLyKyGui,MaNguoiThamGiaChuyenBay),
+  PRIMARY KEY (MaSoMayBay, LoaiHanhLyKyGui),
   FOREIGN KEY (MaSoMayBay) REFERENCES ChuyenBay(MaSo),
+);
+CREATE TABLE GuiHanhLy (
+  MaSoMayBay VARCHAR(20) NOT NULL,
+  LoaiHanhLyKyGui VARCHAR(20) NOT NULL,
+  MaNguoiThamGiaChuyenBay VARCHAR(255) NOT NULL,
+  SoLuong INT NOT NULL,
+  PRIMARY KEY (MaSoMayBay, LoaiHanhLyKyGui,MaNguoiThamGiaChuyenBay),
+  FOREIGN KEY (MaSoMayBay,LoaiHanhLyKyGui) REFERENCES HanhLy(MaSoMayBay,LoaiHanhLyKyGui),
   FOREIGN KEY (MaNguoiThamGiaChuyenBay) REFERENCES NguoiThamGiaChuyenBay(MaKhachHang)
 );
-
 CREATE TABLE KhachSan (
   MaSoThue VARCHAR(10) NOT NULL,
   TenKhachSan VARCHAR(50) NOT NULL,
@@ -355,10 +357,14 @@ VALUES
   delete from NguoiThamGiaChuyenBay
     select* from NguoiThamGiaChuyenBay
 -- Sample data for HanhLy
-INSERT INTO HanhLy (MaSoMayBay, LoaiHanhLyKyGui, ChiTiet, GiaCa, SoLuong, MaNguoiThamGiaChuyenBay)
+INSERT INTO HanhLy (MaSoMayBay, LoaiHanhLyKyGui, ChiTiet, GiaCa)
 VALUES
-  ('CB001', 'Hand Carry', 'Small bag with personal items', 0, 2, 'NTGCB001'),
-  ('CB002', 'Checked Bag', 'Medium-sized suitcase', 500000, 1, 'NTGCB002');
+  ('CB001', 'Hand Carry', 'Small bag with personal items', 0),
+  ('CB002', 'Checked Bag', 'Medium-sized suitcase', 500000);
+  INSERT INTO GuiHanhLy(MaSoMayBay, LoaiHanhLyKyGui, MaNguoiThamGiaChuyenBay , SoLuong)
+VALUES
+  ('CB001', 'Hand Carry',  'NTGCB001', 2),
+  ('CB002', 'Checked Bag', 'NTGCB002', 1);
   INSERT INTO KhachSan (MaSoThue, TenKhachSan, DiaChi, SoDienThoaiLeTan, MaDichVu)
 VALUES
   ('KS001', 'Luxury Hotel', '123 Main Street, City A', '0123456789', 'DV002'),
@@ -458,8 +464,15 @@ VALUES
   select * from HanhLy
   delete from NguoiThamGiaChuyenBay;
   delete from HanhLy
-  INSERT INTO HanhLy (MaSoMayBay, LoaiHanhLyKyGui, ChiTiet, GiaCa, SoLuong, MaNguoiThamGiaChuyenBay)
+  INSERT INTO GuiHanhLy (MaSoMayBay, LoaiHanhLyKyGui,MaNguoiThamGiaChuyenBay , SoLuong)
 VALUES
-  ('CB001', 'Hand Carry', 'Small bag with personal items', 0, 2, 'NTGCB001'),
-  ('CB002', 'Checked Bag', 'Medium-sized suitcase', 500000, 10, 'NTGCB002');
-  ('CB002', 'Checked Bag', 'Medium-sized suitcase', 500000, 1, 'NTGCB003');
+  ('CB001', 'Hand Carry',  'NTGCB001' ,2),
+  ('CB002', 'Checked Bag',   'NTGCB002',10),
+  ('CB002', 'Checked Bag',  'NTGCB003',1);
+
+    INSERT INTO GuiHanhLy(MaSoMayBay, LoaiHanhLyKyGui, MaNguoiThamGiaChuyenBay , SoLuong)
+VALUES
+  ('CB001', 'Hand Carry',  'NTGCB001', 2),
+  ('CB002', 'Checked Bag', 'NTGCB002', 10);
+    select * from GuiHanhLy
+	  delete  from GuiHanhLy
