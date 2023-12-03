@@ -1,0 +1,23 @@
+﻿
+
+CREATE FUNCTION ThongKeDoanhThu12Thang(@machudichvu VARCHAR(20),@tenhangmaybay VARCHAR(50),@namthongke INT)
+RETURNS TABLE
+AS
+RETURN
+(
+    SELECT
+        MONTH(a.NgayGiaoDich) AS Thang,
+        SUM(b.TongTien) AS TongDoanhThuThang
+    FROM
+        DonHang as a join VeDatMayBay as b on b.MaDonHang=a.MaDonHang AND a.TinhTrangDonHang='Đã thanh toán'
+		join ChuyenBay as c on b.MaSoChuyenBay=c.MaSo
+		join HangHangKhong as d on c.MaSoThueCuaHangHangKhong=d.MaSoThue
+		join NhaCungCapDichVu as e on d.MaDichVu=e.MaDichVu
+		join ChuDichVu as f on f.MaSoTaiKhoan=e.MaChuDichVu
+    WHERE
+        YEAR(a.NgayGiaoDich) = @namthongke AND TinhTrangDonHang='Đã thanh toán' AND e.MaChuDichVu=@machudichvu AND d.TenHang=@tenhangmaybay
+    GROUP BY
+        MONTH(a.NgayGiaoDich)
+);
+--select * from DonHang join DonHang 
+--select * from VeDatMayBay
