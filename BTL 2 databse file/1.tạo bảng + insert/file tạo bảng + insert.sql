@@ -262,11 +262,34 @@ ADD CHECK (SoLuong > 0);
 -- Dữ liệu cho bảng TaiKhoanDangNhap
 INSERT INTO TaiKhoanDangNhap(Ho,TenDem,Ten,NgaySinh,GioiTinh,SoCCCD) VALUES
 ( 'Nguyen', 'Van', 'A', '1990-01-15', 'M', '123456789082');
+
 INSERT INTO TaiKhoanDangNhap(Ho,TenDem,Ten,NgaySinh,GioiTinh,SoCCCD) VALUES
 ( 'Tran', 'Thi', 'B', '1985-05-20', 'F', '987654321091');
 INSERT INTO TaiKhoanDangNhap(Ho,TenDem,Ten,NgaySinh,GioiTinh,SoCCCD) VALUES
 ( 'Nguyen', 'Ngoc', 'C', '1995-06-26', 'F', '987654321048');
+INSERT INTO TaiKhoanDangNhap(Ho,TenDem,Ten,NgaySinh,GioiTinh,SoCCCD) VALUES
+( 'Tran', 'Van', 'D', '2024-01-15', 'F', '123');
+EXEC UpdateTaiKhoanDangNhap
+	@Maso='TK008',
+    @Ho = 'Tran',
+    @TenDem = 'Van',
+    @Ten = 'D',
+    @NgaySinh = '2023-01-15',
+    @GioiTinh = 'F',
+    @SoCCCD = '999999999999';
+	EXEC InsertTaiKhoanDangNhap
+    @Ho = 'Tran',
+    @TenDem = 'Van',
+    @Ten = 'quy',
+    @NgaySinh = '2023-01-15',
+    @GioiTinh = 'F',
+    @SoCCCD = '121111135511';
 select * from TaiKhoanDangNhap
+EXEC DeleteTaiKhoanDangNhap
+ @MaSo ='TK007'
+
+
+
 INSERT INTO SoDienThoai (MaSoTaiKhoan, SoDienThoai)
 VALUES
   ('TK001', '0901234567'),
@@ -418,7 +441,8 @@ VALUES
   ('NH001', 'Regular', '2023-03-01', 'VDC002', 2),
   ('NH002', 'Outdoor', '2023-03-02', 'VDC002', 1);
 
-
+delete from ChonBan
+  select * from DonHang
 
 
 
@@ -460,8 +484,26 @@ VALUES
      INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang)
 VALUES
   ( 'Le Van C', '0901234567', 'lecv@gmail.com', '111122223333', '1995-03-08', 'A002', 'CB002', 'Economy');
+
+
+
+  EXEC UpdateTaiKhoanDangNhap
+	@Maso='TK008',
+    @Ho = 'Tran',
+    @TenDem = 'Van',
+    @Ten = 'D',
+    @NgaySinh = '2023-01-15',
+    @GioiTinh = 'F',
+    @SoCCCD = '999999999999';
+	EXEC InsertTaiKhoanDangNhap
+    @Ho = 'Tran',
+    @TenDem = 'Van',
+    @Ten = 'quy',
+    @NgaySinh = '2023-01-15',
+    @GioiTinh = 'F',
+    @SoCCCD = '121111135511';
   select * from NguoiThamGiaChuyenBay
-  select * from HanhLy
+  select * from DonHang
   delete from NguoiThamGiaChuyenBay;
   delete from HanhLy
   INSERT INTO GuiHanhLy (MaSoMayBay, LoaiHanhLyKyGui,MaNguoiThamGiaChuyenBay , SoLuong)
@@ -476,3 +518,34 @@ VALUES
   ('CB002', 'Checked Bag', 'NTGCB002', 10);
     select * from GuiHanhLy
 	  delete  from GuiHanhLy
+
+
+select* from VeDatMayBay join DonHang on VeDatMayBay.MaDonHang=DonHang.MaDonHang
+DECLARE @machudichvu VARCHAR(20) = 'TK001';
+DECLARE @tenhangmaybay VARCHAR(50) = 'Vietnam Airlines';
+DECLARE @namthongke INT = 2023;
+
+SELECT * FROM ThongKeDoanhThu12Thang('TK001','VietNam Airlines',2023);
+SELECT
+        *
+    FROM
+        DonHang as a join VeDatMayBay as b on b.MaDonHang=a.MaDonHang AND a.TinhTrangDonHang='Đã thanh toán'
+		join ChuyenBay as c on b.MaSoChuyenBay=c.MaSo
+		join HangHangKhong as d on c.MaSoThueCuaHangHangKhong=d.MaSoThue
+		join NhaCungCapDichVu as e on d.MaDichVu=e.MaDichVu
+		join ChuDichVu as f on f.MaSoTaiKhoan=e.MaChuDichVu
+		where YEAR(a.NgayGiaoDich)=2023 AND e.MaChuDichVu='TK001' AND d.TenHang='Vietnam Airlines'
+
+		    SELECT
+        MONTH(a.NgayGiaoDich) AS Thang,
+        SUM(b.TongTien) AS TongDoanhThuThang
+    FROM
+        DonHang as a join VeDatMayBay as b on b.MaDonHang=a.MaDonHang AND a.TinhTrangDonHang='Đã thanh toán'
+		join ChuyenBay as c on b.MaSoChuyenBay=c.MaSo
+		join HangHangKhong as d on c.MaSoThueCuaHangHangKhong=d.MaSoThue
+		join NhaCungCapDichVu as e on d.MaDichVu=e.MaDichVu
+		join ChuDichVu as f on f.MaSoTaiKhoan=e.MaChuDichVu
+    		where YEAR(a.NgayGiaoDich)=2023 AND e.MaChuDichVu='TK001' AND d.TenHang='Vietnam Airlines'
+
+    GROUP BY
+        MONTH(a.NgayGiaoDich)
