@@ -20,14 +20,14 @@ BEGIN
     -- Kiểm tra định dạng số điện thoại
     IF LEN(@SoDienThoai) <> 11 OR @SoDienThoai NOT LIKE '[0-9]%'
     BEGIN
-        RAISEERROR('Số điện thoại không hợp lệ.', 16, 1);
+        RAISERROR('Số điện thoại không hợp lệ.', 16, 1);
         RETURN;
     END
 
     -- Kiểm tra định dạng email
     IF NOT (CHARINDEX('@', @Email) > 0 AND CHARINDEX('.', @Email, CHARINDEX('@', @Email)) > 0)
     BEGIN
-        RAISEERROR('Địa chỉ email không hợp lệ.', 16, 1);
+        RAISERROR('Địa chỉ email không hợp lệ.', 16, 1);
         RETURN;
     END
 
