@@ -1,4 +1,4 @@
-﻿CREATE TABLE TaiKhoanDangNhap (
+CREATE TABLE TaiKhoanDangNhap (
   MaSo VARCHAR(20)  PRIMARY KEY,
   Ho VARCHAR(20) NOT NULL,
   TenDem VARCHAR(20) NOT NULL,
@@ -524,8 +524,14 @@ select* from VeDatMayBay join DonHang on VeDatMayBay.MaDonHang=DonHang.MaDonHang
 DECLARE @machudichvu VARCHAR(20) = 'TK001';
 DECLARE @tenhangmaybay VARCHAR(50) = 'Vietnam Airlines';
 DECLARE @namthongke INT = 2023;
-
+---testthongke
 SELECT * FROM ThongKeDoanhThu12Thang('TK001','VietNam Airlines',2023);
+--thongketopuser:
+SELECT *
+FROM dbo.GetTopPayments(10, '2023-01-01', '2023-01-20');
+select* from KhachHang
+select* from DonHang
+
 SELECT
         *
     FROM
