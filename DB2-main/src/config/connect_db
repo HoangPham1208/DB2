@@ -1,2 +1,0 @@
-connectionString = 'server=ADMIN\SQLEXPRESS;Database=ass2;Trusted_Connection=Yes;Driver={SQL Server Native Client 11.0}'
-module.exports = connectionString
