@@ -3,7 +3,7 @@ const sql = require('msnodesqlv8')
 
 async function getData() {
     try {
-        sql.query(config, "select * from ChuyenBay", (err, row) => {
+        sql.query(config, "select * from DonHang", (err, row) => {
             console.log(row)
         })
     }
