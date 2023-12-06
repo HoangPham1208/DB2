@@ -15,4 +15,3 @@ BEGIN
     SELECT MaDonHang, 'VDC'  + RIGHT('000' + CAST(@nextID AS VARCHAR(3)), 3)
     FROM INSERTED;
 END;
-
