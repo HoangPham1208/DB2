@@ -239,7 +239,7 @@ ADD CHECK (GioiTinh IN ('F', 'M'))
 ALTER TABLE KhoangTrenChuyenBay
 ADD CHECK (SoLuongGheToiDaCungCap > 0);
 
-ALTER TABLE HanhLy
+ALTER TABLE GuiHanhLy
 ADD CHECK (SoLuong > 0);
 
 ALTER TABLE Phong
