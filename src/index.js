@@ -10,6 +10,7 @@ app.use(express.json())
 app.get('/', (req, res) => {
     DB.getData()
 })
+DB.getData()
 
 
 
