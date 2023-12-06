@@ -1,3 +1,4 @@
+
 CREATE TABLE TaiKhoanDangNhap (
   MaSo VARCHAR(20)  PRIMARY KEY,
   Ho VARCHAR(20) NOT NULL,
@@ -138,8 +139,9 @@ CREATE TABLE HanhLy (
   ChiTiet VARCHAR(255) NOT NULL,
   GiaCa DECIMAL(10,2) NOT NULL,
   PRIMARY KEY (MaSoMayBay, LoaiHanhLyKyGui),
-  FOREIGN KEY (MaSoMayBay) REFERENCES ChuyenBay(MaSo),
+  FOREIGN KEY (MaSoMayBay) REFERENCES ChuyenBay(MaSo)
 );
+
 CREATE TABLE GuiHanhLy (
   MaSoMayBay VARCHAR(20) NOT NULL,
   LoaiHanhLyKyGui VARCHAR(20) NOT NULL,
@@ -409,6 +411,21 @@ BEGIN
     -- Chèn dữ liệu mới và cập nhật MaSo
     INSERT INTO PhieuNhaHang (MaDonHang,MaDatCho)
     SELECT MaDonHang, 'VDC'  + RIGHT('000' + CAST(@nextID AS VARCHAR(3)), 3)
+    FROM INSERTED;
+END;
+go
+CREATE TRIGGER insead_of_insert_Service
+ON NhaCungCapDichVu
+INSTEAD OF INSERT
+AS
+BEGIN
+    DECLARE @nextID INT;
+
+    SELECT @nextID = COALESCE(MAX(CAST(SUBSTRING(MaDichVu, 3, LEN(MaDichVu) - 2) AS INT)), 0) + ROW_NUMBER() OVER (ORDER BY (SELECT NULL))
+    FROM NhaCungCapDichVu;
+
+    INSERT INTO NhaCungCapDichVu (MaChuDichVu, LoaiDichVu, MaDichVu)
+    SELECT MaChuDichVu, LoaiDichVu, 'DV' + RIGHT('000' + CAST(@nextID AS VARCHAR(3)), 3)
     FROM INSERTED;
 END;
 go
