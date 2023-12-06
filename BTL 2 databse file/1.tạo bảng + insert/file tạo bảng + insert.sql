@@ -49,6 +49,7 @@ CREATE TABLE TaiKhoanNganHang (
   SoTaiKhoan VARCHAR(20) NOT NULL,
   TenNganHang VARCHAR(50) NOT NULL,
   MaKhachHang VARCHAR(20) NOT NULL,
+  TrangThai VARCHAR(20) NOT NULL,
   PRIMARY KEY (SoTaiKhoan),
   FOREIGN KEY (MaKhachHang) REFERENCES KhachHang(MaSoTaiKhoan)
 );
@@ -180,7 +181,7 @@ CREATE TABLE ChonPhong (
   MaSoThueKhachSan VARCHAR(10) NOT NULL,
   LoaiPhong VARCHAR(20) NOT NULL,
   Ngay DATE NOT NULL,
-  MaDatPhong VARCHAR(20) NOT NULL,
+  MaDatPhong VARCHAR(20) NOT NULL, 
   SoLuong INT NOT NULL,
   PRIMARY KEY (MaSoThueKhachSan, LoaiPhong, Ngay, MaDatPhong),
   FOREIGN KEY (MaSoThueKhachSan, LoaiPhong, Ngay) REFERENCES Phong(MaSoThueKhachSan, LoaiPhong, Ngay),
@@ -257,7 +258,7 @@ ADD CHECK (SoLuongNguoiToiDa1Ban > 0);
 ALTER TABLE ChonBan
 ADD CHECK (SoLuong > 0);
 
-
+/*
 -- :)) nhap dữ liệu phải ghi lại câu insert chán quá
 -- Dữ liệu cho bảng TaiKhoanDangNhap
 INSERT INTO TaiKhoanDangNhap(Ho,TenDem,Ten,NgaySinh,GioiTinh,SoCCCD) VALUES
@@ -555,3 +556,4 @@ SELECT
 
     GROUP BY
         MONTH(a.NgayGiaoDich)
+*/
