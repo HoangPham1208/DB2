@@ -1,16 +1,34 @@
 var config = require('./connect_db')
 const sql = require('msnodesqlv8')
 
-async function getData() {
-    try {
-        sql.query(config, "select * from DonHang", (err, row) => {
-            console.log(row)
+function getAccount() {
+    return new Promise((resolve, reject) => {
+        sql.query(config, "select * from TaiKhoanDangNhap", (err, result) => {
+            if (err) {
+                console.log(err);
+                reject(err);
+            }
+            else {
+                resolve(result);
+            }
         })
-    }
-    catch (err) {
-        console.log(err)
-    }
+    })
+}
+function getAirline(date, startLoc, desLoc, airline) {
+    return new Promise((resolve, reject) => {
+        const query = `select * from TimChuyenBay('${date}', '${startLoc}','${desLoc}', '${airline}')`
+        sql.query(config, query, (err, result) => {
+            if (err) {
+                console.log(err);
+                reject(err);
+            }
+            else {
+                resolve(result);
+            }
+        })
+    })
 }
 module.exports = {
-    getData: getData
+    getAccount: getAccount,
+    getAirline: getAirline
 }
