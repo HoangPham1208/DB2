@@ -64,20 +64,44 @@ app.post('/ownerLogin', async (req, res) => {
         res.status(500).send({ message: err.message })
     }
 })
+
 app.post('/flight', async (req, res) => {
-    const { date, startLoc, endLoc, airline } = req.body
-    const filghts = await DB.getAirline(date, startLoc, endLoc, airline)
+    try {
+        const { date, startLoc, endLoc, airline } = req.body
+        const filghts = await DB.getFlight(date, startLoc, endLoc)
+    }
+    catch (err) {
+        res.status(500).send({ message: err.message })
+    }
 
 })
-app.get('/insertTicket', async (req, res) => {
-    const { filghtId, orderId } = req.body
-    const ticket = await DB.generateTicket('CB001', 'DH002')
 
-    console.log(ticket)
-
+app.post('/ticket/generate', async (req, res) => {
+    try {
+        const { flightId, orderId } = req.body
+        const ticket = await DB.generateTicket(flightId, orderId)
+    }
+    catch (err) {
+        res.status(500).send({ message: err.message })
+    }
 })
 
+app.post('/order/generate', async (req, res) => {
+    try {
+        const { customerId } = req.body
+        const ticket = await DB.generateOrder(customerId)
+    }
+    catch (err) {
+        res.status(500).send({ message: err.message })
+    }
+})
 
+app.patch('/order/payment', async (req, res) => {
+
+})
+app.put('/ticket/update', async (req, res) => {
+
+})
 
 
 app.listen(port, () => {
