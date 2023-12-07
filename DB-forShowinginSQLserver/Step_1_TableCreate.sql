@@ -4,13 +4,15 @@ CREATE TABLE TaiKhoanDangNhap (
   TenDem VARCHAR(20) NOT NULL,
   Ten VARCHAR(20) NOT NULL,
   NgaySinh DATE NOT NULL,
-  GioiTinh CHAR(1) NOT NULL,
-  SoCCCD VARCHAR(12) NOT NULL
+  GioiTinh CHAR(20) NOT NULL,
+  SoCCCD VARCHAR(20) NOT NULL
+  MatKhau VARCHAR(20) NOT NULL,
+  VaiTro VARCHAR(20) NOT NULL
 );
 -- check
 CREATE TABLE SoDienThoai (
   MaSoTaiKhoan VARCHAR(20) NOT NULL,
-  SoDienThoai VARCHAR(11) NOT NULL,
+  SoDienThoai VARCHAR(20) NOT NULL,
   PRIMARY KEY (MaSoTaiKhoan, SoDienThoai),
   FOREIGN KEY (MaSoTaiKhoan) REFERENCES TaiKhoanDangNhap(MaSo)
 );
@@ -77,10 +79,10 @@ CREATE TABLE NhaCungCapDichVu (
 );
 
 CREATE TABLE HangHangKhong (
-  MaSoThue VARCHAR(10) NOT NULL,
+  MaSoThue VARCHAR(20) NOT NULL,
   TenHang VARCHAR(50) NOT NULL,
   MoTa VARCHAR(255) ,
-  SoDienThoaiTuVanVien VARCHAR(11) NOT NULL,
+  SoDienThoaiTuVanVien VARCHAR(20) NOT NULL,
   MaDichVu VARCHAR(20) NOT NULL,
   PRIMARY KEY (MaSoThue),
   FOREIGN KEY (MaDichVu) REFERENCES NhaCungCapDichVu(MaDichVu)
@@ -93,7 +95,7 @@ CREATE TABLE ChuyenBay (
   ThoiGianHaCanh DATETIME NOT NULL,
   DiaDiemXuatPhat VARCHAR(50) NOT NULL,
   DiaDiemHaCanh VARCHAR(50) NOT NULL,
-  MaSoThueCuaHangHangKhong VARCHAR(10) NOT NULL,
+  MaSoThueCuaHangHangKhong VARCHAR(20) NOT NULL,
   PRIMARY KEY (MaSo),
   FOREIGN KEY (MaSoThueCuaHangHangKhong) REFERENCES HangHangKhong(MaSoThue)
 );
@@ -120,9 +122,9 @@ CREATE TABLE VeDatMayBay (
 CREATE TABLE NguoiThamGiaChuyenBay (
   MaKhachHang VARCHAR(255) ,
   HoVaTen VARCHAR(40) NOT NULL,
-  SoDienThoai VARCHAR(11) NOT NULL,
+  SoDienThoai VARCHAR(20) NOT NULL,
   Email VARCHAR(255) NOT NULL,
-  SoCCCD VARCHAR(12) NOT NULL,
+  SoCCCD VARCHAR(20) NOT NULL,
   NgaySinh DATE NOT NULL,
   MaVeMayBay VARCHAR(20) NOT NULL,
   MaSoMayBay VARCHAR(20) NOT NULL,
@@ -150,18 +152,18 @@ CREATE TABLE GuiHanhLy (
   FOREIGN KEY (MaNguoiThamGiaChuyenBay) REFERENCES NguoiThamGiaChuyenBay(MaKhachHang)
 );
 CREATE TABLE KhachSan (
-  MaSoThue VARCHAR(10) NOT NULL,
+  MaSoThue VARCHAR(20) NOT NULL,
   TenKhachSan VARCHAR(50) NOT NULL,
   DiaChi VARCHAR(50) NOT NULL,
-  ThanhPho VARCHAR(50) NOT NULL,
-  SoDienThoaiLeTan VARCHAR(11) NOT NULL,
+  ThanhPho VARCHAR(20) NOT NULL,
+  SoDienThoaiLeTan VARCHAR(20) NOT NULL,
   MaDichVu VARCHAR(20) NOT NULL,
   PRIMARY KEY (MaSoThue),
   FOREIGN KEY (MaDichVu) REFERENCES NhaCungCapDichVu(MaDichVu)
 );
 
 CREATE TABLE Phong (
-  MaSoThueKhachSan VARCHAR(10) NOT NULL,
+  MaSoThueKhachSan VARCHAR(20) NOT NULL,
   LoaiPhong VARCHAR(20) NOT NULL,
   Ngay DATE NOT NULL,
   SoLuongCungCap INT NOT NULL,
@@ -179,7 +181,7 @@ CREATE TABLE VeDatPhong (
 );
 
 CREATE TABLE ChonPhong (
-  MaSoThueKhachSan VARCHAR(10) NOT NULL,
+  MaSoThueKhachSan VARCHAR(20) NOT NULL,
   LoaiPhong VARCHAR(20) NOT NULL,
   Ngay DATE NOT NULL,
   MaDatPhong VARCHAR(20) NOT NULL, 
@@ -190,18 +192,18 @@ CREATE TABLE ChonPhong (
 );
 
 CREATE TABLE NhaHang (
-  MaSoThue VARCHAR(10) NOT NULL,
+  MaSoThue VARCHAR(20) NOT NULL,
   TenNhaHang VARCHAR(50) NOT NULL,
   DiaChi VARCHAR(50) NOT NULL,
   MoTa VARCHAR(255) ,
-  SoDienThoaiQuanLy VARCHAR(11) NOT NULL,
+  SoDienThoaiQuanLy VARCHAR(20) NOT NULL,
   MaDichVu VARCHAR(20) NOT NULL,
   PRIMARY KEY (MaSoThue),
   FOREIGN KEY (MaDichVu) REFERENCES NhaCungCapDichVu(MaDichVu)
 );
 
 CREATE TABLE Ban (
-  MaSoThueNhaHang VARCHAR(10) NOT NULL,
+  MaSoThueNhaHang VARCHAR(20) NOT NULL,
   LoaiBan VARCHAR(20) NOT NULL,
   ThoiGian DATE NOT NULL,
   SoLuongCungCap INT NOT NULL,
@@ -220,7 +222,7 @@ CREATE TABLE PhieuNhaHang (
 );
 
 CREATE TABLE ChonBan (
-  MaSoThueNhaHang VARCHAR(10) NOT NULL,
+  MaSoThueNhaHang VARCHAR(20) NOT NULL,
   LoaiBan VARCHAR(20) NOT NULL,
   ThoiGian DATE NOT NULL,
   MaDatCho VARCHAR(20) NOT NULL,
