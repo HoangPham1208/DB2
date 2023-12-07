@@ -1,11 +1,11 @@
 -- :)) nhap dữ liệu phải ghi lại câu insert chán quá
 -- Dữ liệu cho bảng TaiKhoanDangNhap
-INSERT INTO TaiKhoanDangNhap(Ho,TenDem,Ten,NgaySinh,GioiTinh,SoCCCD) VALUES
-( 'Nguyen', 'Van', 'A', '1990-01-15', 'M', '123456789082');
-INSERT INTO TaiKhoanDangNhap(Ho,TenDem,Ten,NgaySinh,GioiTinh,SoCCCD) VALUES
-( 'Nguyen', 'Van', 'B', '1985-01-15', 'M', '456789555555');
-INSERT INTO TaiKhoanDangNhap(Ho,TenDem,Ten,NgaySinh,GioiTinh,SoCCCD) VALUES
-( 'Nguyen', 'Van', 'C', '1980-01-15', 'M', '123444444444');
+INSERT INTO TaiKhoanDangNhap(Ho,TenDem,Ten,NgaySinh,GioiTinh,SoCCCD,UserName,MatKhau) VALUES
+( 'Nguyen', 'Van', 'A', '1990-01-15', 'M', '123456789082',"nva","nva123");
+INSERT INTO TaiKhoanDangNhap(Ho,TenDem,Ten,NgaySinh,GioiTinh,SoCCCD,UserName,MatKhau) VALUES
+( 'Nguyen', 'Van', 'B', '1985-01-15', 'M', '456789555555',"nvb","nvb123");
+INSERT INTO TaiKhoanDangNhap(Ho,TenDem,Ten,NgaySinh,GioiTinh,SoCCCD,UserName,MatKhau) VALUES
+( 'Nguyen', 'Van', 'C', '1980-01-15', 'M', '123444444444',"nvc","nvc123");
 
 
 INSERT INTO SoDienThoai (MaSoTaiKhoan, SoDienThoai) VALUES
@@ -23,6 +23,7 @@ INSERT INTO Email (MaSoTaiKhoan, Email) VALUES
 ('TK002', 'asdsa@gmail.com');
 INSERT INTO Email (MaSoTaiKhoan, Email) VALUES
 ('TK003', 'whoisyourdaddy@gmail.com');
+
 INSERT INTO ChuDichVu (MaSoTaiKhoan)
 VALUES
   ('TK003');
