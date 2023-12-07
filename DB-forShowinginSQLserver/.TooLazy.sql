@@ -1,17 +1,18 @@
-
 CREATE TABLE TaiKhoanDangNhap (
   MaSo VARCHAR(20)  PRIMARY KEY,
   Ho VARCHAR(20) NOT NULL,
   TenDem VARCHAR(20) NOT NULL,
   Ten VARCHAR(20) NOT NULL,
   NgaySinh DATE NOT NULL,
-  GioiTinh CHAR(1) NOT NULL,
-  SoCCCD VARCHAR(12) NOT NULL
+  GioiTinh CHAR(20) NOT NULL,
+  SoCCCD VARCHAR(20) NOT NULL
+  MatKhau VARCHAR(20) NOT NULL,
+  VaiTro VARCHAR(20) NOT NULL
 );
 -- check
 CREATE TABLE SoDienThoai (
   MaSoTaiKhoan VARCHAR(20) NOT NULL,
-  SoDienThoai VARCHAR(11) NOT NULL,
+  SoDienThoai VARCHAR(20) NOT NULL,
   PRIMARY KEY (MaSoTaiKhoan, SoDienThoai),
   FOREIGN KEY (MaSoTaiKhoan) REFERENCES TaiKhoanDangNhap(MaSo)
 );
@@ -78,10 +79,10 @@ CREATE TABLE NhaCungCapDichVu (
 );
 
 CREATE TABLE HangHangKhong (
-  MaSoThue VARCHAR(10) NOT NULL,
+  MaSoThue VARCHAR(20) NOT NULL,
   TenHang VARCHAR(50) NOT NULL,
   MoTa VARCHAR(255) ,
-  SoDienThoaiTuVanVien VARCHAR(11) NOT NULL,
+  SoDienThoaiTuVanVien VARCHAR(20) NOT NULL,
   MaDichVu VARCHAR(20) NOT NULL,
   PRIMARY KEY (MaSoThue),
   FOREIGN KEY (MaDichVu) REFERENCES NhaCungCapDichVu(MaDichVu)
@@ -94,7 +95,7 @@ CREATE TABLE ChuyenBay (
   ThoiGianHaCanh DATETIME NOT NULL,
   DiaDiemXuatPhat VARCHAR(50) NOT NULL,
   DiaDiemHaCanh VARCHAR(50) NOT NULL,
-  MaSoThueCuaHangHangKhong VARCHAR(10) NOT NULL,
+  MaSoThueCuaHangHangKhong VARCHAR(20) NOT NULL,
   PRIMARY KEY (MaSo),
   FOREIGN KEY (MaSoThueCuaHangHangKhong) REFERENCES HangHangKhong(MaSoThue)
 );
@@ -121,9 +122,9 @@ CREATE TABLE VeDatMayBay (
 CREATE TABLE NguoiThamGiaChuyenBay (
   MaKhachHang VARCHAR(255) ,
   HoVaTen VARCHAR(40) NOT NULL,
-  SoDienThoai VARCHAR(11) NOT NULL,
+  SoDienThoai VARCHAR(20) NOT NULL,
   Email VARCHAR(255) NOT NULL,
-  SoCCCD VARCHAR(12) NOT NULL,
+  SoCCCD VARCHAR(20) NOT NULL,
   NgaySinh DATE NOT NULL,
   MaVeMayBay VARCHAR(20) NOT NULL,
   MaSoMayBay VARCHAR(20) NOT NULL,
@@ -139,9 +140,8 @@ CREATE TABLE HanhLy (
   ChiTiet VARCHAR(255) NOT NULL,
   GiaCa DECIMAL(10,2) NOT NULL,
   PRIMARY KEY (MaSoMayBay, LoaiHanhLyKyGui),
-  FOREIGN KEY (MaSoMayBay) REFERENCES ChuyenBay(MaSo)
+  FOREIGN KEY (MaSoMayBay) REFERENCES ChuyenBay(MaSo),
 );
-
 CREATE TABLE GuiHanhLy (
   MaSoMayBay VARCHAR(20) NOT NULL,
   LoaiHanhLyKyGui VARCHAR(20) NOT NULL,
@@ -152,18 +152,18 @@ CREATE TABLE GuiHanhLy (
   FOREIGN KEY (MaNguoiThamGiaChuyenBay) REFERENCES NguoiThamGiaChuyenBay(MaKhachHang)
 );
 CREATE TABLE KhachSan (
-  MaSoThue VARCHAR(10) NOT NULL,
+  MaSoThue VARCHAR(20) NOT NULL,
   TenKhachSan VARCHAR(50) NOT NULL,
   DiaChi VARCHAR(50) NOT NULL,
-  ThanhPho VARCHAR(50) NOT NULL,
-  SoDienThoaiLeTan VARCHAR(11) NOT NULL,
+  ThanhPho VARCHAR(20) NOT NULL,
+  SoDienThoaiLeTan VARCHAR(20) NOT NULL,
   MaDichVu VARCHAR(20) NOT NULL,
   PRIMARY KEY (MaSoThue),
   FOREIGN KEY (MaDichVu) REFERENCES NhaCungCapDichVu(MaDichVu)
 );
 
 CREATE TABLE Phong (
-  MaSoThueKhachSan VARCHAR(10) NOT NULL,
+  MaSoThueKhachSan VARCHAR(20) NOT NULL,
   LoaiPhong VARCHAR(20) NOT NULL,
   Ngay DATE NOT NULL,
   SoLuongCungCap INT NOT NULL,
@@ -181,7 +181,7 @@ CREATE TABLE VeDatPhong (
 );
 
 CREATE TABLE ChonPhong (
-  MaSoThueKhachSan VARCHAR(10) NOT NULL,
+  MaSoThueKhachSan VARCHAR(20) NOT NULL,
   LoaiPhong VARCHAR(20) NOT NULL,
   Ngay DATE NOT NULL,
   MaDatPhong VARCHAR(20) NOT NULL, 
@@ -192,18 +192,18 @@ CREATE TABLE ChonPhong (
 );
 
 CREATE TABLE NhaHang (
-  MaSoThue VARCHAR(10) NOT NULL,
+  MaSoThue VARCHAR(20) NOT NULL,
   TenNhaHang VARCHAR(50) NOT NULL,
   DiaChi VARCHAR(50) NOT NULL,
   MoTa VARCHAR(255) ,
-  SoDienThoaiQuanLy VARCHAR(11) NOT NULL,
+  SoDienThoaiQuanLy VARCHAR(20) NOT NULL,
   MaDichVu VARCHAR(20) NOT NULL,
   PRIMARY KEY (MaSoThue),
   FOREIGN KEY (MaDichVu) REFERENCES NhaCungCapDichVu(MaDichVu)
 );
 
 CREATE TABLE Ban (
-  MaSoThueNhaHang VARCHAR(10) NOT NULL,
+  MaSoThueNhaHang VARCHAR(20) NOT NULL,
   LoaiBan VARCHAR(20) NOT NULL,
   ThoiGian DATE NOT NULL,
   SoLuongCungCap INT NOT NULL,
@@ -222,7 +222,7 @@ CREATE TABLE PhieuNhaHang (
 );
 
 CREATE TABLE ChonBan (
-  MaSoThueNhaHang VARCHAR(10) NOT NULL,
+  MaSoThueNhaHang VARCHAR(20) NOT NULL,
   LoaiBan VARCHAR(20) NOT NULL,
   ThoiGian DATE NOT NULL,
   MaDatCho VARCHAR(20) NOT NULL,
@@ -233,7 +233,7 @@ CREATE TABLE ChonBan (
 );
 
 
-
+-- Hello 123
 --1.1.2
 ---1.2.1 Thủ tục
 ----------
@@ -584,23 +584,23 @@ ADD TongTien AS dbo.CalculateTotalPaidAmountVeDatPhong(MaDatPhong);
 go
 
 -- Create the function for calculating the remaining seat amount
+-- Create the function for calculating the remaining seat amount
 CREATE FUNCTION dbo.CalculateTotalPaidAmountVeMayBay(@MaVe VARCHAR(20))
 RETURNS INT
 AS
 BEGIN
     DECLARE @TotalAmount INT;
-    SELECT @TotalAmount=SUM(c.GiaKhoang) +SUM(e.GiaCa*d.SoLuong)
+    SELECT @TotalAmount=COALESCE(SUM(c.GiaKhoang), 0) + COALESCE(SUM(e.GiaCa * d.SoLuong), 0)
     FROM VeDatMayBay AS a
     JOIN NguoiThamGiaChuyenBay AS b ON a.MaDatVe = b.MaVeMayBay
-	JOIN KhoangTrenChuyenBay as c on b.MaSoMayBay=c.MaSoMayBay AND b.LoaiKhoang=c.LoaiKhoang
-	JOIN GuiHanhLy as d on b.MaKhachHang=d.MaNguoiThamGiaChuyenBay 
-	JOIN HanhLy as e on d.LoaiHanhLyKyGui=e.LoaiHanhLyKyGui AND d.MaSoMayBay=e.MaSoMayBay
-    WHERE a.MaDatVe = @MaVe
+    JOIN KhoangTrenChuyenBay as c on b.MaSoMayBay=c.MaSoMayBay AND b.LoaiKhoang=c.LoaiKhoang
+    FULL OUTER JOIN GuiHanhLy as d on b.MaKhachHang=d.MaNguoiThamGiaChuyenBay 
+    FULL OUTER JOIN HanhLy as e on d.LoaiHanhLyKyGui=e.LoaiHanhLyKyGui AND d.MaSoMayBay=e.MaSoMayBay
+    WHERE a.MaDatVe = @MaVe AND a.MaDatVe is not null
     GROUP BY a.MaDatVe;
     RETURN ISNULL(@TotalAmount, 0);
 END;
 go
--- Add a computed column for SoLuongGheConLai in the KhoangChuyenBay table
 
 ALTER TABLE VeDatMayBay
 ADD TongTien AS dbo.CalculateTotalPaidAmountVeMayBay(MaDatVe);
