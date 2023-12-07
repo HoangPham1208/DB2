@@ -1,18 +1,33 @@
-CREATE OR ALTER PROCEDURE SoluongNguoiBayTheoNgay @Date DATE
+CREATE OR ALTER PROCEDURE SoluongNguoiBayTheoNgay @Date DATE, @Start VARCHAR(20), @End VARCHAR(20)
 AS
 BEGIN
-   SELECT C.MaSo, K.LoaiKhoang, COUNT(*) AS SoLuongGhe
-   FROM Chuyenbay C, KhoangTrenChuyenBay K, NguoiThamGiaChuyenBay N
+   SELECT H.TenHang, C.MaSo, K.LoaiKhoang, K.SoLuongGheConLai
+   FROM HangHangKhong H, Chuyenbay C, KhoangTrenChuyenBay K
    WHERE CONVERT(DATE, C.ThoiGianXuatPhat) = @Date 
+	  and C.DiaDiemXuatPhat = @Start
+	  and C.DiaDiemHaCanh = @End
       and C.MaSo = K.MaSoMayBay 
-      and K.MaSoMayBay = N.MaSoMayBay 
-      and K.LoaiKhoang = N.LoaiKhoang
-   GROUP BY C.MaSo, K.LoaiKhoang
-   ORDER BY SoLuongGhe DESC
+	  and H.MaSoThue = C.MaSoThueCuaHangHangKhong
+	  and K.SoLuongGheConLai > 0
+   ORDER BY K.SoLuongGheConLai
 END
-
--- exec SoluongNguoiBayTheoNgay @Date = '2023-03-02'
 GO
+
+exec SoluongNguoiBayTheoNgay @Date = '2023-03-01', @Start = 'HaNoi', @End = 'Ho Chi Minh City'
+GO
+
+
+
+select * from ChuyenBay
+select * from NguoiThamGiaChuyenBay
+select * from KhoangTrenChuyenBay
+
+INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang)
+VALUES
+  ( 'Tran Thi B', '0987654321', 'tranb@yahoo.com', '987654321098', '1988-10-20', 'V001', 'CB001', 'Business');
+  INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang)
+VALUES
+  ( 'Le Van C', '0901234567', 'lecv@gmail.com', '111122223333', '1995-03-08', 'A002', 'CB002', 'Economy');
 
 CREATE OR ALTER PROCEDURE TimPhongKhachSan (@Date DATE, @City VARCHAR(20))
 AS
@@ -24,6 +39,13 @@ BEGIN
    and K.ThanhPho = @City
    ORDER BY P.GiaPhong ASC
 END
+
+INSERT INTO KhoangTrenChuyenBay (MaSoMayBay, LoaiKhoang, GiaKhoang, SoLuongGheToiDaCungCap, MoTa)
+VALUES
+  ('CB001', 'Business', 2000000, 20, 'Spacious seats with premium services'),
+  ('CB001', 'Economy', 800000, 150, 'Standard seating with in-flight entertainment'),
+  ('CB002', 'Business', 1800000, 18, 'Comfortable seats with extra legroom'),
+  ('CB002', 'Economy', 700000, 160, 'Affordable seating for budget travelers');
 
 -- exec TimPhongKhachSan @Date = '2023-03-02', @City = 'City B'
 /*
