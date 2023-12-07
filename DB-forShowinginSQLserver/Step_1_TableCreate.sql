@@ -6,8 +6,8 @@ CREATE TABLE TaiKhoanDangNhap (
   NgaySinh DATE NOT NULL,
   GioiTinh CHAR(20) NOT NULL,
   SoCCCD VARCHAR(20) NOT NULL
-  MatKhau VARCHAR(20) NOT NULL,
-  VaiTro VARCHAR(20) NOT NULL
+  UserName VARCHAR(20) NOT NULL,
+  MatKhau VARCHAR(20) NOT NULL
 );
 -- check
 CREATE TABLE SoDienThoai (
