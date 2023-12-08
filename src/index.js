@@ -17,17 +17,17 @@ return: {
     token 
 }
 */
-app.post('/userLogin', async (req, res) => {
+app.get('/userLogin', async (req, res) => {
     try {
-        const { username, password } = req.body
+        const { username, password, role } = req.body
         const secretKey = 'alo1234'
-        const users = await DB.getAccount(username)
+        const users = await DB.getAccount(username, role)
         if (users[0] && users[0].MatKhau === password) {
             const token = jwt.sign(
                 {
                     userId: users[0].MaSo,
                     username: users[0].TenDangNhap,
-                    userRole: 'user'
+                    userRole: role
                 },
                 secretKey,
                 { expiresIn: "2h" }

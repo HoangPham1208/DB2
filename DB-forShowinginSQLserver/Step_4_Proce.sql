@@ -1,33 +1,24 @@
-CREATE OR ALTER PROCEDURE SoluongNguoiBayTheoNgay @Date DATE, @Start VARCHAR(20), @End VARCHAR(20)
+CREATE OR ALTER PROCEDURE SoluongNguoiBayTheoNgay @Date DATE, @Start VARCHAR(20), @End VARCHAR(20), @Quantity INT
 AS
 BEGIN
-   SELECT H.TenHang, C.MaSo, K.LoaiKhoang, K.SoLuongGheConLai
-   FROM HangHangKhong H, Chuyenbay C, KhoangTrenChuyenBay K
-   WHERE CONVERT(DATE, C.ThoiGianXuatPhat) = @Date 
-	  and C.DiaDiemXuatPhat = @Start
-	  and C.DiaDiemHaCanh = @End
-      and C.MaSo = K.MaSoMayBay 
-	  and H.MaSoThue = C.MaSoThueCuaHangHangKhong
-	  and K.SoLuongGheConLai > 0
-   ORDER BY K.SoLuongGheConLai
+   SELECT K.MaSoMayBay, K.LoaiKhoang, K.GiaKhoang, K.MoTa, K.SoLuongGheToiDaCungCap, MAX(K.SoLuongGheToiDaCungCap) - COUNT(N.HoVaTen) AS SoLuongGheConLai
+   FROM Chuyenbay C JOIN KhoangTrenChuyenBay K ON C.MaSo = K.MaSoMayBay 
+		LEFT JOIN NguoiThamGiaChuyenBay N ON (K.MaSoMayBay = N.MaSoMayBay and K.LoaiKhoang = N.LoaiKhoang)
+ 
+	WHERE CONVERT(DATE, C.ThoiGianXuatPhat) = @Date 
+		  and C.DiaDiemXuatPhat = @Start
+		  and C.DiaDiemHaCanh = @End
+   GROUP BY K.MaSoMayBay, K.LoaiKhoang, K.GiaKhoang, K.MoTa, K.SoLuongGheToiDaCungCap
+   HAVING MAX(K.SoLuongGheToiDaCungCap) - COUNT(N.HoVaTen) >= @Quantity
+   ORDER BY SoLuongGheConLai
 END
 GO
 
-exec SoluongNguoiBayTheoNgay @Date = '2023-03-01', @Start = 'HaNoi', @End = 'Ho Chi Minh City'
+
+exec SoluongNguoiBayTheoNgay @Date = '2023-03-02', @End = 'HaNoi', @Start = 'Ho Chi Minh City', @Quantity = 19
 GO
 
 
-
-select * from ChuyenBay
-select * from NguoiThamGiaChuyenBay
-select * from KhoangTrenChuyenBay
-
-INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang)
-VALUES
-  ( 'Tran Thi B', '0987654321', 'tranb@yahoo.com', '987654321098', '1988-10-20', 'V001', 'CB001', 'Business');
-  INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang)
-VALUES
-  ( 'Le Van C', '0901234567', 'lecv@gmail.com', '111122223333', '1995-03-08', 'A002', 'CB002', 'Economy');
 
 CREATE OR ALTER PROCEDURE TimPhongKhachSan (@Date DATE, @City VARCHAR(20))
 AS
@@ -39,14 +30,7 @@ BEGIN
    and K.ThanhPho = @City
    ORDER BY P.GiaPhong ASC
 END
-
-INSERT INTO KhoangTrenChuyenBay (MaSoMayBay, LoaiKhoang, GiaKhoang, SoLuongGheToiDaCungCap, MoTa)
-VALUES
-  ('CB001', 'Business', 2000000, 20, 'Spacious seats with premium services'),
-  ('CB001', 'Economy', 800000, 150, 'Standard seating with in-flight entertainment'),
-  ('CB002', 'Business', 1800000, 18, 'Comfortable seats with extra legroom'),
-  ('CB002', 'Economy', 700000, 160, 'Affordable seating for budget travelers');
-
+go
 -- exec TimPhongKhachSan @Date = '2023-03-02', @City = 'City B'
 /*
   INSERT INTO KhachSan (MaSoThue, TenKhachSan, DiaChi, ThanhPho, SoDienThoaiLeTan, MaDichVu)
