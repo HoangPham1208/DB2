@@ -12,7 +12,7 @@ BEGIN
     CROSS JOIN INSERTED;
 
     -- Chèn dữ liệu mới và cập nhật MaSo
-    INSERT INTO TaiKhoanDangNhap (Ho, TenDem, Ten, NgaySinh, GioiTinh, SoCCCD, MaSo)
+    INSERT INTO TaiKhoanDangNhap (Ho, TenDem, Ten, NgaySinh, GioiTinh, SoCCCD, MaSo, UserName , MatKhau)
     SELECT Ho, TenDem, Ten, NgaySinh, GioiTinh, SoCCCD, 'TK' + RIGHT('000' + CAST(@nextID AS VARCHAR(3)), 3)
     FROM INSERTED;
 END;
