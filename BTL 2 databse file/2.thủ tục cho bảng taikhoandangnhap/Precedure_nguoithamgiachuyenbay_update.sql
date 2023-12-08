@@ -13,7 +13,7 @@ BEGIN
     -- Kiểm tra dữ liệu hợp lệ
     IF DATEDIFF(YEAR, @NgaySinh, GETDATE()) < 18
     BEGIN
-        RAISEERROR('Tuổi người tham gia chuyến bay phải lớn hơn hoặc bằng 18.', 16, 1);
+        RAISERROR('Tuổi người tham gia chuyến bay phải lớn hơn hoặc bằng 18.', 16, 1);
         RETURN;
     END
 
