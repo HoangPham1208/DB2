@@ -19,14 +19,26 @@ GO
 
 
 
-CREATE OR ALTER PROCEDURE TimPhongKhachSan (@Date DATE, @City VARCHAR(20))
+select * from ChuyenBay
+select * from NguoiThamGiaChuyenBay
+select * from KhoangTrenChuyenBay
+
+INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang)
+VALUES
+  ( 'Tran Thi B', '0987654321', 'tranb@yahoo.com', '987654321098', '1988-10-20', 'V001', 'CB001', 'Business');
+  INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang)
+VALUES
+  ( 'Le Van C', '0901234567', 'lecv@gmail.com', '111122223333', '1995-03-08', 'A002', 'CB002', 'Economy');
+
+CREATE OR ALTER PROCEDURE TimPhongKhachSan (@DateCheckIn DATE,@DateCheckOut DATE, @City VARCHAR(20))
 AS
 BEGIN
-   SELECT K.TenKhachSan, P.LoaiPhong, P.SoLuongCungCap, P.GiaPhong
+   declare @period INT=DATEDIFF(DAY, @DateCheckIn, @DateCheckOut); 
+   SELECT P.MaSoThueKhachSan, K.TenKhachSan, P.LoaiPhong, P.GiaPhong,min(P.SoLuongCungCap) as SoLuongCungCap
    FROM KhachSan K, Phong P
-   WHERE K.MaSoThue = P.MaSoThueKhachSan 
-   and P.Ngay = @Date 
-   and K.ThanhPho = @City
+   WHERE K.MaSoThue = P.MaSoThueKhachSan and P.Ngay >= @DateCheckIn AND  P.Ngay <= @DateCheckOut and K.ThanhPho = @City
+   GROUP BY  P.MaSoThueKhachSan, K.TenKhachSan, P.LoaiPhong, P.GiaPhong
+   having count(*)> @period
    ORDER BY P.GiaPhong ASC
 END
 go
