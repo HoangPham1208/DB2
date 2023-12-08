@@ -1,19 +1,25 @@
 CREATE OR ALTER PROCEDURE SoluongNguoiBayTheoNgay @Date DATE, @Start VARCHAR(20), @End VARCHAR(20)
 AS
 BEGIN
-   SELECT H.TenHang, C.MaSo, K.LoaiKhoang, K.SoLuongGheConLai
-   FROM HangHangKhong H, Chuyenbay C, KhoangTrenChuyenBay K
-   WHERE CONVERT(DATE, C.ThoiGianXuatPhat) = @Date 
-	  and C.DiaDiemXuatPhat = @Start
-	  and C.DiaDiemHaCanh = @End
-      and C.MaSo = K.MaSoMayBay 
-	  and H.MaSoThue = C.MaSoThueCuaHangHangKhong
-	  and K.SoLuongGheConLai > 0
-   ORDER BY K.SoLuongGheConLai
+
+   SELECT K.MaSoMayBay, K.LoaiKhoang, K.SoLuongGheToiDaCungCap, MAX(K.SoLuongGheToiDaCungCap) - COUNT(N.HoVaTen) AS SoLuongGheConLai
+   FROM Chuyenbay C JOIN KhoangTrenChuyenBay K ON C.MaSo = K.MaSoMayBay 
+		LEFT JOIN NguoiThamGiaChuyenBay N ON (K.MaSoMayBay = N.MaSoMayBay and K.LoaiKhoang = N.LoaiKhoang)
+ 
+	WHERE CONVERT(DATE, C.ThoiGianXuatPhat) = @Date 
+		  and C.DiaDiemXuatPhat = @Start
+		  and C.DiaDiemHaCanh = @End
+   GROUP BY K.MaSoMayBay, K.LoaiKhoang, K.SoLuongGheToiDaCungCap
+   HAVING MAX(K.SoLuongGheToiDaCungCap) - COUNT(N.HoVaTen) > 0
+   ORDER BY SoLuongGheConLai
 END
 GO
 
-exec SoluongNguoiBayTheoNgay @Date = '2023-03-01', @Start = 'HaNoi', @End = 'Ho Chi Minh City'
+
+exec SoluongNguoiBayTheoNgay @Date = '2023-03-02', @End = 'HaNoi', @Start = 'Ho Chi Minh City'
+GO
+
+select * from NguoiThamGiaChuyenBay
 GO
 
 
