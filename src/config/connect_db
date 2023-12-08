@@ -1,2 +1,2 @@
-connectionString = 'server=ADMIN\\SQLEXPRESS;Database=ass2;Trusted_Connection=Yes;Driver={ODBC Driver 17 for SQL Server}'
+connectionString = 'server=dark;Database=ass2;Trusted_Connection=Yes;Driver={ODBC Driver 17 for SQL Server}'
 module.exports = connectionString

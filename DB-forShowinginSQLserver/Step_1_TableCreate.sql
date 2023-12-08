@@ -6,7 +6,7 @@ CREATE TABLE TaiKhoanDangNhap (
   NgaySinh DATE NOT NULL,
   GioiTinh CHAR(20) NOT NULL,
   SoCCCD VARCHAR(20) NOT NULL,
-  UserName VARCHAR(20) NOT NULL,
+  TenDangNhap VARCHAR(20) NOT NULL,
   MatKhau VARCHAR(20) NOT NULL
 );
 -- check
@@ -224,7 +224,7 @@ CREATE TABLE PhieuNhaHang (
 CREATE TABLE ChonBan (
   MaSoThueNhaHang VARCHAR(20) NOT NULL,
   LoaiBan VARCHAR(20) NOT NULL,
-  ThoiGian DATE NOT NULL,
+  ThoiGian DATETIME NOT NULL,
   MaDatCho VARCHAR(20) NOT NULL,
   SoLuong INT NOT NULL,
   PRIMARY KEY (MaSoThueNhaHang, LoaiBan, ThoiGian, MaDatCho),

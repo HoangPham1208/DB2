@@ -12,8 +12,8 @@ BEGIN
     CROSS JOIN INSERTED;
 
     -- Chèn dữ liệu mới và cập nhật MaSo
-    INSERT INTO TaiKhoanDangNhap (Ho, TenDem, Ten, NgaySinh, GioiTinh, SoCCCD, MaSo, UserName , MatKhau)
-    SELECT Ho, TenDem, Ten, NgaySinh, GioiTinh, SoCCCD, 'TK' + RIGHT('000' + CAST(@nextID AS VARCHAR(3)), 3)
+    INSERT INTO TaiKhoanDangNhap (Ho, TenDem, Ten, NgaySinh, GioiTinh, SoCCCD, MaSo, TenDangNhap , MatKhau)
+    SELECT Ho, TenDem, Ten, NgaySinh, GioiTinh, SoCCCD, 'TK' + RIGHT('000' + CAST(@nextID AS VARCHAR(3)), 3), TenDangNhap,MatKhau
     FROM INSERTED;
 END;
 go
@@ -148,6 +148,8 @@ BEGIN
     SELECT MaDonHang, 'VDC'  + RIGHT('000' + CAST(@nextID AS VARCHAR(3)), 3)
     FROM INSERTED;
 END;
+
+go
 
 CREATE TRIGGER instead_of_insert_Service
 ON NhaCungCapDichVu
