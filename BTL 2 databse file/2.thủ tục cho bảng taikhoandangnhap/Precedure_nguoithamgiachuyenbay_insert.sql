@@ -39,3 +39,14 @@ BEGIN
     INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang)
     VALUES ( @HoVaTen, @SoDienThoai, @Email, @SoCCCD, @NgaySinh, @MaVeMayBay, @MaSoMayBay, @LoaiKhoang);
 END;
+GO
+
+EXEC InsertNguoiThamGiaChuyenBay
+	@HoVaTen = 'Nguyen Thi E',
+    @SoDienThoai = '0111223456',
+    @Email = 'han@gmail.com',
+    @SoCCCD = '046203008632',
+    @NgaySinh = '2003-12-17',
+    @MaVeMayBay = 'V00021',
+    @MaSoMayBay = 'CB002',
+    @LoaiKhoang = 'Business'
