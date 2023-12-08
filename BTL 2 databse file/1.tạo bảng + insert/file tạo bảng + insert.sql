@@ -7,6 +7,7 @@ CREATE TABLE TaiKhoanDangNhap (
   GioiTinh CHAR(1) NOT NULL,
   SoCCCD VARCHAR(12) NOT NULL
 );
+
 -- check
 CREATE TABLE SoDienThoai (
   MaSoTaiKhoan VARCHAR(20) NOT NULL,
@@ -37,10 +38,14 @@ CREATE TABLE NhanVien (
   FOREIGN KEY (MaSoTaiKhoan) REFERENCES TaiKhoanDangNhap(MaSo),
   FOREIGN KEY (MaNhanVienQuanLy) REFERENCES NhanVien(MaSoTaiKhoan)
 );
+DROP TABLE KhachHang
+
 
 CREATE TABLE KhachHang (
   MaSoTaiKhoan VARCHAR(20),
   CapBac VARCHAR(20) NOT NULL,
+  TenDangNhap VARCHAR(20) NOT NULL,
+  MatKhau VARCHAR(20) NOT NULL,
   PRIMARY KEY (MaSoTaiKhoan),
   FOREIGN KEY (MaSoTaiKhoan) REFERENCES TaiKhoanDangNhap(MaSo)
 );
