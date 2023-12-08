@@ -1,8 +1,7 @@
 ﻿CREATE OR ALTER PROCEDURE InsertAndGetAutoKey_VeDatMayBay
 (
     @MaDonHang VARCHAR(20),
-    @MaSoChuyenBay VARCHAR(20),
-    @GeneratedKey VARCHAR(20) OUTPUT
+    @MaSoChuyenBay VARCHAR(20)
 )
 AS
 BEGIN
@@ -15,21 +14,27 @@ BEGIN
     )
     SELECT @NextID = NextID FROM CTE;
 
+	SELECT 'V00' + CAST(@NextID AS VARCHAR(3));
+
     INSERT INTO VeDatMayBay (MaDonHang, MaSoChuyenBay, MaDatVe)
     VALUES (
         @MaDonHang,
         @MaSoChuyenBay,
-        RIGHT('V000' + CAST(@NextID AS VARCHAR(3)), 3)
+        'V00' + CAST(@NextID AS VARCHAR(3))
     );
 
-    SET @GeneratedKey = RIGHT('V000' + CAST(@NextID AS VARCHAR(3)), 3);
+	
 END;
 GO
-
-DECLARE @GeneratedKey VARCHAR(20);
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'exampleDonHang', @MaSoChuyenBay = 'exampleSoChuyenBay', @GeneratedKey = @GeneratedKey OUTPUT;
+select * from NguoiThamGiaChuyenBay N where N.MaVeMayBay = 'V004' 
+go
+delete from NguoiThamGiaChuyenBay where NguoiThamGiaChuyenBay.MaVeMayBay = 'V004'
+go
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB002'
 GO
 
+select * from VeDatMayBay
+go
 
 CREATE OR ALTER PROCEDURE InsertAndGetAutoKey_DonHang
 (
