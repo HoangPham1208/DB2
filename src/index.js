@@ -17,7 +17,6 @@ return: {
     token 
 }thoi
 */
-// Test 123 45+5456465
 app.post('/login', async (req,res) => {
     try {
         const { username, password, role } = req.body
