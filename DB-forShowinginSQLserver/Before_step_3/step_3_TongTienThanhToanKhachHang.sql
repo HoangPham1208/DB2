@@ -18,3 +18,4 @@ ALTER TABLE KhachHang
 ADD TienThanhThanhToan AS dbo.CalculateTotalAmountPaid(MaSoTaiKhoan);
 -- select * from KhachHang
 -- select * from DonHang
+go

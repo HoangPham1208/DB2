@@ -1,7 +1,7 @@
 CREATE OR ALTER PROCEDURE SoluongNguoiBayTheoNgay @Date DATE, @Start VARCHAR(20), @End VARCHAR(20), @Quantity INT
 AS
 BEGIN
-   SELECT K.MaSoMayBay, K.LoaiKhoang, K.GiaKhoang, K.MoTa, K.SoLuongGheToiDaCungCap, MAX(K.SoLuongGheToiDaCungCap) - COUNT(N.HoVaTen) AS SoLuongGheConLai
+   SELECT K.MaSoMayBay, K.LoaiKhoang, K.SoLuongGheToiDaCungCap, MAX(K.SoLuongGheToiDaCungCap) - COUNT(N.HoVaTen) AS SoLuongGheConLai
    FROM Chuyenbay C JOIN KhoangTrenChuyenBay K ON C.MaSo = K.MaSoMayBay 
 		LEFT JOIN NguoiThamGiaChuyenBay N ON (K.MaSoMayBay = N.MaSoMayBay and K.LoaiKhoang = N.LoaiKhoang)
  
@@ -13,7 +13,6 @@ BEGIN
    ORDER BY SoLuongGheConLai
 END
 GO
-
 
 exec SoluongNguoiBayTheoNgay @Date = '2023-03-02', @End = 'HaNoi', @Start = 'Ho Chi Minh City', @Quantity = 19
 GO
