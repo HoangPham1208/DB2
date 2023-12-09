@@ -163,7 +163,7 @@ return: {
     orderId
 }
 */
-app.get('/order/generate', authToken, async (req, res) => {
+app.post('/order/generate', authToken, async (req, res) => {
     try {
         const customerId = req.data.userId
         const order = await DB.generateOrder(customerId)
@@ -219,6 +219,8 @@ app.post('/roomTicket/generate', async (req, res) => {
         res.status(500).send({ message: err.message })
     }
 })
+
+
 
 
 app.get('/bankAccount', authToken, async (req, res) => {
