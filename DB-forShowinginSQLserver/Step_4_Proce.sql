@@ -1,14 +1,29 @@
 CREATE OR ALTER PROCEDURE SoluongNguoiBayTheoNgay @Date DATE, @Start VARCHAR(20), @End VARCHAR(20), @Quantity INT
 AS
 BEGIN
-   SELECT K.MaSoMayBay, K.LoaiKhoang, K.SoLuongGheToiDaCungCap, MAX(K.SoLuongGheToiDaCungCap) - COUNT(N.HoVaTen) AS SoLuongGheConLai
+   SELECT K.MaSoMayBay ,
+		  C.DiaDiemXuatPhat, 
+		  C.DiaDiemHaCanh, 
+		  C.ThoiGianXuatPhat, 
+		  C.ThoiGianHaCanh, 
+		  K.LoaiKhoang, 
+		  K.GiaKhoang, 
+		  K.SoLuongGheToiDaCungCap, 
+		  MAX(K.SoLuongGheToiDaCungCap) - COUNT(N.HoVaTen) AS SoLuongGheConLai
    FROM Chuyenbay C JOIN KhoangTrenChuyenBay K ON C.MaSo = K.MaSoMayBay 
 		LEFT JOIN NguoiThamGiaChuyenBay N ON (K.MaSoMayBay = N.MaSoMayBay and K.LoaiKhoang = N.LoaiKhoang)
  
 	WHERE CONVERT(DATE, C.ThoiGianXuatPhat) = @Date 
 		  and C.DiaDiemXuatPhat = @Start
 		  and C.DiaDiemHaCanh = @End
-   GROUP BY K.MaSoMayBay, K.LoaiKhoang, K.GiaKhoang, K.MoTa, K.SoLuongGheToiDaCungCap
+   GROUP BY K.MaSoMayBay ,
+		  C.DiaDiemXuatPhat, 
+		  C.DiaDiemHaCanh, 
+		  C.ThoiGianXuatPhat, 
+		  C.ThoiGianHaCanh, 
+		  K.LoaiKhoang, 
+		  K.GiaKhoang, 
+		  K.SoLuongGheToiDaCungCap
    HAVING MAX(K.SoLuongGheToiDaCungCap) - COUNT(N.HoVaTen) >= @Quantity
    ORDER BY SoLuongGheConLai
 END

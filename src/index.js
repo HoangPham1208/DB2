@@ -59,12 +59,12 @@ return: {
     ]
 }
 */
-app.post('/flight', async (req, res) => {
+app.get('/flight', async (req, res) => {
     try {
-        const { startDate, deptLoc, destLoc, quantity } = req.body
-        const flights = await DB.getFlight(startDate, deptLoc, destLoc, quantity)
-        // const flights = await DB.getFlight('2023-03-01', 'HaNoi', 'Ho Chi Minh City', 19)
-        // console.log(flights)
+        // const { startDate, deptLoc, destLoc, quantity } = req.body
+        // const flights = await DB.getFlight(startDate, deptLoc, destLoc, quantity)
+        const flights = await DB.getFlight('2023-03-01', 'HaNoi', 'Ho Chi Minh City', 19)
+        console.log(flights)
         res.status(200).send({ flights: flights })
     }
     catch (err) {
