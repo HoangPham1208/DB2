@@ -1,19 +1,21 @@
+const cors = require('cors')
 const express = require('express')
+const jwt = require('jsonwebtoken')
 var DB = require('./config/Dboperation')
 const app = express()
 const authToken = require('./AuthenticateToken')
-const port = 3000
+const port = 5000
 
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
-
+app.use(cors())
 ////////////////API////////////////
 /*
 return: {
     success: Bool
     token 
-}
+}thoi
 */
 app.post('/login', async (req, res) => {
     try {
@@ -21,6 +23,7 @@ app.post('/login', async (req, res) => {
         const secretKey = 'alo1234'
         const users = await DB.getAccount(username, role)
         if (users[0] && users[0].MatKhau === password) {
+
             const token = jwt.sign(
                 {
                     userId: users[0].MaSo,
@@ -30,7 +33,9 @@ app.post('/login', async (req, res) => {
                 secretKey,
                 { expiresIn: "2h" }
             )
-            res.status(200).send({ token: token })
+            console.log(users)
+
+            res.status(200).send({ success: true, token: token })
         }
         else res.status(401).send({ success: false })
     }

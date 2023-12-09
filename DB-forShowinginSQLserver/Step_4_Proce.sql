@@ -14,8 +14,8 @@ BEGIN
 END
 GO
 
-exec SoluongNguoiBayTheoNgay @Date = '2023-03-02', @End = 'HaNoi', @Start = 'Ho Chi Minh City', @Quantity = 19
-GO
+/*exec SoluongNguoiBayTheoNgay @Date = '2023-03-02', @End = 'HaNoi', @Start = 'Ho Chi Minh City', @Quantity = 19
+GO*/
 
 
 
@@ -29,6 +29,7 @@ VALUES
   INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang)
 VALUES
   ( 'Le Van C', '0901234567', 'lecv@gmail.com', '111122223333', '1995-03-08', 'A002', 'CB002', 'Economy');
+go
 
 CREATE OR ALTER PROCEDURE TimPhongKhachSan (@DateCheckIn DATE,@DateCheckOut DATE, @City VARCHAR(20))
 AS
