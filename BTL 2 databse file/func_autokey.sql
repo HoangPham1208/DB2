@@ -56,7 +56,4 @@ BEGIN
 END;
 GO
 
-EXEC InsertAndGetAutoKey_DonHang 
-    @MaKhachHang = 'exampleMaKhachHang',
-
-select * from NhanVien
+EXEC InsertAndGetAutoKey_DonHang @MaKhachHang = 'TK001'

@@ -1,7 +1,15 @@
 CREATE OR ALTER PROCEDURE SoluongNguoiBayTheoNgay @Date DATE, @Start VARCHAR(20), @End VARCHAR(20), @Quantity INT
 AS
 BEGIN
-   SELECT K.MaSoMayBay, K.LoaiKhoang, K.SoLuongGheToiDaCungCap, MAX(K.SoLuongGheToiDaCungCap) - COUNT(N.HoVaTen) AS SoLuongGheConLai
+   SELECT K.MaSoMayBay ,
+		  C.DiaDiemXuatPhat, 
+		  C.DiaDiemHaCanh, 
+		  C.ThoiGianXuatPhat, 
+		  C.ThoiGianHaCanh, 
+		  K.LoaiKhoang, 
+		  K.GiaKhoang, 
+		  K.SoLuongGheToiDaCungCap, 
+		  MAX(K.SoLuongGheToiDaCungCap) - COUNT(N.HoVaTen) AS SoLuongGheConLai
    FROM Chuyenbay C JOIN KhoangTrenChuyenBay K ON C.MaSo = K.MaSoMayBay 
 		LEFT JOIN NguoiThamGiaChuyenBay N ON (K.MaSoMayBay = N.MaSoMayBay and K.LoaiKhoang = N.LoaiKhoang)
  
