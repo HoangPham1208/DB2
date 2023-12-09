@@ -1,3 +1,4 @@
+const { query } = require('express');
 var config = require('./connect_db')
 const sql = require('msnodesqlv8')
 
@@ -93,7 +94,7 @@ function deletePassenger(MaVe) {
 
 function generateOrder(MaKhachHang) {
     return new Promise((resolve, reject) => {
-        query = `EXEC InsertAndGetAutoKey_DonHang @MaKhachHang = '${MaKhachHang}'`
+        let query = `EXEC InsertAndGetAutoKey_DonHang @MaKhachHang = '${MaKhachHang}'`
 
         sql.query(config, query, (err, result) => {
             if (err) {
@@ -110,8 +111,7 @@ function generateOrder(MaKhachHang) {
 
 function generateFlightTicket(flightId, orderId) {
     return new Promise((resolve, reject) => {
-        query = `EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = '${orderId}', @MaSoChuyenBay = '${flightId}'`
-
+        let query = `EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = '${orderId}', @MaSoChuyenBay = '${flightId}'`
         sql.query(config, query, (err, result) => {
             if (err) {
                 console.log(err);

@@ -75,13 +75,16 @@ VALUES
 
 INSERT INTO ChuyenBay ( Ngay, ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong)
 VALUES
-  ( '2023-03-02', '2023-03-02 12:00:00', '2023-03-02 14:00:00', 'Ho Chi Minh City', 'Hanoi', 'H002');
+  ( '2023-12-20', '2023-12-20 12:00:00', '2023-12-20 14:00:00', 'Ho Chi Minh City', 'Hanoi', 'H002');
 
+  select * from KhoangTrenChuyenBay
+  select * from ChuyenBay
+  exec DanhSachChuyenBayTheoNgay @Date ='2023-12-20', @Start = 'Ho Chi Minh City', @End ='Hanoi', @Quantity = 5
 
 INSERT INTO KhoangTrenChuyenBay (MaSoMayBay, LoaiKhoang, GiaKhoang, SoLuongGheToiDaCungCap, MoTa)
 VALUES
-  ('CB001', 'Business', 2000000, 20, 'Spacious seats with premium services'),
-  ('CB001', 'Economy', 800000, 150, 'Standard seating with in-flight entertainment'),
+  ('CB003', 'Business', 2000000, 20, 'Spacious seats with premium services'),
+  ('CB003', 'Economy', 800000, 150, 'Standard seating with in-flight entertainment');
   ('CB002', 'Business', 1800000, 18, 'Comfortable seats with extra legroom'),
   ('CB002', 'Economy', 700000, 160, 'Affordable seating for budget travelers');
 

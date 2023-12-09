@@ -59,11 +59,12 @@ return: {
     ]
 }
 */
-app.get('/flight', async (req, res) => {
+app.post('/flight', async (req, res) => {
+
     try {
-        // const { startDate, deptLoc, destLoc, quantity } = req.body
-        // const flights = await DB.getFlight(startDate, deptLoc, destLoc, quantity)
-        const flights = await DB.getFlight('2023-03-01', 'HaNoi', 'Ho Chi Minh City', 19)
+        const { startDate, deptLoc, destLoc, quantity } = req.body
+        const flights = await DB.getFlight(startDate, deptLoc, destLoc, quantity)
+        // const flights = await DB.getFlight('2023-03-01', 'HaNoi', 'Ho Chi Minh City', 19)
         console.log(flights)
         res.status(200).send({ flights: flights })
     }
@@ -78,7 +79,7 @@ return: {
     success
 }
 */
-app.get('/passenger/insert', async (req, res) => {
+app.post('/passenger/insert', async (req, res) => {
     try {
         const passenger = req.body
         await DB.insertPassenger(
@@ -87,6 +88,7 @@ app.get('/passenger/insert', async (req, res) => {
             passenger.email,
             passenger.CCCD,
             passenger.birthday,
+            passenger.ticketId,
             passenger.flightId,
             passenger.cabinType)
 
@@ -148,7 +150,9 @@ return: {
 */
 app.post('/flightTicket/generate', async (req, res) => {
     try {
-        const { flightId, orderId } = req.body
+
+        const flightId = req.body.flightID
+        const orderId = req.body.orderId
         const ticket = await DB.generateFlightTicket(flightId, orderId)
         res.status(200).send({ ticketId: ticket[0]['Column0'] })
     }
@@ -164,12 +168,13 @@ return: {
 }
 */
 app.post('/order/generate', authToken, async (req, res) => {
+    
     try {
         const customerId = req.data.userId
         const order = await DB.generateOrder(customerId)
         res.status(200).send({ orderId: order[0]['Column0'] })
     }
-    catch (err) {
+    catch (err) {[]
         res.status(500).send({ message: err.message })
     }
 })
