@@ -1,4 +1,4 @@
-CREATE OR ALTER PROCEDURE SoluongNguoiBayTheoNgay @Date DATE, @Start VARCHAR(20), @End VARCHAR(20), @Quantity INT
+CREATE OR ALTER PROCEDURE DanhSachChuyenBayTheoNgay @Date DATE, @Start VARCHAR(20), @End VARCHAR(20), @Quantity INT
 AS
 BEGIN
    SELECT K.MaSoMayBay ,
@@ -25,7 +25,7 @@ BEGIN
 		  K.GiaKhoang, 
 		  K.SoLuongGheToiDaCungCap
    HAVING MAX(K.SoLuongGheToiDaCungCap) - COUNT(N.HoVaTen) >= @Quantity
-   ORDER BY SoLuongGheConLai
+   ORDER BY K.GiaKhoang
 END
 GO
 
@@ -34,32 +34,27 @@ GO*/
 
 
 
-select * from ChuyenBay
-select * from NguoiThamGiaChuyenBay
-select * from KhoangTrenChuyenBay
-
-INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang)
-VALUES
-  ( 'Tran Thi B', '0987654321', 'tranb@yahoo.com', '987654321098', '1988-10-20', 'V001', 'CB001', 'Business');
-  INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang)
-VALUES
-  ( 'Le Van C', '0901234567', 'lecv@gmail.com', '111122223333', '1995-03-08', 'A002', 'CB002', 'Economy');
-go
 
 CREATE OR ALTER PROCEDURE TimPhongKhachSan (@DateCheckIn DATE,@DateCheckOut DATE, @City VARCHAR(20))
 AS
 BEGIN
    declare @period INT=DATEDIFF(DAY, @DateCheckIn, @DateCheckOut); 
-   SELECT P.MaSoThueKhachSan, K.TenKhachSan, P.LoaiPhong, P.GiaPhong,min(P.SoLuongCungCap) as SoLuongCungCap
+   SELECT P.MaSoThueKhachSan, K.TenKhachSan, K.DiaChi, K.ThanhPho, P.LoaiPhong, P.MoTa, P.GiaPhong, min(P.SoLuongCungCap) as SoLuongCungCap
    FROM KhachSan K, Phong P
    WHERE K.MaSoThue = P.MaSoThueKhachSan and P.Ngay >= @DateCheckIn AND  P.Ngay <= @DateCheckOut and K.ThanhPho = @City
-   GROUP BY  P.MaSoThueKhachSan, K.TenKhachSan, P.LoaiPhong, P.GiaPhong
+   GROUP BY  P.MaSoThueKhachSan, K.TenKhachSan, K.DiaChi, K.ThanhPho, P.LoaiPhong, P.MoTa, P.GiaPhong
    having count(*)> @period
    ORDER BY P.GiaPhong ASC
 END
 go
--- exec TimPhongKhachSan @Date = '2023-03-02', @City = 'City B'
+
 /*
+exec TimPhongKhachSan @DateCheckIn = '2023-03-01', @DateCheckOut = '2023-03-02', @City = 'City B'
+go
+
+select * from KhachSan
+
+
   INSERT INTO KhachSan (MaSoThue, TenKhachSan, DiaChi, ThanhPho, SoDienThoaiLeTan, MaDichVu)
 VALUES
   ('KS001', 'Luxury Hotel', '123 Main Street', 'City A', '0123456789', 'DV002'),
@@ -76,7 +71,7 @@ VALUES
   ('KS002', 'Single', '2023-03-02', 8, 'Compact room for solo travelers', 300000),
   ('KS002', 'Standard', '2023-03-02', 9, 'Compact room for solo travelers', 300000),
   ('KS002', 'Couple', '2023-03-02', 10, 'Compact room for solo travelers', 300000),
-  ('KS002', 'Suite', '2023-03-02', 0, 'Compact room for solo travelers', 300000)
+  ('KS002', 'Suite', '2023-03-02', 3, 'Compact room for solo travelers', 300000),
 
 -- Sample data for VeDatPhong
 

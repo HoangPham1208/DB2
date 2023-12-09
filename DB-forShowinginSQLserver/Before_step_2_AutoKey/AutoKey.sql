@@ -18,6 +18,7 @@ BEGIN
 END;
 go
 
+/*
 CREATE TRIGGER instead_of_insert_DonHang
 ON DonHang
 INSTEAD OF INSERT
@@ -37,6 +38,7 @@ BEGIN
     FROM INSERTED;
 END;
 go
+*/
 
 CREATE TRIGGER instead_of_insert_ChuyenBay
 ON ChuyenBay
@@ -60,6 +62,7 @@ BEGIN
 END;
 go
 
+/*
 CREATE TRIGGER instead_of_insert_VeDatMayBay
 ON VeDatMayBay
 INSTEAD OF INSERT
@@ -89,6 +92,7 @@ BEGIN
     FROM INSERTED;
 END;
 go
+*/
 
 CREATE TRIGGER instead_of_insert_NguoiThamGiaChuyenBay
 ON NguoiThamGiaChuyenBay
@@ -112,6 +116,7 @@ BEGIN
 END;
 go
 
+/*
 CREATE TRIGGER instead_of_insert_VeDatPhong
 ON VeDatPhong
 INSTEAD OF INSERT
@@ -130,6 +135,7 @@ BEGIN
     FROM INSERTED;
 END;
 go
+*/
 
 CREATE TRIGGER instead_of_insert_PhieuNhaHang
 ON PhieuNhaHang

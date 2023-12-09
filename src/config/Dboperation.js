@@ -108,7 +108,7 @@ function generateOrder(MaKhachHang) {
     })
 }
 
-function generateTicket(flightId, orderId) {
+function generateFlightTicket(flightId, orderId) {
     return new Promise((resolve, reject) => {
         query = `EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = '${orderId}', @MaSoChuyenBay = '${flightId}'`
 
@@ -124,6 +124,36 @@ function generateTicket(flightId, orderId) {
     })
 }
 
+function getRoom(checkInDate, checkOutDate, city) {
+    return new Promise((resolve, reject) => {
+        let query = `exec TimPhongKhachSan @DateCheckIn = '${checkInDate}', @DateCheckOut = '${checkOutDate}', @City = '${city}'`
+        sql.query(config, query, (err, result) => {
+            if (err) {
+                reject(err);
+            }
+            else {
+                resolve(result);
+            }
+        })
+    })
+}
+
+function generateRoomTicket(orderId) {
+    return new Promise((resolve, reject) => {
+        query = `EXEC InsertAndGetAutoKey_VeDatPhong @MaDonHang = '${orderId}'`
+
+        sql.query(config, query, (err, result) => {
+            if (err) {
+                console.log(err);
+                reject(err);
+            }
+            else {
+                console.log(result)
+                resolve(result);
+            }
+        })
+    })
+}
 
 
 module.exports = {
@@ -132,6 +162,8 @@ module.exports = {
     insertPassenger: insertPassenger,
     getPassenger: getPassenger,
     deletePassenger: deletePassenger,
-    generateTicket: generateTicket,
-    generateOrder: generateOrder
+    generateFlightTicket: generateFlightTicket,
+    generateOrder: generateOrder,
+    getRoom: getRoom,
+    generateRoomTicket: generateRoomTicket
 }

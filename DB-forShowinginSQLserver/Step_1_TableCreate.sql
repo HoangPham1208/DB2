@@ -247,13 +247,13 @@ ALTER TABLE GuiHanhLy
 ADD CHECK (SoLuong > 0);
 
 ALTER TABLE Phong
-ADD CHECK (SoLuongCungCap > 0);
+ADD CHECK (SoLuongCungCap >= 0);
 
 ALTER TABLE ChonPhong
 ADD CHECK (SoLuong > 0);
 
 ALTER TABLE Ban
-ADD CHECK (SoLuongCungCap > 0);
+ADD CHECK (SoLuongCungCap >= 0);
 
 ALTER TABLE Ban
 ADD CHECK (SoLuongNguoiToiDa1Ban > 0);
