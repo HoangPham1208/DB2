@@ -7,6 +7,8 @@ INSERT INTO TaiKhoanDangNhap(Ho,TenDem,Ten,NgaySinh,GioiTinh,SoCCCD,TenDangNhap,
 INSERT INTO TaiKhoanDangNhap(Ho,TenDem,Ten,NgaySinh,GioiTinh,SoCCCD,TenDangNhap,MatKhau) VALUES
 ( 'Nguyen', 'Van', 'C', '1980-01-15', 'M', '123444444444','nvc','nvc123');
 
+select * from TaiKhoanDangNhap T, KhachHang C
+            where T.MaSo = C.MaSoTaiKhoan and T.TenDangNhap = 'nva'
 
 INSERT INTO SoDienThoai (MaSoTaiKhoan, SoDienThoai) VALUES
 ('TK001', '0901234567');
@@ -90,7 +92,7 @@ VALUES
 
 INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang)
 VALUES
-  ( 'Tran Thi B', '0987654321', 'tranb@yahoo.com', '987654321098', '1988-10-20', 'V001', 'CB001', 'Business');
+  ( 'Tran Thi B', '09876543211', 'tranb@yahoo.com', '987654321098', '1988-10-20', 'V001', 'CB001', 'Business');
 INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang) values
   ( 'Tran Thi C', '0987654321', 'tranc@ gmail.com', '987654321099', '1988-10-20', 'V001', 'CB001', 'Business');
 INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang) values
@@ -119,3 +121,4 @@ select * from VeDatMayBay
 select * from NguoiThamGiaChuyenBay
 
 
+delete from NguoiThamGiaChuyenBay

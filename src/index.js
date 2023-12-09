@@ -146,16 +146,17 @@ return: {
     ticketId
 }
 */
-app.get('/ticket/generate', async (req, res) => {
+app.post('/flightTicket/generate', async (req, res) => {
     try {
         const { flightId, orderId } = req.body
-        const ticket = await DB.generateTicket(flightId, orderId)
+        const ticket = await DB.generateFlightTicket(flightId, orderId)
         res.status(200).send({ ticketId: ticket[0]['Column0'] })
     }
     catch (err) {
         res.status(500).send({ message: err.message })
     }
 })
+
 
 /*
 return: {
@@ -166,13 +167,58 @@ app.get('/order/generate', authToken, async (req, res) => {
     try {
         const customerId = req.data.userId
         const order = await DB.generateOrder(customerId)
-        res.status(200).send({ MaDonHang: order[0]['Column0'] })
+        res.status(200).send({ orderId: order[0]['Column0'] })
     }
     catch (err) {
         res.status(500).send({ message: err.message })
     }
 })
 
+/*
+return: {
+    rooms: [
+        {
+            MaSoThueKhachSan: 'KS002',
+            TenKhachSan: 'Budget Inn1',
+            DiaChi: '456 Side Street',
+            ThanhPho: 'City B',
+            LoaiPhong: 'Couple',
+            MoTa: 'Compact room for solo travelers',
+            GiaPhong: 300000,
+            SoLuongCungCap: 10
+        }
+    ]
+}
+*/
+app.post('/room', async (req, res) => {
+    try {
+        const { checkInDate, checkOutDate, city } = req.body
+        const rooms = await DB.getRoom(checkInDate, checkOutDate, city)
+        // const rooms = await DB.getRoom('2023-03-01', '2023-03-02', 'City B')
+        // console.log(rooms)
+        res.status(200).send({ rooms: rooms })
+    }
+    catch (err) {
+        res.status(500).send({ message: err.message })
+    }
+})
+
+
+/*
+return: {
+    ticketId
+}
+*/
+app.post('/roomTicket/generate', async (req, res) => {
+    try {
+        const { orderId } = req.body
+        const ticket = await DB.generateRoomTicket(orderId)
+        res.status(200).send({ ticketId: ticket[0]['Column0'] })
+    }
+    catch (err) {
+        res.status(500).send({ message: err.message })
+    }
+})
 
 
 app.get('/bankAccount', authToken, async (req, res) => {
