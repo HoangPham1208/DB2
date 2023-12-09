@@ -5,13 +5,11 @@ function getAccount(username, role) {
     return new Promise((resolve, reject) => {
         let query;
         if (role === 'user') {
-             query = `select * 
-            from TaiKhoanDangNhap T, KhachHang K 
+            query = `select * from TaiKhoanDangNhap T, KhachHang K 
             where T.MaSo = K.MaSoTaiKhoan and T.TenDangNhap = '${username}'`
         }
         else {
-             query = `select * 
-            from TaiKhoanDangNhap T, ChuDichVu C
+            query = `select * from TaiKhoanDangNhap T, ChuDichVu C
             where T.MaSo = C.MaSoTaiKhoan and T.TenDangNhap = '${username}'`
         }
         sql.query(config, query, (err, result) => {
@@ -34,7 +32,6 @@ function getFlight(date, startLoc, desLoc, quantity) {
                 reject(err);
             }
             else {
-                console.log(result)
                 resolve(result);
             }
         })
@@ -94,9 +91,9 @@ function deletePassenger(MaVe) {
     })
 }
 
-function generateOrder() {
+function generateOrder(MaKhachHang) {
     return new Promise((resolve, reject) => {
-        query = ``
+        query = `EXEC InsertAndGetAutoKey_DonHang @MaKhachHang = '${MaKhachHang}'`
 
         sql.query(config, query, (err, result) => {
             if (err) {
@@ -104,6 +101,7 @@ function generateOrder() {
                 reject(err);
             }
             else {
+                console.log(result)
                 resolve(result);
             }
         })
@@ -134,5 +132,6 @@ module.exports = {
     insertPassenger: insertPassenger,
     getPassenger: getPassenger,
     deletePassenger: deletePassenger,
-    generateTicket: generateTicket
+    generateTicket: generateTicket,
+    generateOrder: generateOrder
 }

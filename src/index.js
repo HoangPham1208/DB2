@@ -33,7 +33,6 @@ app.post('/login', async (req, res) => {
                 secretKey,
                 { expiresIn: "2h" }
             )
-            console.log(users)
 
             res.status(200).send({ success: true, token: token })
         }
@@ -48,7 +47,7 @@ app.post('/login', async (req, res) => {
 
 /*
 return: {
-    flight: [
+    flights: [
         {
             MaSoMayBay: 'CB001',
             LoaiKhoang: 'Economy',
@@ -62,8 +61,8 @@ return: {
 */
 app.post('/flight', async (req, res) => {
     try {
-        const { NgayXuatPhat, NoiXuatPhat, NoiHaCanh, SoLuong } = req.body
-        const flights = await DB.getFlight(NgayXuatPhat, NoiXuatPhat, NoiHaCanh, SoLuong)
+        const { startDate, deptLoc, destLoc, quantity } = req.body
+        const flights = await DB.getFlight(startDate, deptLoc, destLoc, quantity)
         // const flights = await DB.getFlight('2023-03-01', 'HaNoi', 'Ho Chi Minh City', 19)
         // console.log(flights)
         res.status(200).send({ flights: flights })
@@ -79,44 +78,19 @@ return: {
     success
 }
 */
-app.post('/passenger/insert', async (req, res) => {
+app.get('/passenger/insert', async (req, res) => {
     try {
-        const passengers = req.body
-        await DB.insertPassenger(passengers.HoVaTen, passengers.SĐT, Email, CCCD, NgaySinh, MaChuyenBay, LoaiKhoang)
-        res.status(200).send({ success: True })
-    }
-    catch (err) {
-        res.status(500).send({ message: err.message })
-    }
-})
+        const passenger = req.body
+        await DB.insertPassenger(
+            passenger.name,
+            passenger.phonenumber,
+            passenger.email,
+            passenger.CCCD,
+            passenger.birthday,
+            passenger.flightId,
+            passenger.cabinType)
 
-
-app.post('/passenger', async (req, res) => {
-    try {
-        const { MaVe } = req.body
-        passenger = await DB.getPassenger(MaVe)
-        res.status(200).send({ success: True })
-    }
-    catch (err) {
-        res.status(500).send({ message: err.message })
-    }
-})
-
-app.post('/passenger/update', async (req, res) => {
-    try {
-        const { MaVe, passengers } = req.body
-        await DB.deletePassenger(MaVe)
-        for (let passenger of passengers) {
-            await DB.insertPassenger(passenger.HoVaTen,
-                passenger.SĐT,
-                passenger.Email,
-                passenger.CCCD,
-                passenger.NgaySinh,
-                passenger.MaChuyenBay,
-                passenger.LoaiKhoang
-            )
-        }
-        res.status(200).send({ success: True })
+        res.status(200).send({ success: true })
     }
     catch (err) {
         res.status(500).send({ message: err.message })
@@ -125,14 +99,58 @@ app.post('/passenger/update', async (req, res) => {
 
 /*
 return: {
-    MaVe
+    success
+}
+*/
+app.post('/passenger', async (req, res) => {
+    try {
+        const { ticketId } = req.body
+        passenger = await DB.getPassenger(ticketId)
+        res.status(200).send({ success: true })
+    }
+    catch (err) {
+        res.status(500).send({ message: err.message })
+    }
+})
+
+/*
+return: {
+    success
+}
+*/
+app.post('/passenger/update', async (req, res) => {
+    try {
+        const { ticketId, passengers } = req.body
+        await DB.deletePassenger(ticketId)
+        for (let passenger of passengers) {
+            await DB.insertPassenger(passenger.name,
+                passenger.phonenumber,
+                passenger.email,
+                passenger.CCCD,
+                passenger.birthday,
+                ticketId,
+                passenger.flightId,
+                passenger.cabinType
+            )
+        }
+        res.status(200).send({ success: true })
+    }
+    catch (err) {
+        res.status(500).send({ message: err.message })
+    }
+})
+
+
+/*
+return: {
+    ticketId
 }
 */
 app.get('/ticket/generate', async (req, res) => {
     try {
-        const { MaChuyenBay, MaDonHang } = req.body
-        const ticket = await DB.generateTicket(MaChuyenBay, MaDonHang)
-        res.status(200).send({ MaVe: ticket[0]['Column0'] })
+        const { flightId, orderId } = req.body
+        const ticket = await DB.generateTicket(flightId, orderId)
+        res.status(200).send({ ticketId: ticket[0]['Column0'] })
     }
     catch (err) {
         res.status(500).send({ message: err.message })
@@ -141,19 +159,20 @@ app.get('/ticket/generate', async (req, res) => {
 
 /*
 return: {
-    MaDonHang
+    orderId
 }
 */
-app.post('/order/generate', authToken, async (req, res) => {
+app.get('/order/generate', authToken, async (req, res) => {
     try {
-        const { customerId } = req.body
+        const customerId = req.data.userId
         const order = await DB.generateOrder(customerId)
-        res.status(200).send({ order: order })
+        res.status(200).send({ MaDonHang: order[0]['Column0'] })
     }
     catch (err) {
         res.status(500).send({ message: err.message })
     }
 })
+
 
 
 app.get('/bankAccount', authToken, async (req, res) => {
@@ -168,17 +187,6 @@ app.get('/bankAccount', authToken, async (req, res) => {
 app.patch('/order/payment', async (req, res) => {
     try {
 
-    }
-    catch (err) {
-        res.status(500).send({ message: err.message })
-    }
-})
-
-app.put('/ticket/update', async (req, res) => {
-    try {
-        const { customerId } = req.body
-        const order = await DB.generateOrder(customerId)
-        res.status(200).send({ order: order })
     }
     catch (err) {
         res.status(500).send({ message: err.message })
