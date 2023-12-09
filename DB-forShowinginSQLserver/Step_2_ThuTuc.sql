@@ -20,19 +20,70 @@ CREATE PROCEDURE InsertNguoiThamGiaChuyenBay
 AS
 BEGIN
     -- Kiểm tra dữ liệu hợp lệ
-    IF DATEDIFF(YEAR, @NgaySinh, GETDATE()) < 18
+    -- Kiểm tra dữ liệu HoVaTen không được bỏ trống
+    IF LTRIM(RTRIM(@HoVaTen)) = ''
     BEGIN
-        RAISERROR('Tuổi người tham gia chuyến bay phải lớn hơn hoặc bằng 18.', 16, 1);
+        RAISERROR('Chưa nhập họ và tên', 16, 1);
         RETURN;
     END
 
-    -- Kiểm tra định dạng số điện thoại
-    IF LEN(@SoDienThoai) <> 11 OR @SoDienThoai NOT LIKE '[0-9]%'
+     -- Kiểm tra dữ liệu HoVaTen chỉ chứa các chữ cái
+     IF @HoVaTen LIKE '%[^a-zA-Z ]%'
+    BEGIN
+        RAISERROR('Ho va ten khong hop', 16, 1);
+        RETURN;
+    END
+
+    -- Kiểm tra dữ liệu SoDienThoai không được bỏ trống
+    IF LTRIM(RTRIM(@SoDienThoai)) = ''
+    BEGIN
+        RAISERROR('Chưa nhập số điện thoại', 16, 1);
+        RETURN;
+    END
+     
+    -- Kiểm tra dữ liệu SoDienThoai có độ dài từ 7 đến 11 và chỉ chứa các chữ số
+    IF LEN(@SoDienThoai) < 7 Or LEN(@SoDienThoai) > 11 OR @SoDienThoai NOT LIKE '[0-9]%'
     BEGIN
         RAISERROR('Số điện thoại không hợp lệ.', 16, 1);
         RETURN;
     END
 
+    -- Kiểm tra dữ liệu NgaySinh không thể là ngày của tương lai
+     IF @NgaySinh > GETDATE()
+    BEGIN
+        RAISERROR('Ngày sinh không thể là tương lai', 16, 1);
+        RETURN;
+    END
+     
+     -- Kiểm tra dữ liệu NgaySinh có tuổi bé hơn 3 hay không
+    IF DATEDIFF(YEAR, @NgaySinh, GETDATE()) < 3
+    BEGIN
+        RAISERROR('Vui lòng thêm thông tin của đứa bé trong phần mô tả của người giám hộ', 16, 1);
+        RETURN;
+    END
+
+    -- Kiểm tra dữ liệu SoDienThoai không được bỏ trống
+    IF LTRIM(RTRIM(@NgaySinh)) = ''
+    BEGIN
+        RAISERROR('Chưa nhập số điện thoại', 16, 1);
+        RETURN;
+    END
+
+    -- Kiểm tra SoCCCD
+    IF DATEDIFF(YEAR, @NgaySinh, GETDATE()) >= 18
+    BEGIN
+        IF @SoCCCD IS NULL OR LTRIM(RTRIM(@SoCCCD)) = ''
+        BEGIN
+            RAISERROR('CCCD không được để trống', 16, 1);
+            RETURN;
+        END
+        ELSE IF LEN(@SoCCCD) <> 12 OR @SoCCCD NOT LIKE '[0-9]%'
+        BEGIN
+            RAISERROR('Can cuoc cong dan khong hop le', 16, 1);
+            RETURN;
+        END
+    END
+    
     -- Kiểm tra định dạng email
     IF NOT (CHARINDEX('@', @Email) > 0 AND CHARINDEX('.', @Email, CHARINDEX('@', @Email)) > 0)
     BEGIN
@@ -63,19 +114,70 @@ CREATE PROCEDURE UpdateNguoiThamGiaChuyenBay
 AS
 BEGIN
     -- Kiểm tra dữ liệu hợp lệ
-    IF DATEDIFF(YEAR, @NgaySinh, GETDATE()) < 18
+    -- Kiểm tra dữ liệu HoVaTen không được bỏ trống
+    IF LTRIM(RTRIM(@HoVaTen)) = ''
     BEGIN
-        RAISERROR('Tuổi người tham gia chuyến bay phải lớn hơn hoặc bằng 18.', 16, 1);
+        RAISERROR('Chưa nhập họ và tên', 16, 1);
         RETURN;
     END
 
-    -- Kiểm tra định dạng số điện thoại
-    IF LEN(@SoDienThoai) <> 11 OR @SoDienThoai NOT LIKE '[0-9]%'
+     -- Kiểm tra dữ liệu HoVaTen chỉ chứa các chữ cái
+     IF @HoVaTen LIKE '%[^a-zA-Z ]%'
+    BEGIN
+        RAISERROR('Ho va ten khong hop', 16, 1);
+        RETURN;
+    END
+
+    -- Kiểm tra dữ liệu SoDienThoai không được bỏ trống
+    IF LTRIM(RTRIM(@SoDienThoai)) = ''
+    BEGIN
+        RAISERROR('Chưa nhập số điện thoại', 16, 1);
+        RETURN;
+    END
+     
+    -- Kiểm tra dữ liệu SoDienThoai có độ dài từ 7 đến 11 và chỉ chứa các chữ số
+    IF LEN(@SoDienThoai) < 7 Or LEN(@SoDienThoai) > 11 OR @SoDienThoai NOT LIKE '[0-9]%'
     BEGIN
         RAISERROR('Số điện thoại không hợp lệ.', 16, 1);
         RETURN;
     END
 
+    -- Kiểm tra dữ liệu NgaySinh không thể là ngày của tương lai
+     IF @NgaySinh > GETDATE()
+    BEGIN
+        RAISERROR('Ngày sinh không thể là tương lai', 16, 1);
+        RETURN;
+    END
+     
+     -- Kiểm tra dữ liệu NgaySinh có tuổi bé hơn 3 hay không
+    IF DATEDIFF(YEAR, @NgaySinh, GETDATE()) < 3
+    BEGIN
+        RAISERROR('Vui lòng thêm thông tin của đứa bé trong phần mô tả của người giám hộ', 16, 1);
+        RETURN;
+    END
+
+    -- Kiểm tra dữ liệu SoDienThoai không được bỏ trống
+    IF LTRIM(RTRIM(@NgaySinh)) = ''
+    BEGIN
+        RAISERROR('Chưa nhập số điện thoại', 16, 1);
+        RETURN;
+    END
+
+    -- Kiểm tra SoCCCD
+    IF DATEDIFF(YEAR, @NgaySinh, GETDATE()) >= 18
+    BEGIN
+        IF @SoCCCD IS NULL OR LTRIM(RTRIM(@SoCCCD)) = ''
+        BEGIN
+            RAISERROR('CCCD không được để trống', 16, 1);
+            RETURN;
+        END
+        ELSE IF LEN(@SoCCCD) <> 12 OR @SoCCCD NOT LIKE '[0-9]%'
+        BEGIN
+            RAISERROR('Can cuoc cong dan khong hop le', 16, 1);
+            RETURN;
+        END
+    END
+    
     -- Kiểm tra định dạng email
     IF NOT (CHARINDEX('@', @Email) > 0 AND CHARINDEX('.', @Email, CHARINDEX('@', @Email)) > 0)
     BEGIN
@@ -85,6 +187,7 @@ BEGIN
 
     -- Kiểm tra các ràng buộc khác nếu cần
     -- ...
+
 
     -- Thực hiện cập nhật dữ liệu
     UPDATE NguoiThamGiaChuyenBay
