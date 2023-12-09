@@ -1,5 +1,6 @@
 drop procedure UpdateNguoiThamGiaChuyenBay
 CREATE PROCEDURE UpdateNguoiThamGiaChuyenBay
+    @MaKhachHang VARCHAR(255),
     @HoVaTen VARCHAR(40),
     @SoDienThoai VARCHAR(30),
     @Email VARCHAR(255),
