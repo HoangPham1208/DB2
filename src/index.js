@@ -15,7 +15,7 @@ return: {
     token 
 }
 */
-app.get('/login', async (req, res) => {
+app.post('/login', async (req, res) => {
     try {
         const { username, password, role } = req.body
         const secretKey = 'alo1234'
@@ -30,7 +30,7 @@ app.get('/login', async (req, res) => {
                 secretKey,
                 { expiresIn: "2h" }
             )
-            res.status(200).send({ success: true, token: token })
+            res.status(200).send({ token: token })
         }
         else res.status(401).send({ success: false })
     }
@@ -55,7 +55,7 @@ return: {
     ]
 }
 */
-app.get('/flight', async (req, res) => {
+app.post('/flight', async (req, res) => {
     try {
         const { NgayXuatPhat, NoiXuatPhat, NoiHaCanh, SoLuong } = req.body
         const flights = await DB.getFlight(NgayXuatPhat, NoiXuatPhat, NoiHaCanh, SoLuong)
@@ -70,6 +70,9 @@ app.get('/flight', async (req, res) => {
 
 
 /*
+return: {
+    success
+}
 */
 app.post('/passenger/insert', async (req, res) => {
     try {
@@ -83,7 +86,7 @@ app.post('/passenger/insert', async (req, res) => {
 })
 
 
-app.get('/passenger/', async (req, res) => {
+app.post('/passenger', async (req, res) => {
     try {
         const { MaVe } = req.body
         passenger = await DB.getPassenger(MaVe)
@@ -116,29 +119,22 @@ app.post('/passenger/update', async (req, res) => {
 })
 
 /*
-needed: {
-    filghtId,
-    orderId
-}  
 return: {
-    ticketId
+    MaVe
 }
 */
 app.get('/ticket/generate', async (req, res) => {
     try {
-        // const { flightId, orderId } = req.body
-        const ticket = await DB.generateTicket('CB001', 'DH002')
-        res.status(200).send({ ticketId: ticket })
+        const { MaChuyenBay, MaDonHang } = req.body
+        const ticket = await DB.generateTicket(MaChuyenBay, MaDonHang)
+        res.status(200).send({ MaVe: ticket[0]['Column0'] })
     }
     catch (err) {
         res.status(500).send({ message: err.message })
     }
 })
 
-
-
 /*
-needed: None
 return: {
     MaDonHang
 }

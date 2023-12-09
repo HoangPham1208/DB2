@@ -120,8 +120,6 @@ function generateTicket(flightId, orderId) {
                 reject(err);
             }
             else {
-                console.log(result)
-                console.log(result)
                 resolve(result);
             }
         })
