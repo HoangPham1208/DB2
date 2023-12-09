@@ -25,7 +25,7 @@ function getAccount(username, role) {
 
 function getFlight(date, startLoc, desLoc, quantity) {
     return new Promise((resolve, reject) => {
-        const query = `exec SoLuongNguoiBayTheoNgay @Date = '${date}', @Start = '${startLoc}', @End = '${desLoc}', @Quantity = ${quantity}`
+        const query = `exec DanhSachChuyenBayTheoNgay @Date = '${date}', @Start = '${startLoc}', @End = '${desLoc}', @Quantity = ${quantity}`
         sql.query(config, query, (err, result) => {
             if (err) {
                 console.log(err);

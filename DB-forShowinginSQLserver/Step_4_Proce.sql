@@ -16,7 +16,14 @@ BEGIN
 	WHERE CONVERT(DATE, C.ThoiGianXuatPhat) = @Date 
 		  and C.DiaDiemXuatPhat = @Start
 		  and C.DiaDiemHaCanh = @End
-   GROUP BY K.MaSoMayBay, K.LoaiKhoang, K.GiaKhoang, K.MoTa, K.SoLuongGheToiDaCungCap
+   GROUP BY K.MaSoMayBay ,
+		  C.DiaDiemXuatPhat, 
+		  C.DiaDiemHaCanh, 
+		  C.ThoiGianXuatPhat, 
+		  C.ThoiGianHaCanh, 
+		  K.LoaiKhoang, 
+		  K.GiaKhoang, 
+		  K.SoLuongGheToiDaCungCap
    HAVING MAX(K.SoLuongGheToiDaCungCap) - COUNT(N.HoVaTen) >= @Quantity
    ORDER BY SoLuongGheConLai
 END
