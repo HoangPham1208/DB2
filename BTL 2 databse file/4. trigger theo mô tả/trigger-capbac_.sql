@@ -8,8 +8,8 @@ BEGIN
   UPDATE KhachHang
   SET CapBac = 
       CASE 
-        WHEN a.TienThanhThanhToan > 10000000 THEN 'VIP 2'
-        WHEN a.TienThanhThanhToan > 3000000 THEN 'VIP 1'
+        WHEN a.TienDaThanhToan > 10000000 THEN 'VIP 2'
+        WHEN a.TienDaThanhToan > 3000000 THEN 'VIP 1'
         ELSE 'Normal'
       END
   FROM KhachHang as a join DonHang as b on a.MaSoTaiKhoan=b.MaKhachHang
