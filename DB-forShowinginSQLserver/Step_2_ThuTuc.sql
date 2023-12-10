@@ -8,6 +8,7 @@
  drop procedure if exists DeleteNguoiThamGiaChuyenBay 
  go
 
+
 CREATE PROCEDURE InsertNguoiThamGiaChuyenBay
     @HoVaTen VARCHAR(40),
     @SoDienThoai VARCHAR(11),
@@ -188,7 +189,6 @@ BEGIN
     -- Kiểm tra các ràng buộc khác nếu cần
     -- ...
 
-
     -- Thực hiện cập nhật dữ liệu
     UPDATE NguoiThamGiaChuyenBay
     SET HoVaTen = @HoVaTen,
@@ -201,7 +201,6 @@ BEGIN
         LoaiKhoang = @LoaiKhoang
     WHERE MaKhachHang = @MaKhachHang;
 END;
-
 go
 
 CREATE PROCEDURE DeleteNguoiThamGiaChuyenBay
@@ -214,3 +213,5 @@ BEGIN
 END;
 
 go
+
+

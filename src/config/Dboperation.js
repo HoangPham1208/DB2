@@ -132,6 +132,45 @@ function insertPassenger(HoVaTen, SDT, Email, CCCD, NgaySinh, MaVe, MaChuyenBay,
     })
 }
 
+function updatePassenger(MaKhachHang, HoVaTen, SDT, Email, CCCD, NgaySinh, MaVe, MaChuyenBay, LoaiKhoang) {
+    return new Promise((resolve, reject) => {
+        const query = `EXEC UpdateNguoiThamGiaChuyenBay
+        @MaKhachHang = '${MaKhachHang}',
+        @HoVaTen = '${HoVaTen}',
+        @SoDienThoai = '${SDT}',
+        @Email = '${Email}',
+        @SoCCCD = '${CCCD}',
+        @NgaySinh = '${NgaySinh}',
+        @MaVeMayBay = '${MaVe}',
+        @MaSoMayBay = '${MaChuyenBay}',
+        @LoaiKhoang = '${LoaiKhoang}'`
+        sql.query(config, query, (err, result) => {
+            if (err) {
+                console.log(err);
+                reject(err);
+            }
+            else {
+                resolve(result);
+            }
+        })
+    })
+}
+
+function deletePassenger(MaVe) {
+    return new Promise((resolve, reject) => {
+        const query = `exec DeleteNguoiThamGiaChuyenBay @MaKhachHang = '${MaVe}' `
+        sql.query(config, query, (err, result) => {
+            if (err) {
+                console.log(err);
+                reject(err);
+            }
+            else {
+                resolve(result);
+            }
+        })
+    })
+}
+
 function getPassenger(MaVe) {
     return new Promise((resolve, reject) => {
         const query = `select * from NguoiThamGiaChuyenBay N where N.MaVeMayBay = '${MaVe}' `
@@ -147,20 +186,7 @@ function getPassenger(MaVe) {
     })
 }
 
-function deletePassenger(MaVe) {
-    return new Promise((resolve, reject) => {
-        const query = `delete from NguoiThamGiaChuyenBay where NguoiThamGiaChuyenBay.MaVeMayBay = '${MaVe}' `
-        sql.query(config, query, (err, result) => {
-            if (err) {
-                console.log(err);
-                reject(err);
-            }
-            else {
-                resolve(result);
-            }
-        })
-    })
-}
+
 
 function generateOrder(MaKhachHang) {
     return new Promise((resolve, reject) => {
@@ -337,6 +363,7 @@ module.exports = {
     getFlight: getFlight,
     insertPassenger: insertPassenger,
     getPassenger: getPassenger,
+    updatePassenger: updatePassenger,
     deletePassenger: deletePassenger,
     generateFlightTicket: generateFlightTicket,
     generateOrder: generateOrder,

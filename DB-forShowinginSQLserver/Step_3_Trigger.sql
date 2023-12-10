@@ -5,6 +5,8 @@ go
 drop trigger if exists Tr_UpdateCustomerLevel 
 go
 
+drop trigger if exists delete_NguoiThamGiaChuyenBay
+
 CREATE TRIGGER Tr_UpdateCustomerLevel
 ON DonHang
 AFTER UPDATE
@@ -49,3 +51,20 @@ BEGIN
         RAISERROR('Số hành khách vượt cùng loại vé đã quá 9 người.', 16, 1);
     END;
 END;
+go
+
+CREATE TRIGGER delete_NguoiThamGiaChuyenBay
+ON dbo.NguoiThamGiaChuyenBay
+AFTER DELETE 
+AS 
+BEGIN 
+    IF EXISTS (
+		select * from VeDatMayBay FULL OUTER JOIN NguoiThamGiaChuyenBay on VeDatMayBay.MaDatVe = NguoiThamGiaChuyenBay.MaVeMayBay
+		where VeDatMayBay.TongTien = 0
+	)
+	BEGIN 
+		DELETE FROM dbo.VeDatMayBay
+		WHERE MaDatVe IN ( select MaVeMayBay from deleted)
+	END
+END;
+

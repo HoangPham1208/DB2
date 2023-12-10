@@ -122,7 +122,7 @@ return: {
     ]
 }
 */
-app.post('/flight', async (req, res) => {
+app.post('/flight', authToken, async (req, res) => {
 
     try {
         const { startDate, deptLoc, destLoc, quantity } = req.body
@@ -142,7 +142,7 @@ return: {
     success
 }
 */
-app.post('/passenger/insert', async (req, res) => {
+app.post('/passenger/insert', authToken, async (req, res) => {
     try {
         const passenger = req.body
         await DB.insertPassenger(
@@ -167,10 +167,58 @@ return: {
     success
 }
 */
-app.post('/passenger', async (req, res) => {
+// app.post('/passenger', async (req, res) => {
+//     try {
+//         const { ticketId } = req.body
+//         passenger = await DB.getPassenger(ticketId)
+//         res.status(200).send({ success: true })
+//     }
+//     catch (err) {
+//         res.status(500).send({ message: err.message })
+//     }
+// })
+
+/*
+return: {
+    success
+}
+*/
+// app.post('/passenger/update', async (req, res) => {
+//     try {
+//         const { ticketId, passengers } = req.body
+//         await DB.deletePassenger(ticketId)
+//         for (let passenger of passengers) {
+//             await DB.insertPassenger(passenger.name,
+//                 passenger.phonenumber,
+//                 passenger.email,
+//                 passenger.CCCD,
+//                 passenger.birthday,
+//                 ticketId,
+//                 passenger.flightId,
+//                 passenger.cabinType
+//             )
+//         }
+//         res.status(200).send({ success: true })
+//     }
+//     catch (err) {
+//         res.status(500).send({ message: err.message })
+//     }
+// })
+
+app.post('/passenger/update', authToken, async (req, res) => {
     try {
-        const { ticketId } = req.body
-        passenger = await DB.getPassenger(ticketId)
+        const passenger = req.body
+        await DB.updatePassenger(
+            passenger.ID,
+            passenger.name,
+            passenger.phonenumber,
+            passenger.email,
+            passenger.CCCD,
+            passenger.birthday,
+            passenger.ticketId,
+            passenger.flightId,
+            passenger.cabinType
+        )
         res.status(200).send({ success: true })
     }
     catch (err) {
@@ -178,26 +226,11 @@ app.post('/passenger', async (req, res) => {
     }
 })
 
-/*
-return: {
-    success
-}
-*/
-app.post('/passenger/update', async (req, res) => {
+app.post('/passenger/delete', authToken, async (req, res) => {
     try {
-        const { ticketId, passengers } = req.body
-        await DB.deletePassenger(ticketId)
-        for (let passenger of passengers) {
-            await DB.insertPassenger(passenger.name,
-                passenger.phonenumber,
-                passenger.email,
-                passenger.CCCD,
-                passenger.birthday,
-                ticketId,
-                passenger.flightId,
-                passenger.cabinType
-            )
-        }
+        const { ID } = req.body
+        console.log(ID)
+        await DB.deletePassenger(ID)
         res.status(200).send({ success: true })
     }
     catch (err) {
@@ -211,7 +244,7 @@ return: {
     ticketId
 }
 */
-app.post('/flightTicket/generate', async (req, res) => {
+app.post('/flightTicket/generate', authToken, async (req, res) => {
     try {
 
         const flightId = req.body.flightID
@@ -259,7 +292,7 @@ return: {
     ]
 }
 */
-app.post('/room', async (req, res) => {
+app.post('/room', authToken, async (req, res) => {
     try {
         const { checkInDate, checkOutDate, city } = req.body
         const rooms = await DB.getRoom(checkInDate, checkOutDate, city)
@@ -278,16 +311,16 @@ return: {
     ticketId
 }
 */
-app.post('/roomTicket/generate', async (req, res) => {
-    try {
-        const { orderId } = req.body
-        const ticket = await DB.generateRoomTicket(orderId)
-        res.status(200).send({ ticketId: ticket[0]['Column0'] })
-    }
-    catch (err) {
-        res.status(500).send({ message: err.message })
-    }
-})
+// app.post('/roomTicket/generate', async (req, res) => {
+//     try {
+//         const { orderId } = req.body
+//         const ticket = await DB.generateRoomTicket(orderId)
+//         res.status(200).send({ ticketId: ticket[0]['Column0'] })
+//     }
+//     catch (err) {
+//         res.status(500).send({ message: err.message })
+//     }
+// })
 
 /*
 return:{
@@ -377,6 +410,17 @@ app.post('/getHotelService',authToken, async (req, res) => {
         const { userId } = req.data
         const hotelService = await DB.getHotelService(userId)
         res.status(200).send({ hotelService: hotelService })
+    }
+    catch (err) {
+        res.status(500).send({ message: err.message })
+    }
+})
+
+app.post('/getCabinFlight',authToken, async (req, res) => {
+    try {
+        const { userId, MaSoMayBay } = req.data
+        const cabinFlight = await DB.getCabinFlight(userId)
+        res.status(200).send({ cabinFlight: cabinFlight })
     }
     catch (err) {
         res.status(500).send({ message: err.message })
