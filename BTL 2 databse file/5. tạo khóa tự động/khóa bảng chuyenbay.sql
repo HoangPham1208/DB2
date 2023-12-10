@@ -1,4 +1,4 @@
-﻿CREATE TRIGGER instead_of_insert_ChuyenBay
+CREATE TRIGGER instead_of_insert_ChuyenBay
 ON ChuyenBay
 INSTEAD OF INSERT
 AS
@@ -14,7 +14,8 @@ BEGIN
    -- FROM INSERTED;
 
     -- Chèn dữ liệu mới và cập nhật MaSo
-    INSERT INTO ChuyenBay (Ngay, ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong, MaSo)
-    SELECT Ngay, ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong, 'CB'  + RIGHT('000' + CAST(@nextID AS VARCHAR(3)), 3)
+    INSERT INTO ChuyenBay ( ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong, MaSo)
+    SELECT  ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong, 'CB'  + RIGHT('000' + CAST(@nextID AS VARCHAR(3)), 3)
     FROM INSERTED;
 END;
+go
