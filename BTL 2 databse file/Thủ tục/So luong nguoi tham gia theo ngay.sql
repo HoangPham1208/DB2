@@ -1,26 +1,18 @@
-CREATE OR ALTER PROCEDURE SoluongNguoiBayTheoNgay (@Date DATE, @MaChuDichVu VARCHAR(20))
+CREATE OR ALTER PROCEDURE SoluongNguoiBayTheoNgay @MaChuDV VARCHAR(20), @Date DATE
 AS
 BEGIN
-   SELECT C.MaSo, K.LoaiKhoang, COUNT(*) AS SoLuongGhe
-   FROM Chuyenbay C, KhoangTrenChuyenBay K, NguoiThamGiaChuyenBay N
+   SELECT H.TenHang, C.MaSo AS MaSoChuyenBay, K.LoaiKhoang, COUNT(N.HoVaTen) AS SoLuongNguoiThamGia, MAX(K.GiaKhoang)*(COUNT(N.HoVaTen)) AS TongTienVeThuDuoc
+   FROM NhaCungCapDichVu D JOIN HangHangKhong H ON D.MaDichVu = H.MaDichVu
+   JOIN ChuyenBay C ON H.MaSoThue = C.MaSoThueCuaHangHangKhong
+   JOIN KhoangTrenChuyenBay K ON C.MaSo = K.MaSoMayBay
+   LEFT JOIN NguoiThamGiaChuyenBay N ON (K.MaSoMayBay = N.MaSoMayBay and K.LoaiKhoang = N.LoaiKhoang)
    WHERE CONVERT(DATE, C.ThoiGianXuatPhat) = @Date 
-      and C.MaSo = K.MaSoMayBay 
-      and K.MaSoMayBay = N.MaSoMayBay 
-      and K.LoaiKhoang = N.LoaiKhoang
-   GROUP BY C.MaSo, K.LoaiKhoang
-   ORDER BY SoLuongGhe DESC
+   GROUP BY H.TenHang, C.MaSo, K.LoaiKhoang
+   ORDER BY SoLuongNguoiThamGia
 END
 
-exec SoluongNguoiBayTheoNgay 
-@Date = '2023-12-20',
-@MaChuDichVu = 'TK003'
-
-select * from DonHang where DonHang.MaDonHang = 'DH124'
-select * from DonHang D, VeDatMayBay V, ChuyenBay where D.MaDonHang = V.MaDonHang and D.MaDonHang = 'DH124' and ChuyenBay.MaSo = V.MaSoChuyenBay
-select * from VeDatMayBay where VeDatMayBay.MaDonHang = 'DH124'
-select * from NguoiThamGiaChuyenBay
-select * from ChuyenBay
+exec SoluongNguoiBayTheoNgay @MaChuDV = 'TK003', @Date = '2023-03-01'
 
 select * from ChuDichVu
 select * from NhaCungCapDichVu
-select * from HangHangKhong
+select * from KhoangTrenChuyenBay

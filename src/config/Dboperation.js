@@ -16,56 +16,56 @@ function getProfile(userId) {
     })
 }
 
-function getBankAccount(userId){
-    return new Promise((resolve,reject)=>{
+function getBankAccount(userId) {
+    return new Promise((resolve, reject) => {
         let query = `select * from TaiKhoanNganHang T where T.MaKhachHang = '${userId}'`
-        sql.query(config,query,(err,result)=>{
-            if(err){
+        sql.query(config, query, (err, result) => {
+            if (err) {
                 reject(err);
             }
-            else{
+            else {
                 resolve(result);
             }
         })
     })
 }
 
-function getOrder(userId){
-    return new Promise((resolve,reject)=>{
+function getOrder(userId) {
+    return new Promise((resolve, reject) => {
         let query = `select * from DonHang D where D.MaKhachHang = '${userId}'`
-        sql.query(config,query,(err,result)=>{
-            if(err){
+        sql.query(config, query, (err, result) => {
+            if (err) {
                 reject(err);
             }
-            else{
+            else {
                 resolve(result);
             }
         })
     })
 }
 
-function getTicketOfOrder(orderId){
-    return new Promise((resolve,reject)=>{
+function getTicketOfOrder(orderId) {
+    return new Promise((resolve, reject) => {
         let query = `select * from DonHang D, VeDatMayBay V, ChuyenBay where D.MaDonHang = V.MaDonHang and ChuyenBay.MaSo = V.MaSoChuyenBay and D.MaDonHang = '${orderId}'`
-        sql.query(config,query,(err,result)=>{
-            if(err){
+        sql.query(config, query, (err, result) => {
+            if (err) {
                 reject(err);
             }
-            else{
+            else {
                 console.log(result)
                 resolve(result);
             }
         })
     })
 }
-function getPassengerOfTicket(ticketId){
-    return new Promise((resolve,reject)=>{
+function getPassengerOfTicket(ticketId) {
+    return new Promise((resolve, reject) => {
         let query = `select * from NguoiThamGiaChuyenBay where NguoiThamGiaChuyenBay.MaVeMayBay = '${ticketId}'`
-        sql.query(config,query,(err,result)=>{
-            if(err){
+        sql.query(config, query, (err, result) => {
+            if (err) {
                 reject(err);
             }
-            else{
+            else {
                 resolve(result);
             }
         })
@@ -241,6 +241,23 @@ function getRevenue(providerId, airline, year) {
 }
 
 
+function getNumberPassenger(providerId, date) {
+    return new Promise((resolve, reject) => {
+        const query = `exec SoluongNguoiBayTheoNgay @MaChuDV = '${providerId}', @Date = '${date}'`
+
+        sql.query(config, query, (err, result) => {
+            if (err) {
+                console.log(err);
+                reject(err);
+            }
+            else {
+                console.log(result)
+                resolve(result);
+            }
+        })
+    })
+}
+
 module.exports = {
     getProfile: getProfile,
     getBankAccount: getBankAccount,
@@ -256,5 +273,6 @@ module.exports = {
     generateOrder: generateOrder,
     getRoom: getRoom,
     generateRoomTicket: generateRoomTicket,
-    getRevenue: getRevenue
+    getRevenue: getRevenue,
+    getNumberPassenger: getNumberPassenger
 }
