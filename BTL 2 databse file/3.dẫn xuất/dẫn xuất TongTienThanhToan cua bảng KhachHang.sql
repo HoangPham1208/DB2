@@ -15,6 +15,6 @@ END;
 
 -- Add a computed column for TongTien in the KhachHang table
 ALTER TABLE KhachHang
-ADD TienThanhThanhToan AS dbo.CalculateTotalAmountPaid(MaSoTaiKhoan);
+ADD TienDaThanhToan AS dbo.CalculateTotalAmountPaid(MaSoTaiKhoan);
 select * from KhachHang
 select * from DonHang
