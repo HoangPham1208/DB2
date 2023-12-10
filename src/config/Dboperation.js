@@ -16,6 +16,19 @@ function getProfile(userId){
     })
 }
 
+function getBankAccount(userId){
+    return new Promise((resolve,reject)=>{
+        let query = `select * from TaiKhoanNganHang T where T.MaKhachHang = '${userId}'`
+        sql.query(config,query,(err,result)=>{
+            if(err){
+                reject(err);
+            }
+            else{
+                resolve(result);
+            }
+        })
+    })
+}
 function getAccount(username, role) {
     return new Promise((resolve, reject) => {
         let query;
@@ -172,6 +185,7 @@ function generateRoomTicket(orderId) {
 
 module.exports = {
     getProfile: getProfile,
+    getBankAccount: getBankAccount,
     getAccount: getAccount,
     getFlight: getFlight,
     insertPassenger: insertPassenger,

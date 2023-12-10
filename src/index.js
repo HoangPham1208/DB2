@@ -26,6 +26,17 @@ app.post('/profile', authToken, async (req, res) => {
     }
 })
 
+app.post('/bankAccount', authToken, async (req, res) => {
+    try {
+        const { userId } = req.data
+        const bankAccount = await DB.getBankAccount(userId)
+        res.status(200).send( bankAccount )
+    }
+    catch (err) {
+        res.status(500).send({ message: err.message })
+    }
+})
+
 
 /*
 return: {
