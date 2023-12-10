@@ -90,7 +90,6 @@ CREATE TABLE HangHangKhong (
 
 CREATE TABLE ChuyenBay (
   MaSo VARCHAR(20) NOT NULL,
-  Ngay DATE NOT NULL,
   ThoiGianXuatPhat DATETIME NOT NULL,
   ThoiGianHaCanh DATETIME NOT NULL,
   DiaDiemXuatPhat VARCHAR(50) NOT NULL,
