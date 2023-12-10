@@ -10,7 +10,23 @@ const port = 5000
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(cors())
+
+
 ////////////////API////////////////
+
+
+app.post('/profile', authToken, async (req, res) => {
+    try {
+        const { userId } = req.data
+        const profile = await DB.getProfile(userId)
+        res.status(200).send( profile )
+    }
+    catch (err) {
+        res.status(500).send({ message: err.message })
+    }
+})
+
+
 /*
 return: {
     success: Bool
