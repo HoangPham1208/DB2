@@ -67,9 +67,9 @@ BEGIN
    ORDER BY SoLuongGhe DESC
 END
 
-exec SoluongNguoiBayTheoNgay 
-@Date = '2023-03-02',
-@MaChuDichVu = 'TK001'
+--exec SoluongNguoiBayTheoNgay 
+--@Date = '2023-03-02',
+--@MaChuDichVu = 'TK001'
 
 /*
 exec SoluongNguoiBayTheoNgay @MaChuDV = 'TK003', @Date = '2023-03-01'
