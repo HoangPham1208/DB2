@@ -11,7 +11,7 @@ RETURN
     SELECT TOP (@TopCount)
         c.Ho,
         c.TenDem,
-        c.Ten,sum(b.tongtien) as SoTienKhachHangDaThanhToan
+        c.Ten,sum(b.TongTien) as SoTienKhachHangDaThanhToan
     FROM
         KhachHang as a join DonHang as b on a.MaSoTaiKhoan=b.MaKhachHang
 		join TaiKhoanDangNhap as c on c.MaSo=a.MaSoTaiKhoan
@@ -44,8 +44,9 @@ RETURN
     GROUP BY
         MONTH(a.NgayGiaoDich)
 );
+GO
 --select * from DonHang join DonHang 
 --select * from VeDatMayBay
 
-select * from ThongKeDoanhThu12Thang('TK003','AirAsia','2023')
-select * from HangHangKhong
+--select * from ThongKeDoanhThu12Thang('TK003','AirAsia','2023')
+--select * from HangHangKhong
