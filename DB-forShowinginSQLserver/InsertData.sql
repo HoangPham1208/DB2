@@ -109,13 +109,24 @@ INSERT INTO HangHangKhong (MaSoThue, TenHang, MoTa, SoDienThoaiTuVanVien, MaDich
 
 select * from HangHangKhong
 
-INSERT INTO ChuyenBay ( Ngay, ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong)
+INSERT INTO ChuyenBay ( ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong)
 VALUES
   ( '2023-03-01', '2023-03-01 08:00:00', '2023-03-01 10:00:00', 'Hanoi', 'Ho Chi Minh City', 'H001');
 
-INSERT INTO ChuyenBay ( Ngay, ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong)
+INSERT INTO ChuyenBay ( ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong)
 VALUES
-  ( '2023-03-02', '2023-03-02 12:00:00', '2023-03-02 14:00:00', 'Ho Chi Minh City', 'Hanoi', 'H002');
+  ( '2024-03-01 12:00:00', '2024-03-01 14:00:00', 'Ho Chi Minh City', 'Hanoi', 'H002');
+  ( '2024-03-14 12:00:00', '2024-03-14 14:00:00', 'HaNoi', 'Hue', 'H002');
+  ( '2024-04-02 12:00:00', '2024-04-02 14:00:00', 'Hue', 'Hanoi', 'H002');
+  ( '2024-04-07 12:00:00', '2024-04-07 14:00:00', 'DaNang', 'Hanoi', 'H002');
+  ( '2024-05-02 12:00:00', '2024-05-02 14:00:00', 'Ho Chi Minh City', 'DaNang', 'H002');
+  ( '2024-05-07 12:00:00', '2024-05-07 14:00:00', 'NhaTrang', 'Hanoi', 'H002');
+  ( '2024-06-02 12:00:00', '2024-06-02 14:00:00', 'Ho Chi Minh City', 'Hue', 'H002');
+  ( '2024-06-08 12:00:00', '2024-06-08 14:00:00', 'Ho Chi Minh City', 'Hanoi', 'H002');
+  ( '2024-01-02 12:00:00', '2024-01-02 14:00:00', 'HaNoi', 'Ho Chi Minh City', 'H002');
+  ( '2024-01-01 12:00:00', '2024-01-01 14:00:00', 'Ho Chi Minh City', 'NhaTrang', 'H002');
+  ( '2024-02-09 12:00:00', '2024-02-09 14:00:00', 'NhaTrang', 'Hanoi', 'H002');
+  ( '2024-02-09 12:00:00', '2024-02-09 14:00:00', 'HaNoi', 'DaNang', 'H002');
 
 delete from ChuyenBay
 select * from ChuyenBay
@@ -127,7 +138,27 @@ VALUES
   ('CB001', 'Business', 2000000, 20,'Spacious seats with premium services'),
   ('CB001', 'Economy', 800000, 150, 'Standard seating with in-flight entertainment'),
   ('CB002', 'Business', 1800000, 18, 'Comfortable seats with extra legroom'), 
-  ('CB002', 'Economy', 700000, 160, 'Affordable seating for budget travelers');
+  ('CB002', 'Economy', 700000, 160, 'Affordable seating for budget travelers'),
+  ('CB003', 'Business', 1900000, 30, 'Comfortable seats with extra legroom'), 
+  ('CB003', 'Economy', 750000, 150, 'Affordable seating for budget travelers'),
+  ('CB004', 'Business', 1850000, 25, 'Comfortable seats with extra legroom'), 
+  ('CB004', 'Economy', 750000, 160, 'Affordable seating for budget travelers'),
+  ('CB005', 'Business', 1750000, 22, 'Comfortable seats with extra legroom'), 
+  ('CB005', 'Economy', 850000, 144, 'Affordable seating for budget travelers'),
+  ('CB006', 'Business', 1600000, 32, 'Comfortable seats with extra legroom'), 
+  ('CB006', 'Economy', 770000, 145, 'Affordable seating for budget travelers'),
+  ('CB007', 'Business', 1900000, 30, 'Comfortable seats with extra legroom'), 
+  ('CB007', 'Economy', 750000, 150, 'Affordable seating for budget travelers'),
+  ('CB008', 'Business', 2000000, 20,'Spacious seats with premium services'),
+  ('CB008', 'Economy', 800000, 150, 'Standard seating with in-flight entertainment'),
+  ('CB009', 'Business', 1800000, 18, 'Comfortable seats with extra legroom'), 
+  ('CB009', 'Economy', 700000, 160, 'Affordable seating for budget travelers'),
+  ('CB010', 'Business', 1900000, 30, 'Comfortable seats with extra legroom'), 
+  ('CB0010', 'Economy', 750000, 150, 'Affordable seating for budget travelers'),
+  ('CB0011', 'Business', 1850000, 25, 'Comfortable seats with extra legroom'), 
+  ('CB0011', 'Economy', 750000, 160, 'Affordable seating for budget travelers'),
+  ('CB0012', 'Business', 1750000, 22, 'Comfortable seats with extra legroom'), 
+  ('CB0012', 'Economy', 850000, 144, 'Affordable seating for budget travelers'),
 
 select * from KhoangTrenChuyenBay
 
