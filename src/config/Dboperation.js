@@ -260,7 +260,7 @@ function getNumberPassenger(userId, date) {
 
 function getNumberPassengerOfAirline(userId, airline, date) {
     return new Promise((resolve, reject) => {
-        const query = `exec SoluongNguoiBayTheoNgayCuaChuyenBay @MaChuDV = '${userId}', @name = '${airline}', @Date = '${date}'`
+        const query = `exec SoluongNguoiBayTheoNgayCuaHangBay @MaChuDV = '${userId}', @name = '${airline}', @Date = '${date}'`
         sql.query(config, query, (err, result) => {
             if(err) {
                 console.log(err)
