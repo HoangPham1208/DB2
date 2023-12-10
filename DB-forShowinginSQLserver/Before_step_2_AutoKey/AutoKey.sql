@@ -121,13 +121,13 @@ BEGIN
     )
     SELECT @NextID = NextID FROM CTE;
 
-	SELECT 'V00' + CAST(@NextID AS VARCHAR(3));
+	SELECT 'V'  + RIGHT('000' + CAST(@nextID AS VARCHAR(3)), 3)
 
     INSERT INTO VeDatMayBay (MaDonHang, MaSoChuyenBay, MaDatVe)
     VALUES (
         @MaDonHang,
         @MaSoChuyenBay,
-        'V00' + CAST(@NextID AS VARCHAR(3))
+        'V'  + RIGHT('000' + CAST(@nextID AS VARCHAR(3)), 3)
     );
 END;
 GO
@@ -146,7 +146,7 @@ BEGIN
     -- Lấy giá trị mã số tăng dần tiếp theo cho mỗi hàng
     SELECT @nextID = COALESCE(MAX(CAST(SUBSTRING(td.MaDonHang, 3, LEN(td.MaDonHang) - 2) AS INT)), 0) + ROW_NUMBER() OVER (ORDER BY (SELECT NULL))
     FROM DonHang td
-    SELECT 'DH' + RIGHT('000' + CAST(@nextID AS VARCHAR(3)), 3);
+    SELECT 'DH'  + RIGHT('000' + CAST(@nextID AS VARCHAR(3)), 3)
 
 
     SELECT TOP 1 @BankAccount = N.SoTaiKhoan, @Bank = N.TenNganHang FROM TaiKhoanNganHang N WHERE N.MaKhachHang = @MaKhachHang 
