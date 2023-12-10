@@ -17,5 +17,11 @@ BEGIN
 END
 
 exec SoluongNguoiBayTheoNgay 
-@Date = '2023-03-02',
-@MaChuDichVu = 'TK001'
+@Date = '2023-12-20',
+@MaChuDichVu = 'TK003'
+
+select * from DonHang where DonHang.MaDonHang = 'DH124'
+select * from DonHang D, VeDatMayBay V, ChuyenBay where D.MaDonHang = V.MaDonHang and D.MaDonHang = 'DH124' and ChuyenBay.MaSo = V.MaSoChuyenBay
+select * from VeDatMayBay where VeDatMayBay.MaDonHang = 'DH124'
+select * from NguoiThamGiaChuyenBay
+select * from ChuyenBay
