@@ -24,7 +24,6 @@ RETURN
 GO
 
 
-
 CREATE FUNCTION ThongKeDoanhThu12Thang(@machudichvu VARCHAR(20),@tenhangmaybay VARCHAR(50),@namthongke INT)
 RETURNS TABLE
 AS
@@ -50,3 +49,4 @@ GO
 
 --select * from ThongKeDoanhThu12Thang('TK003','AirAsia','2023')
 --select * from HangHangKhong
+

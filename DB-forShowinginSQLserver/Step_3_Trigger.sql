@@ -6,20 +6,25 @@ drop trigger if exists Tr_UpdateCustomerLevel
 go
 
 CREATE TRIGGER Tr_UpdateCustomerLevel
-ON dbo.KhachHang
-AFTER INSERT, UPDATE
+ON DonHang
+AFTER UPDATE
 AS
 BEGIN
-    SET NOCOUNT ON;
-    UPDATE KhachHang
-    SET CapBac = CASE 
-        WHEN KhachHang.TienThanhThanhToan > 3000000 THEN 'VIP 2'
-        WHEN KhachHang.TienThanhThanhToan > 10000 THEN 'VIP 1'
+  SET NOCOUNT ON;
+
+  UPDATE KhachHang
+  SET CapBac = 
+      CASE 
+        WHEN a.TienThanhThanhToan > 10000000 THEN 'VIP 2'
+        WHEN a.TienThanhThanhToan > 3000000 THEN 'VIP 1'
         ELSE 'Normal'
       END
-    FROM KhachHang
-    INNER JOIN INSERTED ON KhachHang.MaSoTaiKhoan = INSERTED.MaSoTaiKhoan;
+  FROM KhachHang as a join DonHang as b on a.MaSoTaiKhoan=b.MaKhachHang
+  WHERE b.TinhTrangDonHang='Đã thanh toán'
+  
 END;
+--test: UPDATE DonHang SET TinhTrangDonHang = 'Đã thanh toán' WHERE MaDonHang = 'DH004';
+
 go
 
 CREATE TRIGGER So_Luong_Khach_Tren1Ve
