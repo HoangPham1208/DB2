@@ -11,9 +11,12 @@ BEGIN
    ORDER BY SoLuongNguoiThamGia
 END
 
+
 exec SoluongNguoiBayTheoNgay @MaChuDV = 'TK003', @Date = '2023-12-20'
 
-CREATE OR ALTER PROCEDURE SoluongNguoiBayTheoNgayCuaChuyenBay @MaChuDV VARCHAR(20), @Date DATE, @name VARCHAR(20)
+go
+
+CREATE OR ALTER PROCEDURE SoluongNguoiBayTheoNgayCuaHangBay @MaChuDV VARCHAR(20), @Date DATE, @name VARCHAR(20)
 AS
 BEGIN
    SELECT H.TenHang, C.MaSo AS MaSoChuyenBay, K.LoaiKhoang, COUNT(N.HoVaTen) AS SoLuongNguoiThamGia, MAX(K.GiaKhoang)*(COUNT(N.HoVaTen)) AS TongTienVeThuDuoc
@@ -25,6 +28,7 @@ BEGIN
    GROUP BY H.TenHang, C.MaSo, K.LoaiKhoang
    ORDER BY SoLuongNguoiThamGia
 END
+go
 select * from ChuDichVu
 select * from NhaCungCapDichVu
 select * from KhoangTrenChuyenBay
@@ -41,3 +45,4 @@ BEGIN
    GROUP BY H.TenHang, C.MaSo, K.LoaiKhoang
    ORDER BY SoLuongNguoiThamGia
 END
+
