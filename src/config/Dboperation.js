@@ -2,6 +2,20 @@ const { query } = require('express');
 var config = require('./connect_db')
 const sql = require('msnodesqlv8')
 
+function getProfile(userId){
+    return new Promise((resolve,reject)=>{
+        let query = `select * from TaiKhoanDangNhap T where T.MaSo = '${userId}'`
+        sql.query(config,query,(err,result)=>{
+            if(err){
+                reject(err);
+            }
+            else{
+                resolve(result);
+            }
+        })
+    })
+}
+
 function getAccount(username, role) {
     return new Promise((resolve, reject) => {
         let query;
@@ -157,6 +171,7 @@ function generateRoomTicket(orderId) {
 
 
 module.exports = {
+    getProfile: getProfile,
     getAccount: getAccount,
     getFlight: getFlight,
     insertPassenger: insertPassenger,
@@ -165,5 +180,5 @@ module.exports = {
     generateFlightTicket: generateFlightTicket,
     generateOrder: generateOrder,
     getRoom: getRoom,
-    generateRoomTicket: generateRoomTicket
+    generateRoomTicket: generateRoomTicket,
 }
