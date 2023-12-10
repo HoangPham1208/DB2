@@ -224,9 +224,9 @@ function generateRoomTicket(orderId) {
     })
 }
 
-function getRevenue(providerId, airline, year) {
+function getRevenue(userId, airline, year) {
     return new Promise((resolve, reject) => {
-        const query = `select * from ThongKeDoanhThu12Thang('${providerId}','${airline}','${year}')`
+        const query = `select * from ThongKeDoanhThu12Thang('${userId}','${airline}','${year}')`
 
         sql.query(config, query, (err, result) => {
             if (err) {
@@ -241,9 +241,78 @@ function getRevenue(providerId, airline, year) {
 }
 
 
-function getNumberPassenger(providerId, date) {
+function getNumberPassenger(userId, date) {
     return new Promise((resolve, reject) => {
-        const query = `exec SoluongNguoiBayTheoNgay @MaChuDV = '${providerId}', @Date = '${date}'`
+        const query = `exec SoluongNguoiBayTheoNgay @MaChuDV = '${userId}', @Date = '${date}'`
+
+        sql.query(config, query, (err, result) => {
+            if (err) {
+                console.log(err);
+                reject(err);
+            }
+            else {
+                console.log(result)
+                resolve(result);
+            }
+        })
+    })
+}
+
+function getNumberPassengerOfAirline(userId, airline, date) {
+    return new Promise((resolve, reject) => {
+        const query = `exec SoluongNguoiBayTheoNgayCuaChuyenBay @MaChuDV = '${userId}', @name = '${airline}', @Date = '${date}'`
+        sql.query(config, query, (err, result) => {
+            if(err) {
+                console.log(err)
+                reject(err)
+            }
+            else{
+                console.log(result)
+                resolve(result)
+            }
+        })
+    })
+}
+
+function getNumberPassengerTotal(userId) {
+    return new Promise((resolve, reject) => {
+        const query = `exec SoluongNguoiBayTong @MaChuDV = '${userId}'`
+        sql.query(config, query, (err, result) => {
+            if(err) {
+                console.log(err)
+                reject(err)
+            }
+            else{
+                console.log(result)
+                resolve(result)
+            }
+        }
+        )
+    })
+}
+
+
+function getFlightService(userId) {
+    return new Promise((resolve, reject) => {
+        const query = `select * from HangHangKhong as HHK, ChuDichVu as CDV, NhaCungCapDichVu as NCCDV
+        where HHK.MaDichVu = NCCDV.MaDichVu and CDV.MaSoTaiKhoan = NCCDV.MaChuDichVu and CDV.MaSoTaiKhoan = '${userId}'`
+
+        sql.query(config, query, (err, result) => {
+            if (err) {
+                console.log(err);
+                reject(err);
+            }
+            else {
+                console.log(result)
+                resolve(result);
+            }
+        })
+    })
+}
+function getHotelService(userId) {
+    return new Promise((resolve, reject) => {
+        const query = `select * from KhachSan as KS, ChuDichVu as CDV, NhaCungCapDichVu as NCCDV
+        where KS.MaDichVu = NCCDV.MaDichVu and CDV.MaSoTaiKhoan = NCCDV.MaChuDichVu and CDV.MaSoTaiKhoan = '${userId}'`
 
         sql.query(config, query, (err, result) => {
             if (err) {
@@ -274,5 +343,9 @@ module.exports = {
     getRoom: getRoom,
     generateRoomTicket: generateRoomTicket,
     getRevenue: getRevenue,
-    getNumberPassenger: getNumberPassenger
+    getNumberPassenger: getNumberPassenger,
+    getNumberPassengerOfAirline: getNumberPassengerOfAirline,
+    getNumberPassengerTotal: getNumberPassengerTotal,
+    getFlightService: getFlightService,
+    getHotelService: getHotelService
 }
