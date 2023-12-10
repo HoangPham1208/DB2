@@ -4,14 +4,15 @@ AS
 BEGIN
     DECLARE @TotalAmount INT;
 
-    SELECT @TotalAmount = SUM(C.GiaKhoang)
-    FROM VeDatMayBay AS a
-    JOIN NguoiThamGiaChuyenBay AS b ON a.MaDatVe = b.MaVeMayBay
-    JOIN KhoangTrenChuyenBay AS c ON b.MaSoMayBay = c.MaSoMayBay AND b.LoaiKhoang = c.LoaiKhoang
-    JOIN DonHang AS d ON a.MaDonHang = d.MaDonHang
-    WHERE d.MaDonHang = @MaDonHang
-    GROUP BY d.MaDonHang, d.MaKhachHang;
+    SELECT @TotalAmount = SUM(b.TongTien) + SUM(c.TongTien) +SUM(d.TongTien)
+    FROM DonHang AS a
+    JOIN VeDatPhong AS b ON a.MaDonHang = b.MaDonHang
+    JOIN PhieuNhaHang AS c ON a.MaDonHang = c.MaDonHang
+	JOIN VeDatMayBay as d  ON a.MaDonHang =d.MaDonHang
+    WHERE a.MaDonHang = @MaDonHang
+    GROUP BY a.MaDonHang, a.MaKhachHang;
     RETURN ISNULL(@TotalAmount, 0);
 END;
+
 ALTER TABLE DonHang
-ADD TongTien AS dbo.CalculateTotalAmount(DonHang.MaDonHang)
+ADD TongTien AS dbo.CalculateTotalAmount(MaDonHang);
