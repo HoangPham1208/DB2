@@ -17,7 +17,9 @@ app.use(cors())
 
 app.post('/profile', authToken, async (req, res) => {
     try {
+        console.log(req.data)
         const { userId } = req.data
+        console.log(userId)
         const profile = await DB.getProfile(userId)
         res.status(200).send( profile )
     }
@@ -37,6 +39,40 @@ app.post('/bankAccount', authToken, async (req, res) => {
     }
 })
 
+app.post('/getOrder', authToken, async (req, res) => {
+    try {
+        const { userId } = req.data
+        const order = await DB.getOrder(userId)
+        res.status(200).send( order )
+    }
+    catch (err) {
+        res.status(500).send({ message: err.message })
+    }
+})
+
+app.post('/getTicketOfOrder', authToken, async (req, res) => {
+    try {
+        const { MaDonHang } = req.body
+        const orderId = MaDonHang
+        const ticket = await DB.getTicketOfOrder(orderId)
+        res.status(200).send( ticket )
+    }
+    catch (err) {
+        res.status(500).send({ message: err.message })
+    }
+})
+
+app.post('/getPassengerOfTicket', authToken, async (req, res) => {
+    try {
+        const { MaDatVe } = req.body
+        const ticketId = MaDatVe
+        const passenger = await DB.getPassengerOfTicket(ticketId)
+        res.status(200).send( passenger )
+    }
+    catch (err) {
+        res.status(500).send({ message: err.message })
+    }
+})
 
 /*
 return: {
@@ -58,7 +94,7 @@ app.post('/login', async (req, res) => {
                     userRole: role
                 },
                 secretKey,
-                { expiresIn: "2h" }
+                { expiresIn: "12h" }
             )
 
             res.status(200).send({ success: true, token: token })
