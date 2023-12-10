@@ -299,10 +299,11 @@ return:{
     ]
 }
 */
-app.get('/revenue', async (req, res) => {
+app.post('/revenue', authToken,async (req, res) => {
     try {
-        const { providerId, airline, year } = req.body
-        const revenue = await DB.getRevenue(providerId, airline, year)
+        const {airline, year } = req.body
+        const userId  = req.data.userId
+        const revenue = await DB.getRevenue(userId, airline, year)
         // const revenue = await DB.getRevenue('TK003', 'AirAsia', '2023')
         res.status(200).send({ revenue: revenue })
     }
@@ -325,13 +326,57 @@ return: {
     ]
 }
 */
-app.get('/numberPassenger', async (req, res) => {
+app.post('/numberPassenger', authToken, async (req, res) => {
     try {
-        const { providerId, date } = req.body
-        const numberPassenger = await DB.getNumberPassenger(providerId, date)
-        // const numberPassenger = await DB.getNumberPassenger('TK003', '2023-03-02')
+        const { date } = req.body
+        const userId = req.data.userId
+        const numberPassenger = await DB.getNumberPassenger(userId, date)
+        // const numberPassenger = await DB.getNumberPassenger('TK003', '2023 -03-02')
         // console.log(numberPassenger)
         res.status(200).send({ numberPassenger: numberPassenger })
+    }
+    catch (err) {
+        res.status(500).send({ message: err.message })
+    }
+})
+app.post('/numberPassengerOfAirline', authToken, async (req, res) => {
+    try {
+        const { airline, date } = req.body
+        const userId  = req.data.userId
+        const numberPassenger = await DB.getNumberPassengerOfAirline(userId, airline, date)
+        res.status(200).send({ numberPassenger: numberPassenger })
+    }
+    catch (err) {
+        res.status(500).send({ message: err.message })
+    }
+})
+
+app.post('/numberPassengerTotal', authToken, async (req, res) => {
+    try {
+        const userId  = req.data.userId
+        const numberPassenger = await DB.getNumberPassengerTotal(userId)
+        res.status(200).send({ numberPassenger: numberPassenger })
+    }
+    catch (err) {
+        res.status(500).send({ message: err.message })
+    }
+})
+
+app.post('/getFlightService',authToken, async (req, res) => {
+    try {
+        const { userId } = req.data
+        const flightService = await DB.getFlightService(userId)
+        res.status(200).send({ flightService: flightService })
+    }
+    catch (err) {
+        res.status(500).send({ message: err.message })
+    }
+})
+app.post('/getHotelService',authToken, async (req, res) => {
+    try {
+        const { userId } = req.data
+        const hotelService = await DB.getHotelService(userId)
+        res.status(200).send({ hotelService: hotelService })
     }
     catch (err) {
         res.status(500).send({ message: err.message })
