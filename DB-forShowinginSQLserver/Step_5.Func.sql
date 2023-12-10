@@ -46,3 +46,6 @@ RETURN
 );
 --select * from DonHang join DonHang 
 --select * from VeDatMayBay
+
+select * from ThongKeDoanhThu12Thang('TK003','AirAsia','2023')
+select * from HangHangKhong

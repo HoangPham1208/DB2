@@ -21,7 +21,7 @@ app.post('/profile', authToken, async (req, res) => {
         const { userId } = req.data
         console.log(userId)
         const profile = await DB.getProfile(userId)
-        res.status(200).send( profile )
+        res.status(200).send(profile)
     }
     catch (err) {
         res.status(500).send({ message: err.message })
@@ -32,7 +32,7 @@ app.post('/bankAccount', authToken, async (req, res) => {
     try {
         const { userId } = req.data
         const bankAccount = await DB.getBankAccount(userId)
-        res.status(200).send( bankAccount )
+        res.status(200).send(bankAccount)
     }
     catch (err) {
         res.status(500).send({ message: err.message })
@@ -43,7 +43,7 @@ app.post('/getOrder', authToken, async (req, res) => {
     try {
         const { userId } = req.data
         const order = await DB.getOrder(userId)
-        res.status(200).send( order )
+        res.status(200).send(order)
     }
     catch (err) {
         res.status(500).send({ message: err.message })
@@ -55,7 +55,7 @@ app.post('/getTicketOfOrder', authToken, async (req, res) => {
         const { MaDonHang } = req.body
         const orderId = MaDonHang
         const ticket = await DB.getTicketOfOrder(orderId)
-        res.status(200).send( ticket )
+        res.status(200).send(ticket)
     }
     catch (err) {
         res.status(500).send({ message: err.message })
@@ -67,7 +67,7 @@ app.post('/getPassengerOfTicket', authToken, async (req, res) => {
         const { MaDatVe } = req.body
         const ticketId = MaDatVe
         const passenger = await DB.getPassengerOfTicket(ticketId)
-        res.status(200).send( passenger )
+        res.status(200).send(passenger)
     }
     catch (err) {
         res.status(500).send({ message: err.message })
@@ -231,13 +231,14 @@ return: {
 }
 */
 app.post('/order/generate', authToken, async (req, res) => {
-    
+
     try {
         const customerId = req.data.userId
         const order = await DB.generateOrder(customerId)
         res.status(200).send({ orderId: order[0]['Column0'] })
     }
-    catch (err) {[]
+    catch (err) {
+        []
         res.status(500).send({ message: err.message })
     }
 })
@@ -288,21 +289,49 @@ app.post('/roomTicket/generate', async (req, res) => {
     }
 })
 
-
-
-
-app.get('/bankAccount', authToken, async (req, res) => {
+/*
+return:{
+    revenue: [
+        {
+            Thang,
+            TongDoanhThuThang
+        }
+    ]
+}
+*/
+app.get('/revenue', async (req, res) => {
     try {
-
+        const { providerId, airline, year } = req.body
+        const revenue = await DB.getRevenue(providerId, airline, year)
+        // const revenue = await DB.getRevenue('TK003', 'AirAsia', '2023')
+        res.status(200).send({ revenue: revenue })
     }
     catch (err) {
         res.status(500).send({ message: err.message })
     }
 })
 
-app.patch('/order/payment', async (req, res) => {
-    try {
 
+/*
+return: {
+    numberPassenger: [
+        {
+            TenHang: 'AirAsia',
+            MaSoChuyenBay: 'CB002',
+            LoaiKhoang: 'Business',
+            SoLuongNguoiThamGia: 0,
+            TongTienVeThuDuoc: 0
+        }
+    ]
+}
+*/
+app.get('/numberPassenger', async (req, res) => {
+    try {
+        const { providerId, date } = req.body
+        const numberPassenger = await DB.getNumberPassenger(providerId, date)
+        // const numberPassenger = await DB.getNumberPassenger('TK003', '2023-03-02')
+        // console.log(numberPassenger)
+        res.status(200).send({ numberPassenger: numberPassenger })
     }
     catch (err) {
         res.status(500).send({ message: err.message })

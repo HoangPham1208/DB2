@@ -2,70 +2,70 @@ const { query } = require('express');
 var config = require('./connect_db')
 const sql = require('msnodesqlv8')
 
-function getProfile(userId){
-    return new Promise((resolve,reject)=>{
+function getProfile(userId) {
+    return new Promise((resolve, reject) => {
         let query = `select * from TaiKhoanDangNhap T where T.MaSo = '${userId}'`
-        sql.query(config,query,(err,result)=>{
-            if(err){
+        sql.query(config, query, (err, result) => {
+            if (err) {
                 reject(err);
             }
-            else{
+            else {
                 resolve(result);
             }
         })
     })
 }
 
-function getBankAccount(userId){
-    return new Promise((resolve,reject)=>{
+function getBankAccount(userId) {
+    return new Promise((resolve, reject) => {
         let query = `select * from TaiKhoanNganHang T where T.MaKhachHang = '${userId}'`
-        sql.query(config,query,(err,result)=>{
-            if(err){
+        sql.query(config, query, (err, result) => {
+            if (err) {
                 reject(err);
             }
-            else{
+            else {
                 resolve(result);
             }
         })
     })
 }
 
-function getOrder(userId){
-    return new Promise((resolve,reject)=>{
+function getOrder(userId) {
+    return new Promise((resolve, reject) => {
         let query = `select * from DonHang D where D.MaKhachHang = '${userId}'`
-        sql.query(config,query,(err,result)=>{
-            if(err){
+        sql.query(config, query, (err, result) => {
+            if (err) {
                 reject(err);
             }
-            else{
+            else {
                 resolve(result);
             }
         })
     })
 }
 
-function getTicketOfOrder(orderId){
-    return new Promise((resolve,reject)=>{
+function getTicketOfOrder(orderId) {
+    return new Promise((resolve, reject) => {
         let query = `select * from DonHang D, VeDatMayBay V, ChuyenBay where D.MaDonHang = V.MaDonHang and ChuyenBay.MaSo = V.MaSoChuyenBay and D.MaDonHang = '${orderId}'`
-        sql.query(config,query,(err,result)=>{
-            if(err){
+        sql.query(config, query, (err, result) => {
+            if (err) {
                 reject(err);
             }
-            else{
+            else {
                 console.log(result)
                 resolve(result);
             }
         })
     })
 }
-function getPassengerOfTicket(ticketId){
-    return new Promise((resolve,reject)=>{
+function getPassengerOfTicket(ticketId) {
+    return new Promise((resolve, reject) => {
         let query = `select * from NguoiThamGiaChuyenBay where NguoiThamGiaChuyenBay.MaVeMayBay = '${ticketId}'`
-        sql.query(config,query,(err,result)=>{
-            if(err){
+        sql.query(config, query, (err, result) => {
+            if (err) {
                 reject(err);
             }
-            else{
+            else {
                 resolve(result);
             }
         })
@@ -218,13 +218,45 @@ function generateRoomTicket(orderId) {
                 reject(err);
             }
             else {
-                console.log(result)
                 resolve(result);
             }
         })
     })
 }
 
+function getRevenue(providerId, airline, year) {
+    return new Promise((resolve, reject) => {
+        const query = `select * from ThongKeDoanhThu12Thang('${providerId}','${airline}','${year}')`
+
+        sql.query(config, query, (err, result) => {
+            if (err) {
+                console.log(err);
+                reject(err);
+            }
+            else {
+                resolve(result);
+            }
+        })
+    })
+}
+
+
+function getNumberPassenger(providerId, date) {
+    return new Promise((resolve, reject) => {
+        const query = `exec SoluongNguoiBayTheoNgay @MaChuDV = '${providerId}', @Date = '${date}'`
+
+        sql.query(config, query, (err, result) => {
+            if (err) {
+                console.log(err);
+                reject(err);
+            }
+            else {
+                console.log(result)
+                resolve(result);
+            }
+        })
+    })
+}
 
 module.exports = {
     getProfile: getProfile,
@@ -241,4 +273,6 @@ module.exports = {
     generateOrder: generateOrder,
     getRoom: getRoom,
     generateRoomTicket: generateRoomTicket,
+    getRevenue: getRevenue,
+    getNumberPassenger: getNumberPassenger
 }
