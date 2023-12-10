@@ -132,6 +132,7 @@ CREATE TABLE NguoiThamGiaChuyenBay (
   MaVeMayBay VARCHAR(20) NOT NULL,
   MaSoMayBay VARCHAR(20) NOT NULL,
   LoaiKhoang VARCHAR(20) NOT NULL,
+  MoTa VARCHAR(255),
   PRIMARY KEY (MaKhachHang),
   FOREIGN KEY (MaVeMayBay) REFERENCES VeDatMayBay(MaDatVe) ON DELETE CASCADE,
   FOREIGN KEY (MaSoMayBay, LoaiKhoang) REFERENCES KhoangTrenChuyenBay(MaSoMayBay, LoaiKhoang)
