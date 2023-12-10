@@ -16,6 +16,62 @@ function getProfile(userId) {
     })
 }
 
+function getBankAccount(userId){
+    return new Promise((resolve,reject)=>{
+        let query = `select * from TaiKhoanNganHang T where T.MaKhachHang = '${userId}'`
+        sql.query(config,query,(err,result)=>{
+            if(err){
+                reject(err);
+            }
+            else{
+                resolve(result);
+            }
+        })
+    })
+}
+
+function getOrder(userId){
+    return new Promise((resolve,reject)=>{
+        let query = `select * from DonHang D where D.MaKhachHang = '${userId}'`
+        sql.query(config,query,(err,result)=>{
+            if(err){
+                reject(err);
+            }
+            else{
+                resolve(result);
+            }
+        })
+    })
+}
+
+function getTicketOfOrder(orderId){
+    return new Promise((resolve,reject)=>{
+        let query = `select * from DonHang D, VeDatMayBay V, ChuyenBay where D.MaDonHang = V.MaDonHang and ChuyenBay.MaSo = V.MaSoChuyenBay and D.MaDonHang = '${orderId}'`
+        sql.query(config,query,(err,result)=>{
+            if(err){
+                reject(err);
+            }
+            else{
+                console.log(result)
+                resolve(result);
+            }
+        })
+    })
+}
+function getPassengerOfTicket(ticketId){
+    return new Promise((resolve,reject)=>{
+        let query = `select * from NguoiThamGiaChuyenBay where NguoiThamGiaChuyenBay.MaVeMayBay = '${ticketId}'`
+        sql.query(config,query,(err,result)=>{
+            if(err){
+                reject(err);
+            }
+            else{
+                resolve(result);
+            }
+        })
+    })
+}
+
 function getAccount(username, role) {
     return new Promise((resolve, reject) => {
         let query;
@@ -187,7 +243,11 @@ function getRevenue(providerId, airline, year) {
 
 module.exports = {
     getProfile: getProfile,
+    getBankAccount: getBankAccount,
     getAccount: getAccount,
+    getOrder: getOrder,
+    getTicketOfOrder: getTicketOfOrder,
+    getPassengerOfTicket: getPassengerOfTicket,
     getFlight: getFlight,
     insertPassenger: insertPassenger,
     getPassenger: getPassenger,
