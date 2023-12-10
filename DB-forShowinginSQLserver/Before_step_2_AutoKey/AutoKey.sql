@@ -18,27 +18,7 @@ BEGIN
 END;
 go
 
-/*
-CREATE TRIGGER instead_of_insert_DonHang
-ON DonHang
-INSTEAD OF INSERT
-AS
-BEGIN
-    -- Custom logic to generate MaDonHang and handle the insert
-    DECLARE @nextID INT;
 
-    -- Lấy giá trị mã số tăng dần tiếp theo cho mỗi hàng
-    SELECT @nextID = COALESCE(MAX(CAST(SUBSTRING(td.MaDonHang, 3, LEN(td.MaDonHang) - 2) AS INT)), 0) + ROW_NUMBER() OVER (ORDER BY (SELECT NULL))
-    FROM DonHang td
-    CROSS JOIN INSERTED;
-
-    -- Chèn dữ liệu mới và cập nhật MaDonHang
-    INSERT INTO DonHang(TinhTrangDonHang, HinhThucThanhToan, MaKhachHang,NgayGiaoDich,TaiKhoanNganHang,MaNhanVienHoTro,  MaDonHang)
-    SELECT TinhTrangDonHang, HinhThucThanhToan, MaKhachHang,NgayGiaoDich,TaiKhoanNganHang,MaNhanVienHoTro, 'DH' + RIGHT('000' + CAST(@nextID AS VARCHAR(3)), 3)
-    FROM INSERTED;
-END;
-go
-*/
 
 CREATE TRIGGER instead_of_insert_ChuyenBay
 ON ChuyenBay
@@ -62,37 +42,7 @@ BEGIN
 END;
 go
 
-/*
-CREATE TRIGGER instead_of_insert_VeDatMayBay
-ON VeDatMayBay
-INSTEAD OF INSERT
-AS
-BEGIN
-    -- Custom logic to generate MaDatVe and handle the insert
-    DECLARE @nextID INT;
-    DECLARE @prefix VARCHAR(1);
-    DECLARE @flightNumber INT;
-    DECLARE @origin CHAR(1);
-    DECLARE @destination CHAR(1);
 
-    -- Lấy giá trị mã số tăng dần tiếp theo cho mỗi hàng
-    SELECT @nextID = COALESCE(MAX(CAST(SUBSTRING(MaDatVe, 2, LEN(MaDatVe) - 1) AS INT)), 0) + ROW_NUMBER() OVER (ORDER BY (SELECT NULL))
-    FROM VeDatMayBay;
-
-    -- Lấy thông tin từ bảng ChuyenBay
-    SELECT TOP 1
-        @prefix = LEFT(a.TenHang, 1)
-    FROM INSERTED i
-    INNER JOIN ChuyenBay ch ON i.MaSoChuyenBay = ch.MaSo
-    INNER JOIN HangHangKhong a ON ch.MaSoThueCuaHangHangKhong = a.MaSoThue;
-
-    -- Chèn dữ liệu mới và cập nhật MaVeMayBay
-    INSERT INTO VeDatMayBay (MaDonHang, MaSoChuyenBay, MaDatVe)
-    SELECT MaDonHang, MaSoChuyenBay, @prefix +  + RIGHT('000' + CAST(@nextID AS VARCHAR(3)), 3)
-    FROM INSERTED;
-END;
-go
-*/
 
 CREATE TRIGGER instead_of_insert_NguoiThamGiaChuyenBay
 ON NguoiThamGiaChuyenBay
@@ -116,26 +66,7 @@ BEGIN
 END;
 go
 
-/*
-CREATE TRIGGER instead_of_insert_VeDatPhong
-ON VeDatPhong
-INSTEAD OF INSERT
-AS
-BEGIN
-    -- Custom logic to generate MaSo and handle the insert
-    DECLARE @nextID INT;
 
-    -- Lấy giá trị mã số tăng dần tiếp theo cho mỗi hàng
-    SELECT @nextID = COALESCE(MAX(CAST(SUBSTRING(MaDatPhong, 4, LEN(MaDatPhong) - 3) AS INT)), 0) + ROW_NUMBER() OVER (ORDER BY (SELECT NULL))
-    FROM VeDatPhong;
-
-    -- Chèn dữ liệu mới và cập nhật MaSo
-    INSERT INTO VeDatPhong (MaDonHang,MaDatPhong)
-    SELECT MaDonHang, 'VDP'  + RIGHT('000' + CAST(@nextID AS VARCHAR(3)), 3)
-    FROM INSERTED;
-END;
-go
-*/
 
 CREATE TRIGGER instead_of_insert_PhieuNhaHang
 ON PhieuNhaHang
@@ -172,7 +103,7 @@ BEGIN
     FROM INSERTED;
 END;
 
-go
+GO
 
 ﻿CREATE OR ALTER PROCEDURE InsertAndGetAutoKey_VeDatMayBay
 (
@@ -201,11 +132,6 @@ BEGIN
 END;
 GO
 
-/*
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB002'
-GO
-*/
-
 CREATE OR ALTER PROCEDURE InsertAndGetAutoKey_DonHang
 (
     @MaKhachHang VARCHAR(255)
@@ -231,11 +157,6 @@ BEGIN
 END;
 GO
 
-/*
-EXEC InsertAndGetAutoKey_DonHang @MaKhachHang = 'TK001'
-GO
-*/
-
 CREATE OR ALTER PROCEDURE InsertAndGetAutoKey_VeDatPhong
 (
     @MaDonHang VARCHAR(20)
@@ -256,5 +177,91 @@ BEGIN
 END;
 GO
 
+
+/*
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB002'
+GO
+
+EXEC InsertAndGetAutoKey_DonHang @MaKhachHang = 'TK001'
+GO
+
 EXEC InsertAndGetAutoKey_VeDatPhong @MaDonHang = 'DH001'
 GO
+*/
+
+
+
+/*
+CREATE TRIGGER instead_of_insert_DonHang
+ON DonHang
+INSTEAD OF INSERT
+AS
+BEGIN
+    -- Custom logic to generate MaDonHang and handle the insert
+    DECLARE @nextID INT;
+
+    -- Lấy giá trị mã số tăng dần tiếp theo cho mỗi hàng
+    SELECT @nextID = COALESCE(MAX(CAST(SUBSTRING(td.MaDonHang, 3, LEN(td.MaDonHang) - 2) AS INT)), 0) + ROW_NUMBER() OVER (ORDER BY (SELECT NULL))
+    FROM DonHang td
+    CROSS JOIN INSERTED;
+
+    -- Chèn dữ liệu mới và cập nhật MaDonHang
+    INSERT INTO DonHang(TinhTrangDonHang, HinhThucThanhToan, MaKhachHang,NgayGiaoDich,TaiKhoanNganHang,MaNhanVienHoTro,  MaDonHang)
+    SELECT TinhTrangDonHang, HinhThucThanhToan, MaKhachHang,NgayGiaoDich,TaiKhoanNganHang,MaNhanVienHoTro, 'DH' + RIGHT('000' + CAST(@nextID AS VARCHAR(3)), 3)
+    FROM INSERTED;
+END;
+go
+*/
+
+/*
+CREATE TRIGGER instead_of_insert_VeDatMayBay
+ON VeDatMayBay
+INSTEAD OF INSERT
+AS
+BEGIN
+    -- Custom logic to generate MaDatVe and handle the insert
+    DECLARE @nextID INT;
+    DECLARE @prefix VARCHAR(1);
+    DECLARE @flightNumber INT;
+    DECLARE @origin CHAR(1);
+    DECLARE @destination CHAR(1);
+
+    -- Lấy giá trị mã số tăng dần tiếp theo cho mỗi hàng
+    SELECT @nextID = COALESCE(MAX(CAST(SUBSTRING(MaDatVe, 2, LEN(MaDatVe) - 1) AS INT)), 0) + ROW_NUMBER() OVER (ORDER BY (SELECT NULL))
+    FROM VeDatMayBay;
+
+    -- Lấy thông tin từ bảng ChuyenBay
+    SELECT TOP 1
+        @prefix = LEFT(a.TenHang, 1)
+    FROM INSERTED i
+    INNER JOIN ChuyenBay ch ON i.MaSoChuyenBay = ch.MaSo
+    INNER JOIN HangHangKhong a ON ch.MaSoThueCuaHangHangKhong = a.MaSoThue;
+
+    -- Chèn dữ liệu mới và cập nhật MaVeMayBay
+    INSERT INTO VeDatMayBay (MaDonHang, MaSoChuyenBay, MaDatVe)
+    SELECT MaDonHang, MaSoChuyenBay, @prefix +  + RIGHT('000' + CAST(@nextID AS VARCHAR(3)), 3)
+    FROM INSERTED;
+END;
+go
+*/
+
+/*
+CREATE TRIGGER instead_of_insert_VeDatPhong
+ON VeDatPhong
+INSTEAD OF INSERT
+AS
+BEGIN
+    -- Custom logic to generate MaSo and handle the insert
+    DECLARE @nextID INT;
+
+    -- Lấy giá trị mã số tăng dần tiếp theo cho mỗi hàng
+    SELECT @nextID = COALESCE(MAX(CAST(SUBSTRING(MaDatPhong, 4, LEN(MaDatPhong) - 3) AS INT)), 0) + ROW_NUMBER() OVER (ORDER BY (SELECT NULL))
+    FROM VeDatPhong;
+
+    -- Chèn dữ liệu mới và cập nhật MaSo
+    INSERT INTO VeDatPhong (MaDonHang,MaDatPhong)
+    SELECT MaDonHang, 'VDP'  + RIGHT('000' + CAST(@nextID AS VARCHAR(3)), 3)
+    FROM INSERTED;
+END;
+go
+*/

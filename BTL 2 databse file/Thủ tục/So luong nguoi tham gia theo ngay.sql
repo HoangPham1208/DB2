@@ -11,8 +11,3 @@ BEGIN
    ORDER BY SoLuongNguoiThamGia
 END
 
-exec SoluongNguoiBayTheoNgay @MaChuDV = 'TK003', @Date = '2023-03-01'
-
-select * from ChuDichVu
-select * from NhaCungCapDichVu
-select * from KhoangTrenChuyenBay
