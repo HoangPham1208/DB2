@@ -2,14 +2,14 @@ const { query } = require('express');
 var config = require('./connect_db')
 const sql = require('msnodesqlv8')
 
-function getProfile(userId){
-    return new Promise((resolve,reject)=>{
+function getProfile(userId) {
+    return new Promise((resolve, reject) => {
         let query = `select * from TaiKhoanDangNhap T where T.MaSo = '${userId}'`
-        sql.query(config,query,(err,result)=>{
-            if(err){
+        sql.query(config, query, (err, result) => {
+            if (err) {
                 reject(err);
             }
-            else{
+            else {
                 resolve(result);
             }
         })
@@ -162,7 +162,22 @@ function generateRoomTicket(orderId) {
                 reject(err);
             }
             else {
-                console.log(result)
+                resolve(result);
+            }
+        })
+    })
+}
+
+function getRevenue(providerId, airline, year) {
+    return new Promise((resolve, reject) => {
+        const query = `select * from ThongKeDoanhThu12Thang('${providerId}','${airline}','${year}')`
+
+        sql.query(config, query, (err, result) => {
+            if (err) {
+                console.log(err);
+                reject(err);
+            }
+            else {
                 resolve(result);
             }
         })
@@ -181,4 +196,5 @@ module.exports = {
     generateOrder: generateOrder,
     getRoom: getRoom,
     generateRoomTicket: generateRoomTicket,
+    getRevenue: getRevenue
 }

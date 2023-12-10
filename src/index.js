@@ -19,7 +19,7 @@ app.post('/profile', authToken, async (req, res) => {
     try {
         const { userId } = req.data
         const profile = await DB.getProfile(userId)
-        res.status(200).send( profile )
+        res.status(200).send(profile)
     }
     catch (err) {
         res.status(500).send({ message: err.message })
@@ -184,13 +184,14 @@ return: {
 }
 */
 app.post('/order/generate', authToken, async (req, res) => {
-    
+
     try {
         const customerId = req.data.userId
         const order = await DB.generateOrder(customerId)
         res.status(200).send({ orderId: order[0]['Column0'] })
     }
-    catch (err) {[]
+    catch (err) {
+        []
         res.status(500).send({ message: err.message })
     }
 })
@@ -241,8 +242,27 @@ app.post('/roomTicket/generate', async (req, res) => {
     }
 })
 
-
-
+/*
+return:{
+    revenue: [
+        {
+            Thang,
+            TongDoanhThuThang
+        }
+    ]
+}
+*/
+app.get('/revenue', async (req, res) => {
+    try {
+        const { providerId, airline, year } = req.body
+        const revenue = await DB.getRevenue(providerId, airline, year)
+        // const revenue = await DB.getRevenue('TK003', 'AirAsia', '2023')
+        res.status(200).send({ revenue: revenue })
+    }
+    catch (err) {
+        res.status(500).send({ message: err.message })
+    }
+})
 
 app.get('/bankAccount', authToken, async (req, res) => {
     try {
