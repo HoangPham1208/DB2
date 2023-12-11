@@ -19,5 +19,5 @@ BEGIN
 	SELECT TOP 1 @Assitant = NhanVien.MaSoTaiKhoan FROM NhanVien
 
     INSERT INTO DonHang(TinhTrangDonHang, HinhThucThanhToan, MaKhachHang, NgayGiaoDich, TaiKhoanNganHang, MaNhanVienHoTro, MaDonHang)
-    VALUES ('Chưa thanh toán',@Bank , @MaKhachHang, GETDATE(), @BankAccount, @Assitant, 'DH' + RIGHT('000' + CAST(@nextID AS VARCHAR(3)), 3));
+    VALUES ('Chua thanh toan',@Bank , @MaKhachHang, GETDATE(), @BankAccount, @Assitant, 'DH' + RIGHT('000' + CAST(@nextID AS VARCHAR(3)), 3));
 END;
