@@ -1,5 +1,21 @@
 -- Dữ liệu cho bảng TaiKhoanDangNhap
--- chạy hết
+--Hàm 2
+
+
+select * from TaiKhoanNganHang
+EXEC InsertAndGetAutoKey_DonHang 'TK001'
+select * from DonHang
+
+select * from TaiKhoanNganHang
+EXEC InsertAndGetAutoKey_DonHang 'TK002'
+select * from DonHang
+
+select * from TaiKhoanNganHang
+EXEC InsertAndGetAutoKey_DonHang 'TK002'
+select * from DonHang
+
+
+
 INSERT INTO ChuyenBay (ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong)
 VALUES
   ( '2022-03-01 10:00:00', '2022-03-01 14:00:00', 'Ho Chi Minh City', 'Hanoi', 'H002');
@@ -124,7 +140,6 @@ VALUES
   ('CB047', 'Economy', 750000, 160, 'Affordable seating for budget travelers'),
   ('CB048', 'Business', 1750000, 22, 'Comfortable seats with extra legroom'), 
   ('CB048', 'Economy', 850000, 144, 'Affordable seating for budget travelers')
-go
 
 
 EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB025'
@@ -141,37 +156,37 @@ EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB0
 GO
 EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB031'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB032'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH002', @MaSoChuyenBay = 'CB032'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB033'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH002', @MaSoChuyenBay = 'CB033'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB034'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH002', @MaSoChuyenBay = 'CB034'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB035'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH002', @MaSoChuyenBay = 'CB035'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB036'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH003', @MaSoChuyenBay = 'CB036'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB037'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH003', @MaSoChuyenBay = 'CB037'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB038'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH003', @MaSoChuyenBay = 'CB038'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB039'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH003', @MaSoChuyenBay = 'CB039'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB040'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH003', @MaSoChuyenBay = 'CB040'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB041'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH003', @MaSoChuyenBay = 'CB041'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB042'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH004', @MaSoChuyenBay = 'CB042'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB043'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH004', @MaSoChuyenBay = 'CB043'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB044'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH004', @MaSoChuyenBay = 'CB044'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB045'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH004', @MaSoChuyenBay = 'CB045'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB046'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH004', @MaSoChuyenBay = 'CB046'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB047'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH004', @MaSoChuyenBay = 'CB047'
 GO
 EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB048'
 GO
@@ -254,18 +269,32 @@ INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySin
 
 
 
-/*delete from NguoiThamGiaChuyenBay
-delete from VeDatMayBay
-delete from KhoangTrenChuyenBay
-delete from ChuyenBay
+select * from TaiKhoanNganHang
+EXEC InsertAndGetAutoKey_DonHang 'TK001'
+select * from DonHang
 
-select * from NguoiThamGiaChuyenBay
-select * from VeDatMayBay
-select * from KhoangTrenChuyenBay
-select * from ChuyenBay*/
-select* from DonHang
+select * from TaiKhoanNganHang
+EXEC InsertAndGetAutoKey_DonHang 'TK001'
+select * from DonHang
+
+select * from TaiKhoanNganHang
+EXEC InsertAndGetAutoKey_DonHang 'TK002'
+select * from DonHang
+
+select * from TaiKhoanNganHang
+EXEC InsertAndGetAutoKey_DonHang 'TK002'
+select * from DonHang
+
 update DonHang
 set
  TinhTrangDonHang = 'Đã thanh toán'
 where DonHang.MaKhachHang = 'TK001';
+update DonHang
+set
+ TinhTrangDonHang = 'Đã thanh toán'
+where DonHang.MaKhachHang = 'TK002';
+--Thongke doanhthu 12 thang
 SELECT * FROM ThongKeDoanhThu12Thang('TK003', 'AirAsia', 2022);
+--Thongke top khach hang
+SELECT *
+FROM dbo.GetTopPayments(10, '2023-01-01', '2023-12-12');
