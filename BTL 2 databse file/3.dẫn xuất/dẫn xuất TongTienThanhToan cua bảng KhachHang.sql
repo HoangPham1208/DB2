@@ -8,7 +8,7 @@ BEGIN
     SELECT @TotalAmount = sum(b.TongTien)
     FROM KhachHang AS a
     JOIN DonHang AS b ON a.MaSoTaiKhoan = b.MaKhachHang
-    WHERE a.MaSoTaiKhoan = @MaKhachHang AND b.TinhTrangDonHang='Ðã thanh toán'
+    WHERE a.MaSoTaiKhoan = @MaKhachHang AND b.TinhTrangDonHang='Da thanh toan'
     GROUP BY a.MaSoTaiKhoan;
     RETURN ISNULL(@TotalAmount,0);
 END;
