@@ -126,6 +126,7 @@ function insertPassenger(HoVaTen, SDT, Email, CCCD, NgaySinh, MaVe, MaChuyenBay,
                 reject(err);
             }
             else {
+                console.log(result)
                 resolve(result);
             }
         })
@@ -352,6 +353,37 @@ function getHotelService(userId) {
         })
     })
 }
+function getLuggage(MaSoMayBay) {
+    return new Promise((resolve, reject) => {
+        const query = `select * from ChuyenBay C, HanhLy H where C.MaSo = H.MaSoMayBay and C.MaSo = '${MaSoMayBay}' order by H.GiaCa`
+        sql.query(config, query, (err, result) => {
+            if (err) {
+                console.log(err);
+                reject(err);
+            }
+            else {
+                console.log(result)
+                resolve(result);
+            }
+        })
+    })
+}
+
+function insertLuggage(MaSoMayBay,LoaiHanhLyKyGui,MaNguoiThamGiaChuyenBay,SoLuong){
+    return new Promise((resolve,reject) => {
+        const query = `exec InsertHanhLy @MaSoMayBay = '${MaSoMayBay}', @LoaiHanhLyKyGui = '${LoaiHanhLyKyGui}', @MaNguoiThamGiaChuyenBay = '${MaNguoiThamGiaChuyenBay}', @SoLuong='${SoLuong}'`
+        sql.query(config,query, (err, result) => {
+            if(err){
+                console.log(err);
+                reject(err);
+            }
+            else {
+                console.log(result)
+                resolve(result);
+            }
+        })
+    })
+}
 
 module.exports = {
     getProfile: getProfile,
@@ -374,5 +406,7 @@ module.exports = {
     getNumberPassengerOfAirline: getNumberPassengerOfAirline,
     getNumberPassengerTotal: getNumberPassengerTotal,
     getFlightService: getFlightService,
-    getHotelService: getHotelService
+    getHotelService: getHotelService,
+    insertLuggage: insertLuggage,
+    getLuggage: getLuggage
 }
