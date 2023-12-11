@@ -16,7 +16,7 @@ RETURN
         KhachHang as a join DonHang as b on a.MaSoTaiKhoan=b.MaKhachHang
 		join TaiKhoanDangNhap as c on c.MaSo=a.MaSoTaiKhoan
     WHERE
-        b.NgayGiaoDich BETWEEN @StartDate AND @EndDate AND b.TinhTrangDonHang='Đã thanh toán'
+        b.NgayGiaoDich BETWEEN @StartDate AND @EndDate AND b.TinhTrangDonHang='Da thanh toan'
 		GROUP BY a.MaSoTaiKhoan,c.Ho,c.TenDem,c.Ten
     ORDER BY
         SoTienKhachHangDaThanhToan DESC
