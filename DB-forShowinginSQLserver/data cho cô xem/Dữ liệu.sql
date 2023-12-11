@@ -73,13 +73,13 @@ select * from KhachHang
 
 INSERT INTO TaiKhoanNganHang (SoTaiKhoan, TenNganHang, MaKhachHang,TrangThai)
 VALUES
-  ('1234567890', 'ACB', 'TK001','Xác nhận');
+  ('1234567890', 'ACB', 'TK001','Xac nhan');
 INSERT INTO TaiKhoanNganHang (SoTaiKhoan, TenNganHang, MaKhachHang,TrangThai)
 values
-  ('9876543210', 'Vietcombank', 'TK002','Xác nhận');
+  ('9876543210', 'Vietcombank', 'TK002','Xac nhan');
 INSERT INTO TaiKhoanNganHang (SoTaiKhoan, TenNganHang, MaKhachHang,TrangThai)
 values
-  ('1234567891', 'Vietcombank', 'TK003','Chưa Xác nhận');
+  ('1234567891', 'Vietcombank', 'TK003','Chua xac nhan');
 
 select * from TaiKhoanNganHang
 EXEC InsertAndGetAutoKey_DonHang 'TK001'
