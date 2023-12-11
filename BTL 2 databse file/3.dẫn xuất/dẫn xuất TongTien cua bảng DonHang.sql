@@ -29,7 +29,7 @@ BEGIN
 
     RETURN ISNULL(@TotalAmount1+@TotalAmount2+@TotalAmount3, 0);
 END;
-
+go
 ALTER TABLE DonHang
 ADD TongTien AS dbo.CalculateTotalAmount(MaDonHang);
 select * from PhieuNhaHang

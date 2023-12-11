@@ -13,7 +13,7 @@ BEGIN
     GROUP BY a.MaDatVe;
     RETURN ISNULL(@TotalAmount, 0);
 END;
-
+go
 
 ALTER TABLE VeDatMayBay
 ADD TongTien AS dbo.CalculateTotalPaidAmountVeMayBay(MaDatVe);

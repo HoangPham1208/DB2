@@ -14,7 +14,8 @@ app.use(cors())
 
 ////////////////API////////////////
 
-
+/////////////////////////////////////////////////////////////////////////////////////////////
+// CUSTOMER API ------------------------------
 app.post('/profile', authToken, async (req, res) => {
     try {
         console.log(req.data)
@@ -73,9 +74,6 @@ app.post('/getPassengerOfTicket', authToken, async (req, res) => {
         res.status(500).send({ message: err.message })
     }
 })
-
-
-
 /*
 return: {
     success: Bool
@@ -107,7 +105,45 @@ app.post('/login', async (req, res) => {
         res.status(500).send({ message: err.message })
     }
 })
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+// ORDER AND FLIGHT API ------------------------------
+/*
+return: {
+    orderId
+}
+*/
+app.post('/order/generate', authToken, async (req, res) => {
 
+    try {
+        const customerId = req.data.userId
+        const order = await DB.generateOrder(customerId)
+        res.status(200).send({ orderId: order[0]['Column0'] })
+    }
+    catch (err) {
+        []
+        res.status(500).send({ message: err.message })
+    }
+})
+
+
+/*
+return: {
+    ticketId
+}
+*/
+app.post('/flightTicket/generate', authToken, async (req, res) => {
+    try {
+
+        const flightId = req.body.flightID
+        const orderId = req.body.orderId
+        const ticket = await DB.generateFlightTicket(flightId, orderId)
+        res.status(200).send({ ticketId: ticket[0]['Column0'] })
+    }
+    catch (err) {
+        res.status(500).send({ message: err.message })
+    }
+})
 
 
 /*
@@ -132,6 +168,22 @@ app.post('/flight', authToken, async (req, res) => {
         // const flights = await DB.getFlight('2023-03-01', 'HaNoi', 'Ho Chi Minh City', 19)
         console.log(flights)
         res.status(200).send({ flights: flights })
+    }
+    catch (err) {
+        res.status(500).send({ message: err.message })
+    }
+})
+
+/*
+return: {
+    success
+}
+*/
+app.post('/passenger', async (req, res) => {
+    try {
+        const { ticketId } = req.body
+        passenger = await DB.getPassenger(ticketId)
+        res.status(200).send({ success: true })
     }
     catch (err) {
         res.status(500).send({ message: err.message })
@@ -166,66 +218,6 @@ app.post('/passenger/insert', authToken, async (req, res) => {
 });
 
 
-app.post('/luggage/insert', authToken, async (req, res) => {
-    try {
-        const luggage = req.body
-        const resultFromDB = await DB.insertLuggage(
-            luggage.MaSoMayBay,
-            luggage.LoaiHanhLyKyGui,
-            luggage.MaNguoiThamGiaChuyenBay,
-            luggage.SoLuong
-        );
-        res.status(200).send({ success: true });
-    }
-    catch (err) {
-        console.error(err);
-        res.status(500).send({ message: err.message });
-    }
-})
-
-/*
-return: {
-    success
-}
-*/
-app.post('/passenger', async (req, res) => {
-    try {
-        const { ticketId } = req.body
-        passenger = await DB.getPassenger(ticketId)
-        res.status(200).send({ success: true })
-    }
-    catch (err) {
-        res.status(500).send({ message: err.message })
-    }
-})
-
-/*
-return: {
-    success
-}
-*/
-// app.post('/passenger/update', async (req, res) => {
-//     try {
-//         const { ticketId, passengers } = req.body
-//         await DB.deletePassenger(ticketId)
-//         for (let passenger of passengers) {
-//             await DB.insertPassenger(passenger.name,
-//                 passenger.phonenumber,
-//                 passenger.email,
-//                 passenger.CCCD,
-//                 passenger.birthday,
-//                 ticketId,
-//                 passenger.flightId,
-//                 passenger.cabinType
-//             )
-//         }
-//         res.status(200).send({ success: true })
-//     }
-//     catch (err) {
-//         res.status(500).send({ message: err.message })
-//     }
-// })
-
 app.post('/passenger/update', authToken, async (req, res) => {
     try {
         const passenger = req.body
@@ -249,9 +241,9 @@ app.post('/passenger/update', authToken, async (req, res) => {
 
 app.post('/passenger/delete', authToken, async (req, res) => {
     try {
-        const { ID } = req.body
-        console.log(ID)
-        await DB.deletePassenger(ID)
+        const { MaKhachHang } = req.body
+        console.log(MaKhachHang)
+        await DB.deletePassenger(MaKhachHang)
         res.status(200).send({ success: true })
     }
     catch (err) {
@@ -260,99 +252,47 @@ app.post('/passenger/delete', authToken, async (req, res) => {
 })
 
 
-/*
-return: {
-    ticketId
-}
-*/
-app.post('/flightTicket/generate', authToken, async (req, res) => {
+app.post('/luggage/insert', authToken, async (req, res) => {
     try {
+        const luggage = req.body
+        const resultFromDB = await DB.insertLuggage(
+            luggage.MaSoMayBay,
+            luggage.LoaiHanhLyKyGui,
+            luggage.MaNguoiThamGiaChuyenBay,
+            luggage.SoLuong
+        );
+        res.status(200).send({ success: true });
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).send({ message: err.message });
+    }
+})
 
-        const flightId = req.body.flightID
-        const orderId = req.body.orderId
-        const ticket = await DB.generateFlightTicket(flightId, orderId)
-        res.status(200).send({ ticketId: ticket[0]['Column0'] })
+app.post('/getCabinFlight',authToken, async (req, res) => {
+    try {
+        const { userId, MaSoMayBay } = req.data
+        const cabinFlight = await DB.getCabinFlight(userId)
+        res.status(200).send({ cabinFlight: cabinFlight })
     }
     catch (err) {
         res.status(500).send({ message: err.message })
     }
 })
 
-
-/*
-return: {
-    orderId
-}
-*/
-app.post('/order/generate', authToken, async (req, res) => {
-
+app.post('/getLuggage', authToken, async (req, res) => {
     try {
-        const customerId = req.data.userId
-        const order = await DB.generateOrder(customerId)
-        res.status(200).send({ orderId: order[0]['Column0'] })
-    }
-    catch (err) {
-        []
-        res.status(500).send({ message: err.message })
-    }
-})
-
-/*
-return: {
-    rooms: [
-        {
-            MaSoThueKhachSan: 'KS002',
-            TenKhachSan: 'Budget Inn1',
-            DiaChi: '456 Side Street',
-            ThanhPho: 'City B',
-            LoaiPhong: 'Couple',
-            MoTa: 'Compact room for solo travelers',
-            GiaPhong: 300000,
-            SoLuongCungCap: 10
-        }
-    ]
-}
-*/
-app.post('/room', authToken, async (req, res) => {
-    try {
-        const { checkInDate, checkOutDate, city } = req.body
-        const rooms = await DB.getRoom(checkInDate, checkOutDate, city)
-        // const rooms = await DB.getRoom('2023-03-01', '2023-03-02', 'City B')
-        // console.log(rooms)
-        res.status(200).send({ rooms: rooms })
+        const { MaSoMayBay } = req.body
+        const luggage = await DB.getLuggage(MaSoMayBay)
+        res.status(200).send({ luggage: luggage })
     }
     catch (err) {
         res.status(500).send({ message: err.message })
     }
 })
-
-
-/*
-return: {
-    ticketId
-}
-*/
-// app.post('/roomTicket/generate', async (req, res) => {
-//     try {
-//         const { orderId } = req.body
-//         const ticket = await DB.generateRoomTicket(orderId)
-//         res.status(200).send({ ticketId: ticket[0]['Column0'] })
-//     }
-//     catch (err) {
-//         res.status(500).send({ message: err.message })
-//     }
-// })
-
-/*
-return:{
-    revenue: [
-        {
-            Thang,
-            TongDoanhThuThang
-        }
-    ]
-}
-*/
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+// PROVIDER API 
 app.post('/revenue', authToken,async (req, res) => {
     try {
         const {airline, year } = req.body
@@ -365,21 +305,6 @@ app.post('/revenue', authToken,async (req, res) => {
         res.status(500).send({ message: err.message })
     }
 })
-
-
-/*
-return: {
-    numberPassenger: [
-        {
-            TenHang: 'AirAsia',
-            MaSoChuyenBay: 'CB002',
-            LoaiKhoang: 'Business',
-            SoLuongNguoiThamGia: 0,
-            TongTienVeThuDuoc: 0
-        }
-    ]
-}
-*/
 app.post('/numberPassenger', authToken, async (req, res) => {
     try {
         const { date } = req.body
@@ -416,6 +341,7 @@ app.post('/numberPassengerTotal', authToken, async (req, res) => {
     }
 })
 
+
 app.post('/getFlightService',authToken, async (req, res) => {
     try {
         const { userId } = req.data
@@ -437,27 +363,37 @@ app.post('/getHotelService',authToken, async (req, res) => {
     }
 })
 
-app.post('/getCabinFlight',authToken, async (req, res) => {
+app.post('/room', authToken, async (req, res) => {
     try {
-        const { userId, MaSoMayBay } = req.data
-        const cabinFlight = await DB.getCabinFlight(userId)
-        res.status(200).send({ cabinFlight: cabinFlight })
+        const { checkInDate, checkOutDate, city } = req.body
+        const rooms = await DB.getRoom(checkInDate, checkOutDate, city)
+        // const rooms = await DB.getRoom('2023-03-01', '2023-03-02', 'City B')
+        // console.log(rooms)
+        res.status(200).send({ rooms: rooms })
     }
     catch (err) {
         res.status(500).send({ message: err.message })
     }
 })
-
-app.post('/getLuggage', authToken, async (req, res) => {
-    try {
-        const { MaSoMayBay } = req.body
-        const luggage = await DB.getLuggage(MaSoMayBay)
-        res.status(200).send({ luggage: luggage })
-    }
-    catch (err) {
-        res.status(500).send({ message: err.message })
-    }
-})
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+// TEMPORARY API
+/*
+return: {
+    ticketId
+}
+*/
+// app.post('/roomTicket/generate', async (req, res) => {
+//     try {
+//         const { orderId } = req.body
+//         const ticket = await DB.generateRoomTicket(orderId)
+//         res.status(200).send({ ticketId: ticket[0]['Column0'] })
+//     }
+//     catch (err) {
+//         res.status(500).send({ message: err.message })
+//     }
+// })
+/////////////////////////////////////////////////////////////////////////////////////////////
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`)

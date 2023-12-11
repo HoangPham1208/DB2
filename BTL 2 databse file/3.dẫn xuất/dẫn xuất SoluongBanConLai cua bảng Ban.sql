@@ -9,7 +9,7 @@ BEGIN
     WHERE a.MaSoThueNhaHang = @MaSoThueNhaHang AND a.LoaiBan=@LoaiBan AND a.ThoiGian=@ThoiGian
     RETURN ISNULL(@TotalLeftAmount, 0);
 END;
-
+go
 -- Add a computed column for SoLuongGheConLai in the KhoangChuyenBay table
 ALTER TABLE Ban
 ADD SoLuongBanConLai AS dbo.CalculateToTalLeftAmountBan(MaSoThueNhaHang, LoaiBan,ThoiGian);

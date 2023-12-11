@@ -11,6 +11,7 @@ BEGIN
     WHERE a.MaDatPhong = @MaDatPhong
     RETURN ISNULL(@TenKhachSan, '');
 END;
+go
 
 -- Add a computed column for SoLuongGheConLai in the KhoangChuyenBay table
 ALTER TABLE VeDatPhong

@@ -12,7 +12,7 @@ BEGIN
     GROUP BY a.MaDatCho;
     RETURN ISNULL(@TotalAmount, 0);
 END;
-
+go
 -- Add a computed column for SoLuongGheConLai in the KhoangChuyenBay table
 ALTER TABLE PhieuNhaHang
 ADD TongTien AS dbo.CalculateTotalPaidAmountPhieuNhaHang(MaDatCho);

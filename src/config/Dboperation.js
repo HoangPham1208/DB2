@@ -157,9 +157,9 @@ function updatePassenger(MaKhachHang, HoVaTen, SDT, Email, CCCD, NgaySinh, MaVe,
     })
 }
 
-function deletePassenger(MaVe) {
+function deletePassenger(MaKhachHang) {
     return new Promise((resolve, reject) => {
-        const query = `exec DeleteNguoiThamGiaChuyenBay @MaKhachHang = '${MaVe}' `
+        const query = `exec DeleteNguoiThamGiaChuyenBay '${MaKhachHang}' `
         sql.query(config, query, (err, result) => {
             if (err) {
                 console.log(err);

@@ -8,7 +8,7 @@ BEGIN
     WHERE a.MaSoThueKhachSan = @MaSoThueKhachSan AND a.LoaiPhong=@LoaiPhong AND a.Ngay=@Ngay
     RETURN ISNULL(@TotalLeftAmount, 0);
 END;
-
+go
 -- Add a computed column for SoLuongGheConLai in the KhoangChuyenBay table
 ALTER TABLE Phong
 ADD SoLuongPhongConLai AS dbo.CalculateToTalLeftAmountPhong(MaSoThueKhachSan, LoaiPhong,Ngay);

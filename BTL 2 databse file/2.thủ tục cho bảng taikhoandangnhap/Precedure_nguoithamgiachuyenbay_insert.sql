@@ -1,7 +1,6 @@
 ﻿-- FE xử lý tự lấy masovemaybay, loaikhong nó đã chọn.	
  -- mã vé thì khi người dùng click chọn chuyến bay -> generate maxvemaybay sau đó lấy mã này lên rồi đưa vào thủ tục insert nguoithamgia
-drop procedure InsertNguoiThamGiaChuyenBay
-go
+
 CREATE PROCEDURE InsertNguoiThamGiaChuyenBay
     @HoVaTen VARCHAR(40),
     @SoDienThoai VARCHAR(30),

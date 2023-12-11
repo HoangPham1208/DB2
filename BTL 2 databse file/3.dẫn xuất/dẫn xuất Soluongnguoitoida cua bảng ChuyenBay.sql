@@ -10,7 +10,7 @@ BEGIN
     GROUP BY a.MaSo;
     RETURN ISNULL(@TotalAmount, 0);
 END;
-
+go
 ALTER TABLE ChuyenBay
 ADD SoLuongNguoiToiDa AS dbo.CalculateTotalAmountInChuyenBay(MaSo);
 

@@ -1,3 +1,16 @@
+CREATE OR ALTER PROCEDURE TimPhongKhachSan (@DateCheckIn DATE,@DateCheckOut DATE, @City VARCHAR(20))
+AS
+BEGIN
+   declare @period INT=DATEDIFF(DAY, @DateCheckIn, @DateCheckOut); 
+   SELECT P.MaSoThueKhachSan, K.TenKhachSan, K.DiaChi, K.ThanhPho, P.LoaiPhong, P.MoTa, P.GiaPhong, min(P.SoLuongCungCap) as SoLuongCungCap
+   FROM KhachSan K, Phong P
+   WHERE K.MaSoThue = P.MaSoThueKhachSan and P.Ngay >= @DateCheckIn AND  P.Ngay <= @DateCheckOut and K.ThanhPho = @City
+   GROUP BY  P.MaSoThueKhachSan, K.TenKhachSan, K.DiaChi, K.ThanhPho, P.LoaiPhong, P.MoTa, P.GiaPhong
+   having count(*)> @period
+   ORDER BY P.GiaPhong ASC
+END
+go
+
 CREATE OR ALTER PROCEDURE SoluongNguoiBayTheoNgay (@Date DATE, @MaChuDv VARCHAR(20))
 AS
 BEGIN
@@ -37,13 +50,13 @@ go
 CREATE OR ALTER PROCEDURE SoLuongNguoiBayTong @MaChuDV VARCHAR(20)
 AS
 BEGIN
-   SELECT H.TenHang, C.MaSo AS MaSoChuyenBay, K.LoaiKhoang, COUNT(N.HoVaTen) AS SoLuongNguoiThamGia, MAX(K.GiaKhoang)*(COUNT(N.HoVaTen)) AS TongTienVeThuDuoc
+   SELECT H.TenHang, C.MaSo AS MaSoChuyenBay, K.LoaiKhoang, C.ThoiGianXuatPhat, COUNT(N.HoVaTen) AS SoLuongNguoiThamGia, MAX(K.GiaKhoang)*(COUNT(N.HoVaTen)) AS TongTienVeThuDuoc
    FROM NhaCungCapDichVu D JOIN HangHangKhong H ON D.MaDichVu = H.MaDichVu
    JOIN ChuyenBay C ON H.MaSoThue = C.MaSoThueCuaHangHangKhong
    JOIN KhoangTrenChuyenBay K ON C.MaSo = K.MaSoMayBay
    LEFT JOIN NguoiThamGiaChuyenBay N ON (K.MaSoMayBay = N.MaSoMayBay and K.LoaiKhoang = N.LoaiKhoang)
    WHERE D.MaChuDichVu = @MaChuDV
-   GROUP BY H.TenHang, C.MaSo, K.LoaiKhoang
+   GROUP BY H.TenHang, C.MaSo, K.LoaiKhoang, C.ThoiGianXuatPhat
    ORDER BY SoLuongNguoiThamGia
 end
 

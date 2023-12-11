@@ -12,7 +12,7 @@ BEGIN
     GROUP BY a.MaDatPhong;
     RETURN ISNULL(@TotalAmount, 0);
 END;
-
+go
 -- Add a computed column for SoLuongGheConLai in the KhoangChuyenBay table
 ALTER TABLE VeDatPhong
 ADD TongTien AS dbo.CalculateTotalPaidAmountVeDatPhong(MaDatPhong);

@@ -12,7 +12,7 @@ BEGIN
     GROUP BY a.MaSoTaiKhoan;
     RETURN ISNULL(@TotalAmount,0);
 END;
-
+go
 -- Add a computed column for TongTien in the KhachHang table
 ALTER TABLE KhachHang
 ADD TienDaThanhToan AS dbo.CalculateTotalAmountPaid(MaSoTaiKhoan);

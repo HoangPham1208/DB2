@@ -12,7 +12,7 @@ BEGIN
 	select @SoLuongGheToiDaCungCap = c.SoLuongGheToiDaCungCap from KhoangTrenChuyenBay as c where c.MaSoMayBay=@MaSoMayBay AND c.LoaiKhoang=@LoaiKhoang;
     RETURN ISNULL(@TotalLeftAmount, @SoLuongGheToiDaCungCap);
 END;
-
+go
 -- Add a computed column for SoLuongGheConLai in the KhoangTrenChuyenBay table
 ALTER TABLE KhoangTrenChuyenBay
 ADD SoLuongGheConLai AS dbo.CalculateSeatLeftAmount(MaSoMayBay, LoaiKhoang);

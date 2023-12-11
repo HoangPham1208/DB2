@@ -1,4 +1,4 @@
-﻿CREATE TRIGGER instead_of_insert_KhachSan
+﻿/*CREATE TRIGGER instead_of_insert_KhachSan
 ON KhachSan
 INSTEAD OF INSERT
 AS
@@ -18,4 +18,4 @@ BEGIN
     SELECT HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay,LoaiKhoang, 'NTGCB'  + RIGHT('000' + CAST(@nextID AS VARCHAR(3)), 3)
     FROM INSERTED;
 END;
-
+*/

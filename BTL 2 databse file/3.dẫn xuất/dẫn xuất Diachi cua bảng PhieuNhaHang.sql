@@ -11,7 +11,7 @@ BEGIN
     WHERE a.MaDatCho = @MaDatCho
     RETURN ISNULL(@DiaChi, '');
 END;
-
+go
 -- Add a computed column for SoLuongGheConLai in the KhoangChuyenBay table
 ALTER TABLE PhieuNhaHang
 ADD DiaChi AS dbo.DiaChiPhieuNhaHang(MaDatCho);
