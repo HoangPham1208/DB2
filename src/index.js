@@ -74,6 +74,8 @@ app.post('/getPassengerOfTicket', authToken, async (req, res) => {
     }
 })
 
+
+
 /*
 return: {
     success: Bool
@@ -144,8 +146,8 @@ return: {
 */
 app.post('/passenger/insert', authToken, async (req, res) => {
     try {
-        const passenger = req.body
-        await DB.insertPassenger(
+        const passenger = req.body;
+        const resultFromDB = await DB.insertPassenger(
             passenger.name,
             passenger.phonenumber,
             passenger.email,
@@ -153,12 +155,31 @@ app.post('/passenger/insert', authToken, async (req, res) => {
             passenger.birthday,
             passenger.ticketId,
             passenger.flightId,
-            passenger.cabinType)
+            passenger.cabinType
+        );
+        console.log(resultFromDB)
+        res.status(200).send({ success: true, data: resultFromDB });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({ success: false, message: err.message });
+    }
+});
 
-        res.status(200).send({ success: true })
+
+app.post('/luggage/insert', authToken, async (req, res) => {
+    try {
+        const luggage = req.body
+        const resultFromDB = await DB.insertLuggage(
+            luggage.MaSoMayBay,
+            luggage.LoaiHanhLyKyGui,
+            luggage.MaNguoiThamGiaChuyenBay,
+            luggage.SoLuong
+        );
+        res.status(200).send({ success: true });
     }
     catch (err) {
-        res.status(500).send({ message: err.message })
+        console.error(err);
+        res.status(500).send({ message: err.message });
     }
 })
 
@@ -167,16 +188,16 @@ return: {
     success
 }
 */
-// app.post('/passenger', async (req, res) => {
-//     try {
-//         const { ticketId } = req.body
-//         passenger = await DB.getPassenger(ticketId)
-//         res.status(200).send({ success: true })
-//     }
-//     catch (err) {
-//         res.status(500).send({ message: err.message })
-//     }
-// })
+app.post('/passenger', async (req, res) => {
+    try {
+        const { ticketId } = req.body
+        passenger = await DB.getPassenger(ticketId)
+        res.status(200).send({ success: true })
+    }
+    catch (err) {
+        res.status(500).send({ message: err.message })
+    }
+})
 
 /*
 return: {
@@ -427,6 +448,16 @@ app.post('/getCabinFlight',authToken, async (req, res) => {
     }
 })
 
+app.post('/getLuggage', authToken, async (req, res) => {
+    try {
+        const { MaSoMayBay } = req.body
+        const luggage = await DB.getLuggage(MaSoMayBay)
+        res.status(200).send({ luggage: luggage })
+    }
+    catch (err) {
+        res.status(500).send({ message: err.message })
+    }
+})
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`)

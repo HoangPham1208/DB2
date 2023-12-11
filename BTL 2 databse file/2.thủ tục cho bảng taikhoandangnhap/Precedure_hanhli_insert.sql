@@ -1,5 +1,5 @@
 ﻿
-CREATE PROCEDURE InserHanhLy
+CREATE PROCEDURE InsertHanhLy
     @MaSoMayBay VARCHAR(20),
     @LoaiHanhLyKyGui VARCHAR(20),
 	@MaNguoiThamGiaChuyenBay VARCHAR(255),

@@ -1,6 +1,7 @@
 ﻿-- FE xử lý tự lấy masovemaybay, loaikhong nó đã chọn.	
  -- mã vé thì khi người dùng click chọn chuyến bay -> generate maxvemaybay sau đó lấy mã này lên rồi đưa vào thủ tục insert nguoithamgia
 drop procedure InsertNguoiThamGiaChuyenBay
+go
 CREATE PROCEDURE InsertNguoiThamGiaChuyenBay
     @HoVaTen VARCHAR(40),
     @SoDienThoai VARCHAR(30),
@@ -9,8 +10,9 @@ CREATE PROCEDURE InsertNguoiThamGiaChuyenBay
     @NgaySinh DATE,
     @MaVeMayBay VARCHAR(20),
     @MaSoMayBay VARCHAR(20),
-    @LoaiKhoang VARCHAR(20)
-AS
+    @LoaiKhoang VARCHAR(20),
+	@MaKhachHang VARCHAR(255) OUTPUT
+AS 
 BEGIN
     -- Kiểm tra dữ liệu hợp lệ
     -- Kiểm tra dữ liệu HoVaTen không được bỏ trống
@@ -89,8 +91,8 @@ BEGIN
     -- ...
 
     -- Thực hiện thêm dữ liệu
-    INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang)
-	VALUES ( @HoVaTen, @SoDienThoai, @Email, @SoCCCD, @NgaySinh, @MaVeMayBay, @MaSoMayBay, @LoaiKhoang);
-END;
 
+    INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang)
+    VALUES (@HoVaTen, @SoDienThoai, @Email, @SoCCCD, @NgaySinh, @MaVeMayBay, @MaSoMayBay, @LoaiKhoang);
+END;
 go
