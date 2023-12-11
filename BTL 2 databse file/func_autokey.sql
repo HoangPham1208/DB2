@@ -1,4 +1,4 @@
----Nếu chạy trong tất cả file trong folder dẫn xuất rồi thì khỏi chạy lại file này
+---Nếu chạy trong tất cả file trong folder autokey ở trên rồi thì khỏi chạy lại file này
 
 CREATE OR ALTER PROCEDURE InsertAndGetAutoKey_VeDatMayBay
 (
