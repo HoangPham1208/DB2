@@ -11,7 +11,6 @@ CREATE PROCEDURE InsertNguoiThamGiaChuyenBay
     @MaVeMayBay VARCHAR(20),
     @MaSoMayBay VARCHAR(20),
     @LoaiKhoang VARCHAR(20),
-	@MaKhachHang VARCHAR(255) OUTPUT
 AS 
 BEGIN
     -- Kiểm tra dữ liệu hợp lệ
