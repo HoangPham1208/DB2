@@ -287,11 +287,11 @@ select * from DonHang
 
 update DonHang
 set
- TinhTrangDonHang = 'Đã thanh toán'
+ TinhTrangDonHang = 'Da thanh toan'
 where DonHang.MaKhachHang = 'TK001';
 update DonHang
 set
- TinhTrangDonHang = 'Đã thanh toán'
+ TinhTrangDonHang = 'Da thanh toan'
 where DonHang.MaKhachHang = 'TK002';
 --Thongke doanhthu 12 thang
 SELECT * FROM ThongKeDoanhThu12Thang('TK003', 'AirAsia', 2022);
