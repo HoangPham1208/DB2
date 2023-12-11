@@ -243,13 +243,13 @@ ALTER TABLE KhoangTrenChuyenBay
 ADD CHECK (SoLuongGheToiDaCungCap > 0);
 
 ALTER TABLE GuiHanhLy
-ADD CHECK (SoLuong > 0);
+ADD CHECK (SoLuong >= 0);
 
 ALTER TABLE Phong
 ADD CHECK (SoLuongCungCap > 0);
 
 ALTER TABLE ChonPhong
-ADD CHECK (SoLuong > 0);
+ADD CHECK (SoLuong >= 0);
 
 ALTER TABLE Ban
 ADD CHECK (SoLuongCungCap > 0);
@@ -258,7 +258,7 @@ ALTER TABLE Ban
 ADD CHECK (SoLuongNguoiToiDa1Ban > 0);
 
 ALTER TABLE ChonBan
-ADD CHECK (SoLuong > 0);
+ADD CHECK (SoLuong >= 0);
 
 /*
 -- :)) nhap dữ liệu phải ghi lại câu insert chán quá
