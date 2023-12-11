@@ -45,7 +45,7 @@ BEGIN
    WHERE D.MaChuDichVu = @MaChuDV
    GROUP BY H.TenHang, C.MaSo, K.LoaiKhoang
    ORDER BY SoLuongNguoiThamGia
-
+END;
 
 --exec SoluongNguoiBayTheoNgay 
 --@Date = '2023-03-02',
