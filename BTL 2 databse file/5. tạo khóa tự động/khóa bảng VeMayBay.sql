@@ -1,28 +1,25 @@
-﻿CREATE TRIGGER instead_of_insert_VeDatMayBay
-ON VeDatMayBay
-INSTEAD OF INSERT
+﻿CREATE OR ALTER PROCEDURE InsertAndGetAutoKey_VeDatMayBay
+(
+    @MaDonHang VARCHAR(20),
+    @MaSoChuyenBay VARCHAR(20)
+)
 AS
 BEGIN
-    -- Custom logic to generate MaDatVe and handle the insert
-    DECLARE @nextID INT;
-    DECLARE @prefix VARCHAR(1);
-    DECLARE @flightNumber INT;
-    DECLARE @origin CHAR(1);
-    DECLARE @destination CHAR(1);
+    DECLARE @NextID INT;
 
-    -- Lấy giá trị mã số tăng dần tiếp theo cho mỗi hàng
-    SELECT @nextID = COALESCE(MAX(CAST(SUBSTRING(MaDatVe, 2, LEN(MaDatVe) - 1) AS INT)), 0) + ROW_NUMBER() OVER (ORDER BY (SELECT NULL))
-    FROM VeDatMayBay;
+    WITH CTE AS (
+        SELECT 
+            COALESCE(MAX(CAST(SUBSTRING(MaDatVe, 2, LEN(MaDatVe) - 1) AS INT)), 0) + ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) AS NextID
+        FROM VeDatMayBay
+    )
+    SELECT @NextID = NextID FROM CTE;
 
-    -- Lấy thông tin từ bảng ChuyenBay
-    SELECT TOP 1
-        @prefix = LEFT(a.TenHang, 1)
-    FROM INSERTED i
-    INNER JOIN ChuyenBay ch ON i.MaSoChuyenBay = ch.MaSo
-    INNER JOIN HangHangKhong a ON ch.MaSoThueCuaHangHangKhong = a.MaSoThue;
+	SELECT 'V'  + RIGHT('000' + CAST(@nextID AS VARCHAR(3)), 3)
 
-    -- Chèn dữ liệu mới và cập nhật MaVeMayBay
     INSERT INTO VeDatMayBay (MaDonHang, MaSoChuyenBay, MaDatVe)
-    SELECT MaDonHang, MaSoChuyenBay, @prefix +  + RIGHT('000' + CAST(@nextID AS VARCHAR(3)), 3)
-    FROM INSERTED;
+    VALUES (
+        @MaDonHang,
+        @MaSoChuyenBay,
+        'V'  + RIGHT('000' + CAST(@nextID AS VARCHAR(3)), 3)
+    );
 END;
