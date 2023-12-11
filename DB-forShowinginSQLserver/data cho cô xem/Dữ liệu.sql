@@ -1,5 +1,31 @@
--- :)) nhap dữ liệu phải ghi lại câu insert chán quá
+
 -- Dữ liệu cho bảng TaiKhoanDangNhap
+-- Delete all data from each table
+DELETE FROM NguoiThamGiaChuyenBay;
+DELETE FROM ChonPhong;
+DELETE FROM ChonBan;
+DELETE FROM PhieuNhaHang;
+DELETE FROM VeDatPhong;
+DELETE FROM VeDatMayBay;
+DELETE FROM HanhLy;
+DELETE FROM GuiHanhLy;
+DELETE FROM KhoangTrenChuyenBay;
+DELETE FROM ChuyenBay;
+DELETE FROM Phong;
+DELETE FROM KhachSan;
+DELETE FROM Ban;
+DELETE FROM NhaHang;
+DELETE FROM HangHangKhong;
+DELETE FROM NhaCungCapDichVu;
+DELETE FROM DonHang;
+DELETE FROM VeDatPhong;
+DELETE FROM SoDienThoai;
+DELETE FROM Email;
+DELETE FROM ChuDichVu;
+DELETE FROM NhanVien;
+DELETE FROM TaiKhoanNganHang;
+DELETE FROM KhachHang;
+DELETE FROM TaiKhoanDangNhap;
 INSERT INTO TaiKhoanDangNhap(Ho,TenDem,Ten,NgaySinh,GioiTinh,SoCCCD,TenDangNhap,MatKhau) VALUES
 ( 'Nguyen', 'Van', 'A', '1990-01-15', 'M', '123456789082','nva','nva123');
 INSERT INTO TaiKhoanDangNhap(Ho,TenDem,Ten,NgaySinh,GioiTinh,SoCCCD,TenDangNhap,MatKhau) VALUES
