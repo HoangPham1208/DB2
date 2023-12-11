@@ -1,4 +1,4 @@
-CREATE OR ALTER PROCEDURE SoluongNguoiBayTheoNgay (@Date DATE, @MaChuDv VARCHAR(20))
+CREATE OR ALTER PROCEDURE SoluongNguoiBayTheoNgay (@Date DATE, @MaChuDichVu VARCHAR(20))
 AS
 BEGIN
 
@@ -11,7 +11,6 @@ BEGIN
    GROUP BY H.TenHang, C.MaSo, K.LoaiKhoang
    ORDER BY SoLuongNguoiThamGia
 END
-
 --exec SoluongNguoiBayTheoNgay 
 --@Date = '2023-03-02',
 --@MaChuDichVu = 'TK001'
