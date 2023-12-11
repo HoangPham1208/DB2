@@ -22,10 +22,10 @@ BEGIN
         ELSE 'Normal'
       END
   FROM KhachHang as a join DonHang as b on a.MaSoTaiKhoan=b.MaKhachHang
-  WHERE b.TinhTrangDonHang='Đã thanh toán'
+  WHERE b.TinhTrangDonHang='Da thanh toan'
   
 END;
---test: UPDATE DonHang SET TinhTrangDonHang = 'Đã thanh toán' WHERE MaDonHang = 'DH004';
+--test: UPDATE DonHang SET TinhTrangDonHang = 'Da thanh toan' WHERE MaDonHang = 'DH004';
 
 go
 
