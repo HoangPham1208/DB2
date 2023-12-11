@@ -1,4 +1,4 @@
-﻿CREATE TRIGGER instead_of_insert_TaiKhoanDangNhap
+CREATE TRIGGER instead_of_insert_TaiKhoanDangNhap
 ON TaiKhoanDangNhap
 INSTEAD OF INSERT
 AS
@@ -12,8 +12,7 @@ BEGIN
     CROSS JOIN INSERTED;
 
     -- Chèn dữ liệu mới và cập nhật MaSo
-    INSERT INTO TaiKhoanDangNhap (Ho, TenDem, Ten, NgaySinh, GioiTinh, SoCCCD, MaSo)
-    SELECT Ho, TenDem, Ten, NgaySinh, GioiTinh, SoCCCD, 'TK' + RIGHT('000' + CAST(@nextID AS VARCHAR(3)), 3)
+    INSERT INTO TaiKhoanDangNhap (Ho, TenDem, Ten, NgaySinh, GioiTinh, SoCCCD, MaSo, TenDangNhap , MatKhau)
+    SELECT Ho, TenDem, Ten, NgaySinh, GioiTinh, SoCCCD, 'TK' + RIGHT('000' + CAST(@nextID AS VARCHAR(3)), 3), TenDangNhap,MatKhau
     FROM INSERTED;
 END;
-select * from TaiKhoanDangNhap
