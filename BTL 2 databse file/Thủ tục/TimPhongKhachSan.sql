@@ -7,7 +7,7 @@ BEGIN
    JOIN ChuyenBay C ON H.MaSoThue = C.MaSoThueCuaHangHangKhong
    JOIN KhoangTrenChuyenBay K ON C.MaSo = K.MaSoMayBay
    LEFT JOIN NguoiThamGiaChuyenBay N ON (K.MaSoMayBay = N.MaSoMayBay and K.LoaiKhoang = N.LoaiKhoang)
-   WHERE CONVERT(DATE, C.ThoiGianXuatPhat) = @Date and D.MaChuDichVu = @MaChuDV
+   WHERE CONVERT(DATE, C.ThoiGianXuatPhat) = @Date and D.MaChuDichVu = @MaChuDichVu
    GROUP BY H.TenHang, C.MaSo, K.LoaiKhoang
    ORDER BY SoLuongNguoiThamGia
 END
