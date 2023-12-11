@@ -13,7 +13,7 @@ BEGIN
 END
 
 
-exec SoluongNguoiBayTheoNgay @MaChuDV = 'TK003', @Date = '2023-12-20'
+--exec SoluongNguoiBayTheoNgay @MaChuDV = 'TK003', @Date = '2023-12-20'
 
 go
 
@@ -47,6 +47,37 @@ BEGIN
    ORDER BY SoLuongNguoiThamGia
 
 
-exec SoluongNguoiBayTheoNgay 
-@Date = '2023-03-02',
-@MaChuDichVu = 'TK001'
+--exec SoluongNguoiBayTheoNgay 
+--@Date = '2023-03-02',
+--@MaChuDichVu = 'TK001'
+
+CREATE OR ALTER PROCEDURE DanhSachChuyenBayTheoNgay @Date DATE, @Start VARCHAR(20), @End VARCHAR(20), @Quantity INT
+AS
+BEGIN
+   SELECT K.MaSoMayBay ,
+		  C.DiaDiemXuatPhat, 
+		  C.DiaDiemHaCanh, 
+		  C.ThoiGianXuatPhat, 
+		  C.ThoiGianHaCanh, 
+		  K.LoaiKhoang, 
+		  K.GiaKhoang, 
+		  K.SoLuongGheToiDaCungCap, 
+		  MAX(K.SoLuongGheToiDaCungCap) - COUNT(N.HoVaTen) AS SoLuongGheConLai
+   FROM Chuyenbay C JOIN KhoangTrenChuyenBay K ON C.MaSo = K.MaSoMayBay 
+		LEFT JOIN NguoiThamGiaChuyenBay N ON (K.MaSoMayBay = N.MaSoMayBay and K.LoaiKhoang = N.LoaiKhoang)
+ 
+	WHERE CONVERT(DATE, C.ThoiGianXuatPhat) = @Date 
+		  and C.DiaDiemXuatPhat = @Start
+		  and C.DiaDiemHaCanh = @End
+   GROUP BY K.MaSoMayBay ,
+		  C.DiaDiemXuatPhat, 
+		  C.DiaDiemHaCanh, 
+		  C.ThoiGianXuatPhat, 
+		  C.ThoiGianHaCanh, 
+		  K.LoaiKhoang, 
+		  K.GiaKhoang, 
+		  K.SoLuongGheToiDaCungCap
+   HAVING MAX(K.SoLuongGheToiDaCungCap) - COUNT(N.HoVaTen) >= @Quantity
+   ORDER BY K.GiaKhoang
+END
+GO
