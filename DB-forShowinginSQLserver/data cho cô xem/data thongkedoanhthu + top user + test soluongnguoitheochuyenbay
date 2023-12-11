@@ -298,3 +298,13 @@ SELECT * FROM ThongKeDoanhThu12Thang('TK003', 'AirAsia', 2022);
 --Thongke top khach hang
 SELECT *
 FROM dbo.GetTopPayments(10, '2023-01-01', '2023-12-12');
+
+
+-- THỦ TỤC 1 : Kiểm tra số lượng hành khách trên từng chuyến bay được chọn theo ngày
+-- lấy từ CB25 là quá khứ
+select * from ChuyenBay
+select * from KhoangTrenChuyenBay
+
+-- lấy từ CB25 là quá khứ
+exec SoluongNguoiBayTheoNgay @MaChuDichVu = 'TK003', @Date = '2022-03-01'
+exec SoluongNguoiBayTheoNgay @MaChuDichVu = 'TK003', @Date = '2022-03-14'
