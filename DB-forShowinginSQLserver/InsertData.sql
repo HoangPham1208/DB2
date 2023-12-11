@@ -202,9 +202,28 @@ VALUES
 
 select * from Ban
 
-INSERT INTO VeDatMayBay (MaDonHang, MaSoChuyenBay)
-VALUES
-  ( 'DH001', 'CB001');
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB001'
+GO
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB001'
+GO
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB002'
+GO
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB002'
+GO
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB003'
+GO
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB003'
+GO
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB004'
+GO
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB004'
+GO
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB005'
+GO
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB006'
+GO
+
+
 
 select * from VeDatMayBay
 delete from VeDatMayBay
@@ -213,15 +232,53 @@ INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySin
 VALUES
   ( 'Tran Thi B', '0987654321', 'tranb@yahoo.com', '987654321098', '1988-10-20', 'V001', 'CB001', 'Business');
 INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang) values
-  ( 'Tran Thi C', '0987654321', 'tranc@ gmail.com', '987654321099', '1988-10-20', 'V001', 'CB001', 'Business');
+  ( 'Tran Thi C', '0987654322', 'tranc@ gmail.com', '987654321099', '1988-10-20', 'V001', 'CB001', 'Business');
 INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang) values
-  ( 'Tran Thi D', '0987654321', 'trand@ gmail.com', '987654321100', '1988-10-20', 'V001', 'CB001', 'Business');
+  ( 'Tran Thi D', '0987654323', 'trand@ gmail.com', '987654321100', '1988-10-20', 'V001', 'CB001', 'Economy');
 INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang) values
-  ( 'Tran Thi E', '0987654321', 'trane@ gmail.com', '987654321101', '1988-10-20', 'V001', 'CB001', 'Business');
+  ( 'Tran Thi E', '0987654324', 'trane@ gmail.com', '987654321101', '1988-10-20', 'V002', 'CB001', 'Business');
 INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang) values
-  ( 'Tran Thi F', '0987654321', 'tranf@ gmail.com', '987654321102', '1988-10-20', 'V001', 'CB001', 'Business');
+  ( 'Tran Thi F', '0987654325', 'tranf@ gmail.com', '987654321102', '1988-10-20', 'V002', 'CB001', 'Economy');
 INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang) values
-  ( 'Tran Thi G', '0987654321', 'trang@ gmail.com', '987654321103', '1988-10-20', 'V001', 'CB001', 'Business');
+  ( 'Tran Thi G', '0987654326', 'trang@ gmail.com', '987654321103', '1988-10-20', 'V002', 'CB001', 'Economy');
+INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang) values
+  ( 'Tran Thi H', '0987654327', 'tranc@ gmail.com', '987654321104', '1988-10-20', 'V003', 'CB002', 'Business');
+INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang) values
+  ( 'Tran Thi I', '0987654328', 'trand@ gmail.com', '987654321105', '1988-10-20', 'V003', 'CB002', 'Economy');
+INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang) values
+  ( 'Tran Thi J', '0987654329', 'trane@ gmail.com', '987654321106', '1988-10-20', 'V003', 'CB002', 'Business');
+INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang) values
+  ( 'Tran Thi K', '0987654320', 'tranf@ gmail.com', '987654321107', '1988-10-20', 'V004', 'CB002', 'Business');
+INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang) values
+  ( 'Tran Thi L', '0987654331', 'trang@ gmail.com', '987654321108', '1988-10-20', 'V004', 'CB002', 'Economy');
+INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang) values
+  ( 'Tran Thi M', '0987654326', 'trang@ gmail.com', '987654321109', '1988-10-20', 'V005', 'CB003', 'Economy');
+INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang) values
+  ( 'Tran Thi N', '0987654327', 'tranc@ gmail.com', '987654321110', '1988-10-20', 'V005', 'CB003', 'Business');
+INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang) values
+  ( 'Tran Thi O', '0987654328', 'trand@ gmail.com', '987654321111', '1988-10-20', 'V005', 'CB003', 'Economy');
+INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang) values
+  ( 'Tran Thi P', '0987654329', 'trane@ gmail.com', '987654321112', '1988-10-20', 'V006', 'CB003', 'Economy');
+INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang) values
+  ( 'Tran Thi Q', '0987654320', 'tranf@ gmail.com', '987654321113', '1988-10-20', 'V006', 'CB003', 'Business');
+INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang) values
+  ( 'Tran Thi R', '0987654331', 'trang@ gmail.com', '987654321114', '1988-10-20', 'V006', 'CB003', 'Economy');
+INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang) values
+  ( 'Tran Thi S', '0987654328', 'trand@ gmail.com', '987654321115', '1988-10-20', 'V007', 'CB004', 'Business');
+INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang) values
+  ( 'Tran Thi T', '0987654329', 'trane@ gmail.com', '987654321116', '1988-10-20', 'V007', 'CB004', 'Economy');
+INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang) values
+  ( 'Tran Thi U', '0987654320', 'tranf@ gmail.com', '987654321117', '1988-10-20', 'V008', 'CB004', 'Business');
+INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang) values
+  ( 'Tran Thi V', '0987654331', 'trang@ gmail.com', '987654321118', '1988-10-20', 'V008', 'CB004', 'Economy');
+INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang) values
+  ( 'Tran Thi W', '0987654328', 'trand@ gmail.com', '987654321119', '1988-10-20', 'V009', 'CB005', 'Economy');
+INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang) values
+  ( 'Tran Thi X', '0987654329', 'trane@ gmail.com', '987654321120', '1988-10-20', 'V009', 'CB005', 'Business');
+INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang) values
+  ( 'Tran Thi Y', '0987654320', 'tranf@ gmail.com', '987654321121', '1988-10-20', 'V010', 'CB006', 'Economy');
+INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang) values
+  ( 'Tran Thi Z', '0987654331', 'trang@ gmail.com', '987654321122', '1988-10-20', 'V010', 'CB006', 'Business');
 
 
 select * from TaiKhoanDangNhap
