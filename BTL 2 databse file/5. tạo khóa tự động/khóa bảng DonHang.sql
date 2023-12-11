@@ -1,19 +1,23 @@
-﻿CREATE TRIGGER instead_of_insert_DonHang
-ON DonHang
-INSTEAD OF INSERT
+CREATE OR ALTER PROCEDURE InsertAndGetAutoKey_DonHang
+(
+    @MaKhachHang VARCHAR(255)
+)
 AS
 BEGIN
-    -- Custom logic to generate MaDonHang and handle the insert
     DECLARE @nextID INT;
+	DECLARE @BankAccount VARCHAR(20);
+	DECLARE @Assitant VARCHAR(20);
+	DECLARE @Bank VARCHAR(20);
 
     -- Lấy giá trị mã số tăng dần tiếp theo cho mỗi hàng
     SELECT @nextID = COALESCE(MAX(CAST(SUBSTRING(td.MaDonHang, 3, LEN(td.MaDonHang) - 2) AS INT)), 0) + ROW_NUMBER() OVER (ORDER BY (SELECT NULL))
     FROM DonHang td
-    CROSS JOIN INSERTED;
+    SELECT 'DH'  + RIGHT('000' + CAST(@nextID AS VARCHAR(3)), 3)
 
-    -- Chèn dữ liệu mới và cập nhật MaDonHang
-    INSERT INTO DonHang(TinhTrangDonHang, HinhThucThanhToan, MaKhachHang,NgayGiaoDich,TaiKhoanNganHang,MaNhanVienHoTro,  MaDonHang)
-    SELECT TinhTrangDonHang, HinhThucThanhToan, MaKhachHang,NgayGiaoDich,TaiKhoanNganHang,MaNhanVienHoTro, 'DH' + RIGHT('000' + CAST(@nextID AS VARCHAR(3)), 3)
-    FROM INSERTED;
+
+    SELECT TOP 1 @BankAccount = N.SoTaiKhoan, @Bank = N.TenNganHang FROM TaiKhoanNganHang N WHERE N.MaKhachHang = @MaKhachHang 
+	SELECT TOP 1 @Assitant = NhanVien.MaSoTaiKhoan FROM NhanVien
+
+    INSERT INTO DonHang(TinhTrangDonHang, HinhThucThanhToan, MaKhachHang, NgayGiaoDich, TaiKhoanNganHang, MaNhanVienHoTro, MaDonHang)
+    VALUES ('Chua xac nhan',@Bank , @MaKhachHang, GETDATE(), @BankAccount, @Assitant, 'DH' + RIGHT('000' + CAST(@nextID AS VARCHAR(3)), 3));
 END;
-select * from DonHang
