@@ -1,14 +1,14 @@
 -- :)) nhap dữ liệu phải ghi lại câu insert chán quá
 -- Dữ liệu cho bảng TaiKhoanDangNhap
-INSERT INTO TaiKhoanDangNhap(Ho,TenDem,Ten,NgaySinh,GioiTinh,SoCCCD,UserName,MatKhau) VALUES
+INSERT INTO TaiKhoanDangNhap(Ho,TenDem,Ten,NgaySinh,GioiTinh,SoCCCD,TenDangNhap,MatKhau) VALUES
 ( 'Nguyen', 'Van', 'A', '1990-01-15', 'M', '123456789082','nva','nva123');
-INSERT INTO TaiKhoanDangNhap(Ho,TenDem,Ten,NgaySinh,GioiTinh,SoCCCD,UserName,MatKhau) VALUES
+INSERT INTO TaiKhoanDangNhap(Ho,TenDem,Ten,NgaySinh,GioiTinh,SoCCCD,TenDangNhap,MatKhau) VALUES
 ( 'Nguyen', 'Van', 'B', '2026-01-15', 'M', '456789555555','nvb','nvb123');
-INSERT INTO TaiKhoanDangNhap(Ho,TenDem,Ten,NgaySinh,GioiTinh,SoCCCD,UserName,MatKhau) VALUES
+INSERT INTO TaiKhoanDangNhap(Ho,TenDem,Ten,NgaySinh,GioiTinh,SoCCCD,TenDangNhap,MatKhau) VALUES
 ( 'Nguyen', 'Van', 'C', '1980-01-15', 'M', '123444444444','nvc','nvc123');
-INSERT INTO TaiKhoanDangNhap(Ho,TenDem,Ten,NgaySinh,GioiTinh,SoCCCD,UserName,MatKhau) VALUES
+INSERT INTO TaiKhoanDangNhap(Ho,TenDem,Ten,NgaySinh,GioiTinh,SoCCCD,TenDangNhap,MatKhau) VALUES
 ( 'Nguyen', 'Van', 'D', '1975-01-15', 'M', '123455555555','nvd','nvd123');
-INSERT INTO TaiKhoanDangNhap(Ho,TenDem,Ten,NgaySinh,GioiTinh,SoCCCD,UserName,MatKhau) VALUES
+INSERT INTO TaiKhoanDangNhap(Ho,TenDem,Ten,NgaySinh,GioiTinh,SoCCCD,TenDangNhap,MatKhau) VALUES
 ( 'Nguyen', 'Van', 'E', '1980-02-15', 'M', '123456666666','nve','nvd123');
 
 
@@ -82,13 +82,8 @@ values
   ('1234567891', 'Vietcombank', 'TK003','Chưa Xác nhận');
 
 select * from TaiKhoanNganHang
-
-INSERT INTO DonHang ( TinhTrangDonHang, HinhThucThanhToan, MaKhachHang, NgayGiaoDich, TaiKhoanNganHang, MaNhanVienHoTro)
-VALUES
-  ( 'Chưa thanh toán', 'Cash', 'TK001', '2023-02-15', '1234567890', 'TK002');
-INSERT INTO DonHang ( TinhTrangDonHang, HinhThucThanhToan, MaKhachHang, NgayGiaoDich, TaiKhoanNganHang, MaNhanVienHoTro)
-VALUES
-  ( 'Chưa thanh toán', 'Cash', 'TK001', '2023-02-15', '1234567890', 'TK002');
+EXEC InsertAndGetAutoKey_DonHang 'TK001'
+select * from DonHang
 
 select * from DonHang
 
@@ -112,38 +107,83 @@ INSERT INTO HangHangKhong (MaSoThue, TenHang, MoTa, SoDienThoaiTuVanVien, MaDich
 
 select * from HangHangKhong
 
-delete from NguoiThamGiaChuyenBay
-delete from VeDatMayBay
-delete from KhoangTrenChuyenBay
-delete from ChuyenBay
-INSERT INTO ChuyenBay ( ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong)
-VALUES
-   -- 1 den 6
-  ( '2024-03-01 12:00:00', '2024-03-01 14:00:00', 'Ho Chi Minh City', 'Hanoi', 'H002'),
-  ( '2024-03-14 12:00:00', '2024-03-14 14:00:00', 'HaNoi', 'Hue', 'H001'),
-  ( '2024-04-02 12:00:00', '2024-04-02 14:00:00', 'Hue', 'Hanoi', 'H002'),
-  ( '2024-04-07 12:00:00', '2024-04-07 14:00:00', 'DaNang', 'Hanoi', 'H001'),
-  ( '2024-05-02 12:00:00', '2024-05-02 14:00:00', 'Ho Chi Minh City', 'DaNang', 'H002'),
-  ( '2024-05-07 12:00:00', '2024-05-07 14:00:00', 'NhaTrang', 'Hanoi', 'H001'),
-  ( '2024-06-02 12:00:00', '2024-06-02 14:00:00', 'Ho Chi Minh City', 'Hue', 'H001'),
-  ( '2024-06-08 12:00:00', '2024-06-08 14:00:00', 'Ho Chi Minh City', 'Hanoi', 'H001'),
-  ( '2024-01-02 12:00:00', '2024-01-02 14:00:00', 'HaNoi', 'Ho Chi Minh City', 'H002'),
-  ( '2024-01-01 12:00:00', '2024-01-01 14:00:00', 'Ho Chi Minh City', 'NhaTrang', 'H001'),
-  ( '2024-02-09 12:00:00', '2024-02-09 14:00:00', 'NhaTrang', 'Hanoi', 'H002'),
-  ( '2024-02-09 12:00:00', '2024-02-09 14:00:00', 'HaNoi', 'DaNang', 'H001'),
-  -- 6 den 12
-  ( '2024-09-01 12:00:00', '2024-09-01 14:00:00', 'Ho Chi Minh City', 'Hanoi', 'H001'),
-  ( '2024-09-14 12:00:00', '2024-09-14 14:00:00', 'HaNoi', 'Hue', 'H002'),
-  ( '2024-10-02 12:00:00', '2024-10-02 14:00:00', 'Hue', 'Hanoi', 'H001'),
-  ( '2024-10-07 12:00:00', '2024-10-07 14:00:00', 'DaNang', 'Hanoi', 'H001'),
-  ( '2024-11-02 12:00:00', '2024-11-02 14:00:00', 'Ho Chi Minh City', 'DaNang', 'H001'),
-  ( '2024-11-07 12:00:00', '2024-11-07 14:00:00', 'NhaTrang', 'Hanoi', 'H001'),
-  ( '2024-12-02 12:00:00', '2024-12-02 14:00:00', 'Ho Chi Minh City', 'Hue', 'H001'),
-  ( '2024-12-08 12:00:00', '2024-12-08 14:00:00', 'Ho Chi Minh City', 'Hanoi', 'H001'),
-  ( '2024-07-02 12:00:00', '2024-07-02 14:00:00', 'HaNoi', 'Ho Chi Minh City', 'H002'),
-  ( '2024-07-01 12:00:00', '2024-07-01 14:00:00', 'Ho Chi Minh City', 'NhaTrang', 'H002'),
-  ( '2024-08-09 12:00:00', '2024-08-09 14:00:00', 'NhaTrang', 'Hanoi', 'H002'),
-  ( '2024-09-09 12:00:00', '2024-08-09 14:00:00', 'HaNoi', 'DaNang', 'H002');
+
+-- 1 to 6
+INSERT INTO ChuyenBay (ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong)
+VALUES ('2024-03-01 12:00:00', '2024-03-01 14:00:00', 'Ho Chi Minh City', 'Hanoi', 'H002');
+	
+INSERT INTO ChuyenBay (ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong)
+VALUES ('2024-03-14 12:00:00', '2024-03-14 14:00:00', 'HaNoi', 'Hue', 'H001');
+
+INSERT INTO ChuyenBay (ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong)
+VALUES ('2024-04-02 12:00:00', '2024-04-02 14:00:00', 'Hue', 'Hanoi', 'H002');
+
+INSERT INTO ChuyenBay (ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong)
+VALUES ('2024-04-07 12:00:00', '2024-04-07 14:00:00', 'DaNang', 'Hanoi', 'H001');
+
+INSERT INTO ChuyenBay (ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong)
+VALUES ('2024-05-02 12:00:00', '2024-05-02 14:00:00', 'Ho Chi Minh City', 'DaNang', 'H002');
+
+INSERT INTO ChuyenBay (ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong)
+VALUES ('2024-05-07 12:00:00', '2024-05-07 14:00:00', 'NhaTrang', 'Hanoi', 'H001');
+
+-- 7 to 12
+INSERT INTO ChuyenBay (ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong)
+VALUES ('2024-06-02 12:00:00', '2024-06-02 14:00:00', 'Ho Chi Minh City', 'Hue', 'H001');
+
+INSERT INTO ChuyenBay (ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong)
+VALUES ('2024-06-08 12:00:00', '2024-06-08 14:00:00', 'Ho Chi Minh City', 'Hanoi', 'H001');
+
+INSERT INTO ChuyenBay (ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong)
+VALUES ('2024-01-02 12:00:00', '2024-01-02 14:00:00', 'HaNoi', 'Ho Chi Minh City', 'H002');
+
+INSERT INTO ChuyenBay (ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong)
+VALUES ('2024-01-01 12:00:00', '2024-01-01 14:00:00', 'Ho Chi Minh City', 'NhaTrang', 'H001');
+
+INSERT INTO ChuyenBay (ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong)
+VALUES ('2024-02-09 12:00:00', '2024-02-09 14:00:00', 'NhaTrang', 'Hanoi', 'H002');
+
+INSERT INTO ChuyenBay (ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong)
+VALUES ('2024-02-09 12:00:00', '2024-02-09 14:00:00', 'HaNoi', 'DaNang', 'H001');
+
+-- 13 to 18
+INSERT INTO ChuyenBay (ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong)
+VALUES ('2024-09-01 12:00:00', '2024-09-01 14:00:00', 'Ho Chi Minh City', 'Hanoi', 'H001');
+
+INSERT INTO ChuyenBay (ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong)
+VALUES ('2024-09-14 12:00:00', '2024-09-14 14:00:00', 'HaNoi', 'Hue', 'H002');
+
+INSERT INTO ChuyenBay (ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong)
+VALUES ('2024-10-02 12:00:00', '2024-10-02 14:00:00', 'Hue', 'Hanoi', 'H001');
+
+INSERT INTO ChuyenBay (ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong)
+VALUES ('2024-10-07 12:00:00', '2024-10-07 14:00:00', 'DaNang', 'Hanoi', 'H001');
+
+INSERT INTO ChuyenBay (ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong)
+VALUES ('2024-11-02 12:00:00', '2024-11-02 14:00:00', 'Ho Chi Minh City', 'DaNang', 'H001');
+
+INSERT INTO ChuyenBay (ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong)
+VALUES ('2024-11-07 12:00:00', '2024-11-07 14:00:00', 'NhaTrang', 'Hanoi', 'H001');
+
+-- 19 to 24
+INSERT INTO ChuyenBay (ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong)
+VALUES ('2024-12-02 12:00:00', '2024-12-02 14:00:00', 'Ho Chi Minh City', 'Hue', 'H001');
+
+INSERT INTO ChuyenBay (ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong)
+VALUES ('2024-12-08 12:00:00', '2024-12-08 14:00:00', 'Ho Chi Minh City', 'Hanoi', 'H001');
+
+INSERT INTO ChuyenBay (ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong)
+VALUES ('2024-07-02 12:00:00', '2024-07-02 14:00:00', 'HaNoi', 'Ho Chi Minh City', 'H002');
+
+INSERT INTO ChuyenBay (ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong)
+VALUES ('2024-07-01 12:00:00', '2024-07-01 14:00:00', 'Ho Chi Minh City', 'NhaTrang', 'H002');
+
+INSERT INTO ChuyenBay (ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong)
+VALUES ('2024-08-09 12:00:00', '2024-08-09 14:00:00', 'NhaTrang', 'Hanoi', 'H002');
+
+INSERT INTO ChuyenBay (ThoiGianXuatPhat, ThoiGianHaCanh, DiaDiemXuatPhat, DiaDiemHaCanh, MaSoThueCuaHangHangKhong)
+VALUES ('2024-09-09 12:00:00', '2024-08-09 14:00:00', 'HaNoi', 'DaNang', 'H002');
+
 
 
 select * from ChuyenBay
@@ -169,39 +209,41 @@ VALUES
   ('CB008', 'Economy', 800000, 150, 'Standard seating with in-flight entertainment'),
   ('CB009', 'Business', 1800000, 18, 'Comfortable seats with extra legroom'), 
   ('CB009', 'Economy', 700000, 160, 'Affordable seating for budget travelers'),
-  ('CB0010', 'Business', 1900000, 30, 'Comfortable seats with extra legroom'), 
-  ('CB0010', 'Economy', 750000, 150, 'Affordable seating for budget travelers'),
-  ('CB0011', 'Business', 1850000, 25, 'Comfortable seats with extra legroom'), 
-  ('CB0011', 'Economy', 750000, 160, 'Affordable seating for budget travelers'),
-  ('CB0012', 'Business', 1750000, 22, 'Comfortable seats with extra legroom'), 
-  ('CB0012', 'Economy', 850000, 144, 'Affordable seating for budget travelers'),
+  ('CB010', 'Business', 1900000, 30, 'Comfortable seats with extra legroom'), 
+  ('CB010', 'Economy', 750000, 150, 'Affordable seating for budget travelers'),
+  ('CB011', 'Business', 1850000, 25, 'Comfortable seats with extra legroom'), 
+  ('CB011', 'Economy', 750000, 160, 'Affordable seating for budget travelers'),
+  ('CB012', 'Business', 1750000, 22, 'Comfortable seats with extra legroom'), 
+  ('CB012', 'Economy', 850000, 144, 'Affordable seating for budget travelers'),
+  ('CB013', 'Business', 2000000, 13,'Spacious seats with premium services'),
+  ('CB013', 'Economy', 800000, 150, 'Standard seating with in-flight entertainment'),
+  ('CB014', 'Business', 1800000, 14, 'Comfortable seats with extra legroom'), 
+  ('CB014', 'Economy', 700000, 160, 'Affordable seating for budget travelers'),
+  ('CB015', 'Business', 1900000, 15, 'Comfortable seats with extra legroom'), 
+  ('CB015', 'Economy', 750000, 150, 'Affordable seating for budget travelers'),
+  ('CB016', 'Business', 1850000, 16, 'Comfortable seats with extra legroom'), 
+  ('CB016', 'Economy', 750000, 160, 'Affordable seating for budget travelers'),
+  ('CB017', 'Business', 1750000, 17, 'Comfortable seats with extra legroom'), 
+  ('CB017', 'Economy', 850000, 144, 'Affordable seating for budget travelers'),
+  ('CB018', 'Business', 1600000, 18, 'Comfortable seats with extra legroom'), 
+  ('CB018', 'Economy', 770000, 145, 'Affordable seating for budget travelers'),
+  ('CB019', 'Business', 1900000, 19, 'Comfortable seats with extra legroom'), 
+  ('CB019', 'Economy', 750000, 150, 'Affordable seating for budget travelers'),
+  ('CB020', 'Business', 2000000, 20,'Spacious seats with premium services'),
+  ('CB020', 'Economy', 800000, 150, 'Standard seating with in-flight entertainment'),
+  ('CB021', 'Business', 1800000, 21, 'Comfortable seats with extra legroom'), 
+  ('CB021', 'Economy', 700000, 160, 'Affordable seating for budget travelers'),
+  ('CB022', 'Business', 1900000, 22, 'Comfortable seats with extra legroom'), 
+  ('CB022', 'Economy', 750000, 150, 'Affordable seating for budget travelers'),
+  ('CB023', 'Business', 1850000, 23, 'Comfortable seats with extra legroom'), 
+  ('CB023', 'Economy', 750000, 160, 'Affordable seating for budget travelers'),
+  ('CB024', 'Business', 1750000, 24, 'Comfortable seats with extra legroom'), 
+  ('CB024', 'Economy', 850000, 144, 'Affordable seating for budget travelers');
 
-  ('CB0013', 'Business', 2000000, 13,'Spacious seats with premium services'),
-  ('CB0013', 'Economy', 800000, 150, 'Standard seating with in-flight entertainment'),
-  ('CB0014', 'Business', 1800000, 14, 'Comfortable seats with extra legroom'), 
-  ('CB0014', 'Economy', 700000, 160, 'Affordable seating for budget travelers'),
-  ('CB0015', 'Business', 1900000, 15, 'Comfortable seats with extra legroom'), 
-  ('CB0015', 'Economy', 750000, 150, 'Affordable seating for budget travelers'),
-  ('CB0016', 'Business', 1850000, 16, 'Comfortable seats with extra legroom'), 
-  ('CB0016', 'Economy', 750000, 160, 'Affordable seating for budget travelers'),
-  ('CB0017', 'Business', 1750000, 17, 'Comfortable seats with extra legroom'), 
-  ('CB0017', 'Economy', 850000, 144, 'Affordable seating for budget travelers'),
-  ('CB0018', 'Business', 1600000, 18, 'Comfortable seats with extra legroom'), 
-  ('CB0018', 'Economy', 770000, 145, 'Affordable seating for budget travelers'),
-  ('CB0019', 'Business', 1900000, 19, 'Comfortable seats with extra legroom'), 
-  ('CB0019', 'Economy', 750000, 150, 'Affordable seating for budget travelers'),
-  ('CB0020', 'Business', 2000000, 20,'Spacious seats with premium services'),
-  ('CB0020', 'Economy', 800000, 150, 'Standard seating with in-flight entertainment'),
-  ('CB0021', 'Business', 1800000, 21, 'Comfortable seats with extra legroom'), 
-  ('CB0021', 'Economy', 700000, 160, 'Affordable seating for budget travelers'),
-  ('CB0022', 'Business', 1900000, 22, 'Comfortable seats with extra legroom'), 
-  ('CB0022', 'Economy', 750000, 150, 'Affordable seating for budget travelers'),
-  ('CB0023', 'Business', 1850000, 23, 'Comfortable seats with extra legroom'), 
-  ('CB0023', 'Economy', 750000, 160, 'Affordable seating for budget travelers'),
-  ('CB0024', 'Business', 1750000, 24, 'Comfortable seats with extra legroom'), 
-  ('CB0024', 'Economy', 850000, 144, 'Affordable seating for budget travelers'),
-
-select * from KhoangTrenChuyenBay
+--select * from KhoangTrenChuyenBay
+select* from DonHang
+select* from ChuyenBay
+select * from VeDatMayBay
 
 EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB001'
 GO
@@ -235,73 +277,72 @@ EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB0
 GO
 EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB009'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB0010'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB010'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB0010'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB010'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB0011'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB011'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB0011'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB011'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB0012'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB012'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB0012'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB012'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB0013'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB013'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB0013'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB013'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB0014'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB014'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB0014'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB014'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB0015'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB015'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB0015'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB015'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB0016'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB016'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB0016'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB016'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB0017'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB017'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB0017'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB017'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB0018'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB018'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB0018'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB018'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB0019'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB019'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB0019'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB019'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB0020'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB020'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB0020'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB020'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB0021'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB021'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB0021'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB021'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB0022'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB022'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB0022'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB022'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB0023'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB023'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB0023'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB023'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB0024'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB024'
 GO
-EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB0024'
+EXEC InsertAndGetAutoKey_VeDatMayBay @MaDonHang = 'DH001', @MaSoChuyenBay = 'CB024'
 GO
 
 select * from VeDatMayBay
-delete from VeDatMayBay
 
-INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang)
+INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang,MoTa)
 VALUES
-  ( 'Tran Thi B', '0987654321', 'tranb@yahoo.com', '987654321098', '1988-10-20', 'V001', 'CB001', 'Business');
+  ( 'Tran Thi B', '0987654321', 'tranb@yahoo.com', '987654321098', '1988-10-20', 'V001', 'CB001', 'Business','');
 INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang) values
   ( 'Tran Thi C', '0987654322', 'tranc@ gmail.com', '987654321099', '1988-10-20', 'V001', 'CB001', 'Business');
 INSERT INTO NguoiThamGiaChuyenBay ( HoVaTen, SoDienThoai, Email, SoCCCD, NgaySinh, MaVeMayBay, MaSoMayBay, LoaiKhoang) values
@@ -406,20 +447,12 @@ VALUES
 	( 'N003' , 'Party' , '2024-01-01' , 10 , 2 , 'Piano, violin performance' , 1000000 ),
 	( 'N003' , 'Regular' , '2024-01-01' , 5 , 5 , 'Affordable price, full service' , 800000 );
 
-select * from Ban
-
-select * from VeDatMayBay
-select * from KhachSan
-select * from NhaHang
-
-select * from VeDatPhong
 INSERT INTO PhieuNhaHang( MaDonHang )
 VALUES
-	('DH001'), ('DH002');
-
-select * from PhieuNhaHang
-
-select * from NguoiThamGiaChuyenBay
-delete from NguoiThamGiaChuyenBay
-
-
+	('DH001'); 
+	select* from PhieuNhaHang
+		select* from DonHang
+-- Delete all data from each table
+-- Delete all data from each table
+-- Delete all data from each table
+-- Delete all data from each table
